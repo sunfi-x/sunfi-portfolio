@@ -7,13 +7,22 @@ import { type Engine } from "@tsparticles/engine";
 
 export function ParticlesBackground() {
   const [init, setInit] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
     initParticlesEngine(async (engine: Engine) => {
       await loadSlim(engine);
     }).then(() => {
       setInit(true);
     });
+
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   if (!init) return null;
@@ -29,11 +38,11 @@ export function ParticlesBackground() {
               value: "#000000",
             },
           },
-          fpsLimit: 60,
+          fpsLimit: isMobile ? 30 : 60,
           interactivity: {
             events: {
               onHover: {
-                enable: true,
+                enable: !isMobile,
                 mode: "repulse",
               },
             },
@@ -50,10 +59,10 @@ export function ParticlesBackground() {
             },
             links: {
               color: "#D90429",
-              distance: 180,
+              distance: isMobile ? 100 : 140,
               enable: true,
-              opacity: 0.6,
-              width: 1.5,
+              opacity: isMobile ? 0.4 : 0.6,
+              width: 1,
             },
             move: {
               direction: "none",
@@ -62,7 +71,7 @@ export function ParticlesBackground() {
                 default: "out",
               },
               random: true,
-              speed: 2,
+              speed: isMobile ? 1.2 : 2,
               straight: false,
             },
             number: {
@@ -71,7 +80,7 @@ export function ParticlesBackground() {
                 width: 1000,
                 height: 1000,
               },
-              value: 140,
+              value: isMobile ? 25 : 65,
             },
             opacity: {
               value: { min: 0.3, max: 0.7 },
@@ -80,10 +89,10 @@ export function ParticlesBackground() {
               type: "circle",
             },
             size: {
-              value: { min: 1, max: 3 },
+              value: { min: 1, max: isMobile ? 2 : 3 },
             },
           },
-          detectRetina: true,
+          detectRetina: !isMobile,
         }}
       />
     </div>
