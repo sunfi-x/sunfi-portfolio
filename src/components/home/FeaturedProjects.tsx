@@ -202,7 +202,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-8 md:mb-10 gap-4">
           <div>
             <h2 className="text-3xl md:text-5xl font-bold mb-3 text-white tracking-tight">
-              Featured Work
+              Featured <span className="text-[#C83228D9]">Work</span>
             </h2>
             <p className="text-gray-400 text-sm md:text-base max-w-xl">
               Selected work representing expertise in data science, ML/AI

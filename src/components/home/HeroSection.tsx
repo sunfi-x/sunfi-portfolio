@@ -213,20 +213,18 @@ export function HeroSection({ profile }: HeroSectionProps) {
   useEffect(() => {
     const fetchContributions = async () => {
       try {
-        // Use the same jogruber v4 API with current calendar year — same as GitHubActivity section
         const currentYear = new Date().getFullYear();
-        const res = await fetch(`https://github-contributions-api.jogruber.de/v4/sunfi-x?y=${currentYear}`);
-        if (!res.ok) throw new Error("Fetch failed");
-        const data = await res.json();
-        
-        if (data && data.total && typeof data.total[currentYear] === 'number') {
-          setContributionCount(data.total[currentYear]);
-        } else {
-          setContributionCount(56); // Fallback
+        const res = await fetch(`https://github-contributions-api.jogruber.de/v4/sunfi-x?y=${currentYear}`).catch(() => null);
+        if (res && res.ok) {
+          const data = await res.json().catch(() => null);
+          if (data && data.total && typeof data.total[currentYear] === 'number') {
+            setContributionCount(data.total[currentYear]);
+            return;
+          }
         }
-      } catch (error) {
-        console.error("Failed to fetch contributions:", error);
-        setContributionCount(56);
+        setContributionCount(250);
+      } catch {
+        setContributionCount(250);
       }
     };
     fetchContributions();
@@ -370,9 +368,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1 mt-0 lg:mt-0">
             {/* Available Pill & Greeting */}
             <motion.div variants={itemVariants} className="mb-4">
-              <div className="hero-available-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#052e16]/40 border border-[#166534]/50 shadow-[0_0_15px_rgba(22,101,52,0.2)] backdrop-blur-sm mb-3">
-                <span className="w-2 h-2 rounded-full bg-[#22c55e] shadow-[0_0_8px_rgba(34,197,94,0.8)] animate-pulse" />
-                <span className="text-xs md:text-sm font-medium text-[#4ade80] tracking-wide">Available for opportunities</span>
+              <div className="hero-available-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-[#10B981]/30 shadow-[0_0_12px_rgba(16,185,129,0.12)] backdrop-blur-md mb-3">
+                <span className="w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_8px_#10B981] animate-pulse" />
+                <span className="text-xs md:text-sm font-medium text-[#34D399] tracking-wide">Available for opportunities</span>
               </div>
               <div className="hero-greeting-label text-sm font-medium tracking-[0.2em] text-gray-400 uppercase">
                 Hi, I'm
@@ -385,7 +383,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 className={`quicksandHeading hero-name-container mb-4 text-white leading-[1.1] flex flex-row flex-wrap items-center justify-center lg:justify-start gap-x-2 sm:gap-x-3`}
             >
               <span className="font-semibold text-white">{firstName}&nbsp;</span>
-              <span className="font-bold text-[#FF0000] relative inline-block">
+              <span className="font-bold text-[#C83228D9] relative inline-block">
                 {lastName}
               </span>
             </motion.h1>
@@ -399,7 +397,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 <span key={index} className="inline-block">
                   {part.trim()}
                   {index < array.length - 1 && (
-                    <span className="text-[#dc2626] mx-3 opacity-70 inline-block translate-y-[-1px]">|</span>
+                    <span className="text-[#C83228D9] mx-3 opacity-70 inline-block translate-y-[-1px]">|</span>
                   )}
                 </span>
               ))}
@@ -419,12 +417,12 @@ export function HeroSection({ profile }: HeroSectionProps) {
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-6 mb-6 text-sm text-gray-500 font-medium"
             >
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#dc2626]/80" />
+                <MapPin className="w-4 h-4 text-[#C83228D9]/80" />
                 <span>Dhaka, Bangladesh</span>
               </div>
               <div className="hidden sm:block w-1 h-1 rounded-full bg-gray-700" />
               <div className="flex items-center gap-2">
-                <GraduationCap className="w-4 h-4 text-[#dc2626]/80" />
+                <GraduationCap className="w-4 h-4 text-[#C83228D9]/80" />
                 <span>United International University</span>
               </div>
             </motion.div>
@@ -447,7 +445,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
               {/* Primary: Hire Me */}
               <Link
                 href="/contact"
-                className="group relative px-8 py-3.5 w-full sm:w-auto rounded-full bg-[#C1121F] hover:bg-[#E63946] text-[#FFFFFF] font-medium text-sm md:text-base tracking-wide transition-all shadow-[0_0_20px_rgba(193,18,31,0.4)] hover:shadow-[0_0_30px_rgba(230,57,70,0.6)] hover:scale-[1.02] active:scale-[0.98] text-center"
+                className="group relative px-8 py-3.5 w-full sm:w-auto rounded-full bg-[#C83228D9] hover:bg-[#C83228] text-[#FFFFFF] font-medium text-sm md:text-base tracking-wide transition-all shadow-[0_0_20px_rgba(200,50,40,0.4)] hover:shadow-[0_0_30px_rgba(200,50,40,0.6)] hover:scale-[1.02] active:scale-[0.98] text-center"
               >
                 <span className="flex items-center justify-center gap-2">
                   Hire Me

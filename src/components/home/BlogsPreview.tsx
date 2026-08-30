@@ -36,7 +36,7 @@ export function BlogsPreview({ blogs }: BlogsPreviewProps) {
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-4.5xl font-bold text-white tracking-tight leading-tight">
-              Recent articles
+              Recent <span className="text-[#C83228D9]">Articles</span>
             </h2>
             <p className="mt-3 text-white/45 max-w-md text-xs sm:text-sm font-light leading-relaxed">
               Thoughts, tutorials, and research on machine learning, system design, and the future of AI.

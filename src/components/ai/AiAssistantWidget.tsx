@@ -264,27 +264,6 @@ export function AiAssistantWidget() {
         <AnimatePresence>
           {!isOpen && (
             <>
-              {/* Floating Tooltip Callout */}
-              <motion.div
-                key="tooltip"
-                initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                transition={{ duration: 0.3, delay: 0.5 }}
-                className="flex items-center gap-2 px-3.5 py-2 rounded-2xl shadow-xl border cursor-pointer select-none font-quicksand"
-                style={{
-                  backgroundColor: "#1D1F21",
-                  borderColor: "rgba(255, 255, 255, 0.15)",
-                  fontFamily: "var(--font-quicksand), sans-serif",
-                }}
-                onClick={() => setIsOpen(true)}
-              >
-                <span className="text-xs font-semibold text-white font-quicksand flex items-center gap-1.5">
-                  <span>Ask me anything about Sunfi!</span>
-                  <span className="text-sm">🤖</span>
-                </span>
-              </motion.div>
-
               {/* Pill Trigger Button with Avatar + Label + Chat Icon */}
               <motion.button
                 key="trigger"
