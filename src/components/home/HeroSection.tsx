@@ -198,17 +198,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
       ? urlFor(profile.avatar).width(600).height(600).fit("crop").url()
       : "/sazzadsunfi.jpg";
 
-  const images = ["/sunfi1.jpg", avatarSrc];
-  const [currentIdx, setCurrentIdx] = useState(0);
   const [contributionCount, setContributionCount] = useState<string | number>("...");
-
-  useEffect(() => {
-    const swapInterval = setInterval(() => {
-      setCurrentIdx((prev) => (prev + 1) % images.length);
-    }, 4000);
-
-    return () => clearInterval(swapInterval);
-  }, [avatarSrc]);
 
   useEffect(() => {
     const fetchContributions = async () => {
@@ -511,25 +501,15 @@ export function HeroSection({ profile }: HeroSectionProps) {
               {/* Main Avatar Container */}
               <div className="relative w-full h-full">
 
-                {/* Layer 1 (Front - Main Avatar Stack) */}
+                {/* Layer 1 (Front - Main Avatar) */}
                 <div className="absolute inset-0 rounded-full overflow-hidden bg-[#0a0a0a] ring-2 ring-[#dc2626]/30 shadow-[0_0_28px_rgba(220,38,38,0.2)] z-20">
-                  {images.map((src, i) => (
-                    <motion.div
-                      key={`front-${i}`}
-                      initial={false}
-                      animate={{ opacity: currentIdx === i ? 1 : 0 }}
-                      transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
-                      className="absolute inset-0"
-                    >
-                      <Image
-                        src={src}
-                        alt={`${name} - ${i}`}
-                        fill
-                        className="object-cover"
-                        priority={i === 0}
-                      />
-                    </motion.div>
-                  ))}
+                  <Image
+                    src={avatarSrc}
+                    alt={name}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
                 </div>
 
                 {/* GitHub Contributions Badge */}
