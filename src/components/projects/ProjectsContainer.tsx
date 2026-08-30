@@ -767,7 +767,13 @@ function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProjec
   const filteredProjects = useMemo(() => {
     return allProjects
       .filter((project) => {
-        const matchesCategory = activeCategory === "All" || project.category === activeCategory;
+        const catStr = (project.category || "").toLowerCase().trim();
+        const activeStr = activeCategory.toLowerCase().trim();
+        const matchesCategory =
+          activeCategory === "All" ||
+          catStr === activeStr ||
+          (activeCategory === "E-Commerce" && catStr.includes("commerce")) ||
+          (activeCategory === "Web Apps" && (catStr.includes("web") || catStr.includes("app")));
         const matchesSearch =
           project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||

@@ -22,7 +22,7 @@ import {
   recentBlogsQuery,
 } from "./queries";
 
-const ISR_OPTIONS = { next: { revalidate: 60 } };
+const ISR_OPTIONS = { next: { revalidate: 0 } };
 
 // ─── Profile ──────────────────────────────────────────────────────────────────
 
