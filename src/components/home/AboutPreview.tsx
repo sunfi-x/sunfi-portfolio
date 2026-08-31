@@ -260,7 +260,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
           <div
             className="absolute inset-0"
             style={{
-              background: "linear-gradient(to bottom, rgba(5,5,5,0.0) 0%, rgba(5,5,5,0.10) 30%, rgba(5,5,5,0.65) 50%, rgba(5,5,5,0.92) 65%, #050505 78%)",
+              background: "linear-gradient(to bottom, rgba(5,5,5,0.0) 0%, rgba(5,5,5,0.15) 28%, rgba(5,5,5,0.88) 46%, #050505 58%)",
             }}
           />
         </div>
