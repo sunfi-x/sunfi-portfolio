@@ -257,7 +257,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
         {/* ══════════════════════════════════════════════════════════════════
             RIGHT COLUMN — High-Impact Quicksand Editorial Layout with Masked Reveals
         ══════════════════════════════════════════════════════════════════ */}
-        <div className="flex flex-col justify-start gap-2.5 sm:gap-4 h-full w-full px-4 sm:px-8 lg:px-16 pt-[56px] sm:pt-[85px] lg:pt-[95px] pb-20 sm:pb-8 box-border overflow-hidden">
+        <div className="flex flex-col justify-start gap-2 sm:gap-4 h-full w-full px-4 sm:px-8 lg:px-16 pt-[52px] sm:pt-[85px] lg:pt-[95px] pb-16 sm:pb-8 box-border overflow-hidden">
 
           {/* ── 1. TOP: Category Label & Index ─────── */}
           <div className="flex justify-between items-center w-full shrink-0">
@@ -292,6 +292,31 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
               01 / IDENTITY
             </motion.span>
           </div>
+
+          {/* Compact Mobile Portrait Banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:hidden relative w-full h-20 sm:h-36 rounded-xl overflow-hidden shrink-0 border border-white/10"
+          >
+            <Image
+              src="/sazzadsunfi1.jpg"
+              alt="Khondoker Sazzad Sunfi"
+              fill
+              priority
+              unoptimized
+              sizes="95vw"
+              className="object-cover object-[center_20%]"
+            />
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: "linear-gradient(to bottom, transparent 40%, rgba(5,5,5,0.75) 100%)",
+              }}
+            />
+          </motion.div>
 
           {/* ── 2. Editorial Line Headline ── */}
           <motion.h2
