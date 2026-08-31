@@ -254,13 +254,13 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             unoptimized
             sizes="100vw"
             className="object-cover"
-            style={{ objectPosition: "center 8%" }}
+            style={{ objectPosition: "center 15%" }}
           />
           {/* Gradient: transparent at top → opaque dark below */}
           <div
             className="absolute inset-0"
             style={{
-              background: "linear-gradient(to bottom, rgba(5,5,5,0.10) 0%, rgba(5,5,5,0.25) 35%, rgba(5,5,5,0.80) 55%, rgba(5,5,5,0.96) 70%, #050505 85%)",
+              background: "linear-gradient(to bottom, rgba(5,5,5,0.05) 0%, rgba(5,5,5,0.20) 25%, rgba(5,5,5,0.72) 44%, rgba(5,5,5,0.95) 58%, #050505 72%)",
             }}
           />
         </div>
@@ -282,15 +282,15 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
         </div>
 
         {/* Flex spacer — controls how much image shows above content */}
-        <div className="relative z-10 flex-[2]" />
+        <div className="relative z-10 flex-[1]" />
 
         {/* Content overlay block */}
-        <div className="relative z-10 flex-[3] flex flex-col justify-end px-4 pb-3 gap-[6px]">
+        <div className="relative z-10 flex-[4] flex flex-col justify-end px-4 pb-3 gap-[7px]">
 
           {/* Headline */}
           <motion.h2
             initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.75 }}
-            style={{ margin: 0, fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif", fontSize: "clamp(17px, 5.2vw, 26px)", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-0.02em", color: "#FFFFFF" }}
+            style={{ margin: 0, fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif", fontSize: "clamp(19px, 5.8vw, 30px)", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-0.02em", color: "#FFFFFF" }}
           >
             Crafting Intelligent Systems with{" "}
             <span style={{ color: "#C83228D9" }}>Passion</span>
@@ -299,7 +299,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
           {/* Bio */}
           <motion.p
             initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.08 }}
-            style={{ fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif", fontSize: "clamp(10px, 2.7vw, 13px)", fontWeight: 400, lineHeight: 1.45, color: "#A0A0A0", margin: 0 }}
+            style={{ fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif", fontSize: "clamp(12px, 3.2vw, 15px)", fontWeight: 400, lineHeight: 1.5, color: "#B0B0B0", margin: 0 }}
           >
             I&apos;m a Data Science &amp; AI enthusiast at UIU turning real-world data into clear insights and production-ready intelligent systems — building robust data pipelines, ML models, and interactive dashboards.
           </motion.p>
@@ -307,7 +307,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
           {/* Toolkit */}
           <motion.p
             initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.13 }}
-            style={{ fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif", fontSize: "clamp(9.5px, 2.5vw, 12px)", fontWeight: 400, lineHeight: 1.4, color: "#888888", margin: 0 }}
+            style={{ fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif", fontSize: "clamp(11px, 2.9vw, 13.5px)", fontWeight: 400, lineHeight: 1.45, color: "#999999", margin: 0 }}
           >
             My toolkit spans{" "}
             <strong style={{ fontWeight: 700, color: "#C0C0C0" }}>Python</strong>,{" "}
@@ -339,7 +339,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
           {/* Closing statement */}
           <motion.p
             initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.65, delay: 0.28 }}
-            style={{ fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif", fontSize: "clamp(9px, 2.3vw, 11.5px)", fontWeight: 400, lineHeight: 1.4, color: "#707070", margin: 0 }}
+            style={{ fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif", fontSize: "clamp(10.5px, 2.7vw, 13px)", fontWeight: 400, lineHeight: 1.45, color: "#888888", margin: 0 }}
           >
             I&apos;m constantly exploring Generative AI, data engineering, and practical MLOps, and I&apos;m always looking for opportunities to build things that matter.
           </motion.p>
