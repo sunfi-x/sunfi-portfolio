@@ -257,7 +257,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
         {/* ══════════════════════════════════════════════════════════════════
             RIGHT COLUMN — High-Impact Quicksand Editorial Layout with Masked Reveals
         ══════════════════════════════════════════════════════════════════ */}
-        <div className="flex flex-col justify-between h-full w-full px-4 sm:px-8 lg:px-16 pt-[56px] sm:pt-[85px] lg:pt-[95px] pb-3 sm:pb-8 box-border gap-0 overflow-hidden">
+        <div className="flex flex-col justify-between h-full w-full px-5 sm:px-8 lg:px-16 pt-[64px] sm:pt-[85px] lg:pt-[95px] pb-16 sm:pb-8 box-border gap-0 overflow-hidden">
 
           {/* ── TOP: Category Label & Index with Tracking Expansion ─────── */}
           <div className="flex justify-between items-center w-full shrink-0">
@@ -295,31 +295,6 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
 
           {/* ── MIDDLE: Headline, Description & 3 Premium Cards ────────── */}
           <div className="flex flex-col justify-center py-1 sm:py-2 lg:py-3 shrink-0">
-
-            {/* Compact Mobile Portrait */}
-            <motion.div
-              initial={{ opacity: 0, y: 15, scale: 0.98 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:hidden relative w-full h-24 sm:h-44 my-1 rounded-xl overflow-hidden shrink-0"
-            >
-              <Image
-                src="/sazzadsunfi1.jpg"
-                alt="Sunfi Islam"
-                fill
-                priority
-                unoptimized
-                sizes="95vw"
-                className="object-cover object-top"
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: "linear-gradient(to bottom, transparent 40%, rgba(5,5,5,0.7) 100%)",
-                }}
-              />
-            </motion.div>
 
             {/* Editorial Line Headline */}
             <motion.h2
