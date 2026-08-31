@@ -293,13 +293,13 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             </motion.span>
           </div>
 
-          {/* Tall High-Impact Mobile Portrait Banner */}
+          {/* Full Proportional Mobile Portrait Banner */}
           <motion.div
             initial={{ opacity: 0, y: 10, scale: 0.98 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:hidden relative w-full h-28 sm:h-44 rounded-xl overflow-hidden shrink-0 border border-white/10 shadow-xl my-0.5"
+            className="lg:hidden relative w-full aspect-[4/3] max-h-48 sm:max-h-64 rounded-xl overflow-hidden shrink-0 border border-white/10 shadow-xl my-1"
           >
             <Image
               src="/sazzadsunfi1.jpg"
