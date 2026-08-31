@@ -254,7 +254,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             unoptimized
             sizes="100vw"
             className="object-cover"
-            style={{ objectPosition: "center 15%" }}
+            style={{ objectPosition: "center 15%", transform: "scale(0.78)", transformOrigin: "center 20%" }}
           />
           {/* Gradient: transparent at top → opaque dark below */}
           <div
