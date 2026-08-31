@@ -23,8 +23,8 @@ function AchievementCard({
 }) {
   return (
     <motion.div
-      className="flex flex-col gap-1.5 lg:gap-3 items-end lg:items-start text-right lg:text-left"
-      initial={{ opacity: 0, y: 30 }}
+      className="flex flex-col gap-0.5 sm:gap-1.5 lg:gap-3 items-start text-left"
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.85, delay, ease: [0.16, 1, 0.3, 1] }}
@@ -32,7 +32,7 @@ function AchievementCard({
       <h3
         style={{
           fontFamily: "'Space Grotesk', sans-serif",
-          fontSize: "clamp(20px, 4.8vw, 88px)",
+          fontSize: "clamp(17px, 4.2vw, 88px)",
           fontWeight: 800,
           lineHeight: 0.95,
           letterSpacing: "-0.03em",
@@ -46,22 +46,22 @@ function AchievementCard({
       <p
         style={{
           fontFamily: "'Lexend', sans-serif",
-          fontSize: "clamp(10.5px, 0.85vw, 13px)",
+          fontSize: "clamp(9.5px, 0.85vw, 13px)",
           fontWeight: 300,
-          lineHeight: 1.6,
-          letterSpacing: "0.03em",
+          lineHeight: 1.4,
+          letterSpacing: "0.02em",
           color: "rgba(245,242,237,0.65)",
           margin: 0,
-          maxWidth: 220,
           textTransform: "uppercase",
         }}
+        className="line-clamp-2 sm:line-clamp-none max-w-[220px]"
       >
         {description}
       </p>
       <span
         style={{
           fontFamily: "var(--font-mono, monospace)",
-          fontSize: 10,
+          fontSize: 9,
           letterSpacing: "0.2em",
           color: "rgba(245,242,237,0.3)",
         }}
@@ -94,284 +94,289 @@ export function StoryPanel() {
           />
         </div>
 
-            {/* Dark Overlay */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.85) 100%)",
-              }}
-            />
+        {/* Dark Overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.85) 100%)",
+          }}
+        />
 
-            {/* Subtle Noise Texture */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 opacity-30"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E")`,
-              }}
-            />
-          </div>
+        {/* Subtle Noise Texture */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E")`,
+          }}
+        />
+      </div>
 
-          {/* ── Content Layer ─────────────────────────────────────────────── */}
-          <div className="relative z-10 h-full flex flex-col justify-between px-6 lg:px-16 pt-10 sm:pt-16 lg:pt-20 pb-4 sm:pb-8 lg:pb-12 box-border overflow-y-auto">
-            {/* ── TOP: Section Label ──────────────────────────────────────── */}
-            <div className="flex justify-between items-start shrink-0">
-              <span
-                style={{
-                  fontFamily: "var(--font-mono, monospace)",
-                  fontSize: 11,
-                  letterSpacing: "0.3em",
-                  color: "rgba(245,242,237,0.5)",
-                  textTransform: "uppercase",
-                }}
-              >
-                My Story
-              </span>
-              <span
-                style={{
-                  fontFamily: "var(--font-mono, monospace)",
-                  fontSize: 11,
-                  letterSpacing: "0.2em",
-                  color: "rgba(245,242,237,0.3)",
-                  textTransform: "uppercase",
-                }}
-              >
-                02 / CHAPTER
-              </span>
-            </div>
+      {/* ── Content Layer ─────────────────────────────────────────────── */}
+      <div className="relative z-10 h-full flex flex-col justify-between px-4 sm:px-8 lg:px-16 pt-3 sm:pt-14 lg:pt-20 pb-3 sm:pb-8 lg:pb-12 box-border overflow-hidden">
+        {/* ── TOP: Section Label ──────────────────────────────────────── */}
+        <div className="flex justify-between items-start shrink-0">
+          <span
+            style={{
+              fontFamily: "var(--font-mono, monospace)",
+              fontSize: 11,
+              letterSpacing: "0.3em",
+              color: "rgba(245,242,237,0.5)",
+              textTransform: "uppercase",
+            }}
+          >
+            My Story
+          </span>
+          <span
+            style={{
+              fontFamily: "var(--font-mono, monospace)",
+              fontSize: 11,
+              letterSpacing: "0.2em",
+              color: "rgba(245,242,237,0.3)",
+              textTransform: "uppercase",
+            }}
+          >
+            02 / CHAPTER
+          </span>
+        </div>
 
-            {/* ── MIDDLE: 4 Achievement Keywords ── */}
-            <div className="flex flex-col items-end gap-3 sm:gap-5 lg:grid lg:grid-cols-4 lg:gap-x-6 lg:items-end pb-2 sm:pb-4 lg:pb-8 shrink-0">
-              <AchievementCard
-                index="01"
-                keyword="Build."
-                description="I build AI-powered systems and data pipelines that turn raw complexity into clarity."
-                delay={0.1}
-              />
-              <AchievementCard
-                index="02"
-                keyword="Think."
-                description="Every project starts with first principles — understanding the problem before writing a single line."
-                delay={0.2}
-              />
-              <AchievementCard
-                index="03"
-                keyword="Design."
-                description="I believe technical ideas deserve beautiful presentation. Data without design is just noise."
-                delay={0.3}
-              />
-              <AchievementCard
-                index="04"
-                keyword="Evolve."
-                description="I'm always learning — new models, new tools, new ways of seeing the world through data."
-                delay={0.4}
-              />
-            </div>
+        {/* ── MIDDLE: 4 Achievement Keywords ── */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-6 items-start pb-1 sm:pb-4 lg:pb-8 shrink-0">
+          <AchievementCard
+            index="01"
+            keyword="Build."
+            description="I build AI-powered systems and data pipelines that turn raw complexity into clarity."
+            delay={0.1}
+          />
+          <AchievementCard
+            index="02"
+            keyword="Think."
+            description="Every project starts with first principles — understanding the problem before writing a single line."
+            delay={0.2}
+          />
+          <AchievementCard
+            index="03"
+            keyword="Design."
+            description="I believe technical ideas deserve beautiful presentation. Data without design is just noise."
+            delay={0.3}
+          />
+          <AchievementCard
+            index="04"
+            keyword="Evolve."
+            description="I'm always learning — new models, new tools, new ways of seeing the world through data."
+            delay={0.4}
+          />
+        </div>
 
-            {/* ── BOTTOM: Story Narrative, Journey Timeline & Philosophy Quote ── */}
-            <motion.div
-              className="border-t border-white/10 pt-3 lg:pt-4 flex flex-col gap-3 lg:gap-4"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 1.0, delay: 0.35 }}
-            >
-              {/* 1. Paragraph */}
-              <p
-                style={{
-                  fontFamily: "'Lexend', sans-serif",
-                  fontSize: "clamp(12.5px, 1.1vw, 16px)",
-                  fontWeight: 300,
-                  lineHeight: 1.7,
-                  letterSpacing: "0.01em",
-                  color: "rgba(245,242,237,0.72)",
-                  margin: 0,
-                  maxWidth: 920,
-                }}
-              >
-                I started with Python in 2022, building small web apps just to see numbers turn into charts on a screen. That curiosity turned into a full B.Sc. in Data Science at UIU — and along the way, small experiments became real systems: an award-winning Lost &amp; Found platform, a pipeline that scraped and structured <strong style={{ fontWeight: 700, color: "#F5F2ED" }}>6MB+</strong> of Bangladesh&apos;s real data-science job market data, and a transit management system now cutting resolution time by <strong style={{ fontWeight: 700, color: "#F5F2ED" }}>65%</strong>. Still based in Dhaka. Still building.
-              </p>
+        {/* ── BOTTOM: Story Narrative, Journey Timeline & Philosophy Quote ── */}
+        <motion.div
+          className="border-t border-white/10 pt-2 sm:pt-3 lg:pt-4 flex flex-col gap-2 sm:gap-3 lg:gap-4 shrink-0"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 1.0, delay: 0.35 }}
+        >
+          {/* 1. Paragraph */}
+          <p
+            style={{
+              fontFamily: "'Lexend', sans-serif",
+              fontSize: "clamp(11px, 1.05vw, 16px)",
+              fontWeight: 300,
+              lineHeight: 1.5,
+              letterSpacing: "0.01em",
+              color: "rgba(245,242,237,0.75)",
+              margin: 0,
+              maxWidth: 920,
+            }}
+          >
+            I started with Python in 2022, building small web apps just to see numbers turn into charts on a screen. That curiosity turned into a full B.Sc. in Data Science at UIU — and along the way, small experiments became real systems: an award-winning Lost &amp; Found platform, a pipeline that scraped and structured <strong style={{ fontWeight: 700, color: "#F5F2ED" }}>6MB+</strong> of Bangladesh&apos;s real data-science job market data, and a transit management system now cutting resolution time by <strong style={{ fontWeight: 700, color: "#F5F2ED" }}>65%</strong>. Still based in Dhaka. Still building.
+          </p>
 
-              {/* 2. Timeline / Journey Strip */}
-              <div className="relative pt-1">
-                {/* Horizontal subtle guide line for desktop */}
-                <div className="hidden sm:block absolute top-[15px] lg:top-[17px] left-0 right-0 h-[1px] bg-gradient-to-r from-white/15 via-[#C83228]/45 to-white/15" />
+          {/* 2. Timeline / Journey Strip */}
+          <div className="relative pt-0.5 sm:pt-1">
+            {/* Horizontal subtle guide line */}
+            <div className="absolute top-[13px] sm:top-[15px] lg:top-[17px] left-0 right-0 h-[1px] bg-gradient-to-r from-white/15 via-[#C83228]/45 to-white/15" />
 
-                <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 sm:gap-2.5 lg:gap-4 relative z-10">
-                  {/* Point 1: 2022 */}
-                  <div className="flex sm:flex-col items-start gap-2.5 sm:gap-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-white/40 border border-white/20 shrink-0" />
-                      <span
-                        style={{
-                          fontFamily: "var(--font-mono, monospace)",
-                          fontSize: "clamp(11.5px, 0.9vw, 14px)",
-                          fontWeight: 700,
-                          letterSpacing: "0.15em",
-                          color: "#F5F2ED",
-                        }}
-                      >
-                        2022
-                      </span>
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "'Lexend', sans-serif",
-                        fontSize: "clamp(10px, 0.75vw, 12px)",
-                        fontWeight: 300,
-                        letterSpacing: "0.01em",
-                        color: "rgba(245,242,237,0.58)",
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      Python &amp; Data Visualization
-                    </span>
-                  </div>
-
-                  {/* Point 2: 2023 */}
-                  <div className="flex sm:flex-col items-start gap-2.5 sm:gap-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-white/40 border border-white/20 shrink-0" />
-                      <span
-                        style={{
-                          fontFamily: "var(--font-mono, monospace)",
-                          fontSize: "clamp(11.5px, 0.9vw, 14px)",
-                          fontWeight: 700,
-                          letterSpacing: "0.15em",
-                          color: "#F5F2ED",
-                        }}
-                      >
-                        2023
-                      </span>
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "'Lexend', sans-serif",
-                        fontSize: "clamp(10px, 0.75vw, 12px)",
-                        fontWeight: 300,
-                        letterSpacing: "0.01em",
-                        color: "rgba(245,242,237,0.58)",
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      B.Sc. in Data Science at UIU
-                    </span>
-                  </div>
-
-                  {/* Point 3: 2024 */}
-                  <div className="flex sm:flex-col items-start gap-2.5 sm:gap-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-white/40 border border-white/20 shrink-0" />
-                      <span
-                        style={{
-                          fontFamily: "var(--font-mono, monospace)",
-                          fontSize: "clamp(11.5px, 0.9vw, 14px)",
-                          fontWeight: 700,
-                          letterSpacing: "0.15em",
-                          color: "#F5F2ED",
-                        }}
-                      >
-                        2024
-                      </span>
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "'Lexend', sans-serif",
-                        fontSize: "clamp(10px, 0.75vw, 12px)",
-                        fontWeight: 300,
-                        letterSpacing: "0.01em",
-                        color: "rgba(245,242,237,0.58)",
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      Solving Real-World Problems
-                    </span>
-                  </div>
-
-                  {/* Point 4: 2025 */}
-                  <div className="flex sm:flex-col items-start gap-2.5 sm:gap-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#C83228] shadow-[0_0_8px_rgba(200,50,40,0.85)] shrink-0" />
-                      <span
-                        style={{
-                          fontFamily: "var(--font-mono, monospace)",
-                          fontSize: "clamp(11.5px, 0.9vw, 14px)",
-                          fontWeight: 700,
-                          letterSpacing: "0.15em",
-                          color: "#F5F2ED",
-                        }}
-                      >
-                        2025
-                      </span>
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "'Lexend', sans-serif",
-                        fontSize: "clamp(10px, 0.75vw, 12px)",
-                        fontWeight: 300,
-                        letterSpacing: "0.01em",
-                        color: "rgba(245,242,237,0.58)",
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      1st Runner-Up, OOP Project Competition
-                    </span>
-                  </div>
-
-                  {/* Point 5: NOW */}
-                  <div className="flex sm:flex-col items-start gap-2.5 sm:gap-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#C83228] shadow-[0_0_8px_rgba(200,50,40,0.95)] shrink-0" />
-                      <span
-                        style={{
-                          fontFamily: "var(--font-mono, monospace)",
-                          fontSize: "clamp(11.5px, 0.9vw, 14px)",
-                          fontWeight: 700,
-                          letterSpacing: "0.18em",
-                          color: "#C83228D9",
-                        }}
-                      >
-                        NOW
-                      </span>
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "'Lexend', sans-serif",
-                        fontSize: "clamp(10px, 0.75vw, 12px)",
-                        fontWeight: 300,
-                        letterSpacing: "0.01em",
-                        color: "rgba(245,242,237,0.58)",
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      Building AI-Powered Systems
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* 3. Personal Philosophy Quote Block */}
-              <div className="pt-0.5 lg:pt-1">
-                <blockquote
-                  style={{
-                    margin: 0,
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: "clamp(16px, 1.85vw, 26px)",
-                    fontWeight: 700,
-                    lineHeight: 1.25,
-                    letterSpacing: "-0.02em",
-                    color: "#F5F2ED",
-                  }}
-                >
-                  <span className="text-white/90">&ldquo;I don&apos;t trust a system until it&apos;s been used by </span>
-                  <span style={{ color: "#C83228D9", fontStyle: "italic", fontWeight: 700 }}>
-                    someone who isn&apos;t me.&rdquo;
+            <div className="grid grid-cols-5 gap-1.5 sm:gap-2.5 lg:gap-4 relative z-10">
+              {/* Point 1: 2022 */}
+              <div className="flex flex-col items-start gap-1 sm:gap-1.5">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-white/40 border border-white/20 shrink-0" />
+                  <span
+                    style={{
+                      fontFamily: "var(--font-mono, monospace)",
+                      fontSize: "clamp(10px, 0.9vw, 14px)",
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      color: "#F5F2ED",
+                    }}
+                  >
+                    2022
                   </span>
-                </blockquote>
+                </div>
+                <span
+                  style={{
+                    fontFamily: "'Lexend', sans-serif",
+                    fontSize: "clamp(9px, 0.75vw, 12px)",
+                    fontWeight: 300,
+                    letterSpacing: "0.01em",
+                    color: "rgba(245,242,237,0.58)",
+                    lineHeight: 1.3,
+                  }}
+                  className="line-clamp-2 sm:line-clamp-none"
+                >
+                  Python &amp; Viz
+                </span>
               </div>
-            </motion.div>
+
+              {/* Point 2: 2023 */}
+              <div className="flex flex-col items-start gap-1 sm:gap-1.5">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-white/40 border border-white/20 shrink-0" />
+                  <span
+                    style={{
+                      fontFamily: "var(--font-mono, monospace)",
+                      fontSize: "clamp(10px, 0.9vw, 14px)",
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      color: "#F5F2ED",
+                    }}
+                  >
+                    2023
+                  </span>
+                </div>
+                <span
+                  style={{
+                    fontFamily: "'Lexend', sans-serif",
+                    fontSize: "clamp(9px, 0.75vw, 12px)",
+                    fontWeight: 300,
+                    letterSpacing: "0.01em",
+                    color: "rgba(245,242,237,0.58)",
+                    lineHeight: 1.3,
+                  }}
+                  className="line-clamp-2 sm:line-clamp-none"
+                >
+                  UIU Data Science
+                </span>
+              </div>
+
+              {/* Point 3: 2024 */}
+              <div className="flex flex-col items-start gap-1 sm:gap-1.5">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-white/40 border border-white/20 shrink-0" />
+                  <span
+                    style={{
+                      fontFamily: "var(--font-mono, monospace)",
+                      fontSize: "clamp(10px, 0.9vw, 14px)",
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      color: "#F5F2ED",
+                    }}
+                  >
+                    2024
+                  </span>
+                </div>
+                <span
+                  style={{
+                    fontFamily: "'Lexend', sans-serif",
+                    fontSize: "clamp(9px, 0.75vw, 12px)",
+                    fontWeight: 300,
+                    letterSpacing: "0.01em",
+                    color: "rgba(245,242,237,0.58)",
+                    lineHeight: 1.3,
+                  }}
+                  className="line-clamp-2 sm:line-clamp-none"
+                >
+                  Real Systems
+                </span>
+              </div>
+
+              {/* Point 4: 2025 */}
+              <div className="flex flex-col items-start gap-1 sm:gap-1.5">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#C83228] shadow-[0_0_8px_rgba(200,50,40,0.85)] shrink-0" />
+                  <span
+                    style={{
+                      fontFamily: "var(--font-mono, monospace)",
+                      fontSize: "clamp(10px, 0.9vw, 14px)",
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      color: "#F5F2ED",
+                    }}
+                  >
+                    2025
+                  </span>
+                </div>
+                <span
+                  style={{
+                    fontFamily: "'Lexend', sans-serif",
+                    fontSize: "clamp(9px, 0.75vw, 12px)",
+                    fontWeight: 300,
+                    letterSpacing: "0.01em",
+                    color: "rgba(245,242,237,0.58)",
+                    lineHeight: 1.3,
+                  }}
+                  className="line-clamp-2 sm:line-clamp-none"
+                >
+                  OOP Runner-Up
+                </span>
+              </div>
+
+              {/* Point 5: NOW */}
+              <div className="flex flex-col items-start gap-1 sm:gap-1.5">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#C83228] shadow-[0_0_8px_rgba(200,50,40,0.95)] shrink-0" />
+                  <span
+                    style={{
+                      fontFamily: "var(--font-mono, monospace)",
+                      fontSize: "clamp(10px, 0.9vw, 14px)",
+                      fontWeight: 700,
+                      letterSpacing: "0.12em",
+                      color: "#C83228D9",
+                    }}
+                  >
+                    NOW
+                  </span>
+                </div>
+                <span
+                  style={{
+                    fontFamily: "'Lexend', sans-serif",
+                    fontSize: "clamp(9px, 0.75vw, 12px)",
+                    fontWeight: 300,
+                    letterSpacing: "0.01em",
+                    color: "rgba(245,242,237,0.58)",
+                    lineHeight: 1.3,
+                  }}
+                  className="line-clamp-2 sm:line-clamp-none"
+                >
+                  AI Systems
+                </span>
+              </div>
+            </div>
           </div>
+
+          {/* 3. Personal Philosophy Quote Block */}
+          <div className="pt-0.5">
+            <blockquote
+              style={{
+                margin: 0,
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: "clamp(12px, 1.85vw, 26px)",
+                fontWeight: 700,
+                lineHeight: 1.25,
+                letterSpacing: "-0.02em",
+                color: "#F5F2ED",
+              }}
+            >
+              <span className="text-white/90">&ldquo;I don&apos;t trust a system until it&apos;s been used by </span>
+              <span style={{ color: "#C83228D9", fontStyle: "italic", fontWeight: 700 }}>
+                someone who isn&apos;t me.&rdquo;
+              </span>
+            </blockquote>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 }
