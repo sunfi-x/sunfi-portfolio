@@ -257,7 +257,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
         {/* ══════════════════════════════════════════════════════════════════
             RIGHT COLUMN — High-Impact Quicksand Editorial Layout with Masked Reveals
         ══════════════════════════════════════════════════════════════════ */}
-        <div className="flex flex-col justify-start gap-3 sm:gap-4 h-full w-full px-5 sm:px-8 lg:px-16 pt-[64px] sm:pt-[85px] lg:pt-[95px] pb-28 sm:pb-8 box-border overflow-y-auto lg:overflow-hidden scrollbar-none">
+        <div className="flex flex-col justify-start gap-2.5 sm:gap-4 h-full w-full px-4 sm:px-8 lg:px-16 pt-[54px] sm:pt-[85px] lg:pt-[95px] pb-3 sm:pb-8 box-border overflow-hidden">
 
           {/* ── 1. TOP: Category Label & Index ─────── */}
           <div className="flex justify-between items-center w-full shrink-0">
@@ -293,13 +293,13 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             </motion.span>
           </div>
 
-          {/* High-Impact Full Mobile Portrait Banner */}
+          {/* Tall High-Impact Mobile Portrait Banner */}
           <motion.div
-            initial={{ opacity: 0, y: 12, scale: 0.98 }}
+            initial={{ opacity: 0, y: 10, scale: 0.98 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:hidden relative w-full aspect-[16/10] max-h-52 rounded-2xl overflow-hidden shrink-0 border border-white/10 shadow-2xl my-1"
+            className="lg:hidden relative w-full h-28 sm:h-44 rounded-xl overflow-hidden shrink-0 border border-white/10 shadow-xl my-0.5"
           >
             <Image
               src="/sazzadsunfi1.jpg"
@@ -335,9 +335,9 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             style={{
               margin: 0,
               fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif",
-              fontSize: "clamp(22px, 3.8vw, 56px)",
+              fontSize: "clamp(20px, 3.6vw, 56px)",
               fontWeight: 700,
-              lineHeight: 1.15,
+              lineHeight: 1.1,
               letterSpacing: "-0.02em",
               color: "#FFFFFF",
             }}
@@ -369,15 +369,15 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col gap-2 shrink-0"
+            className="flex flex-col gap-1.5 sm:gap-2 shrink-0"
           >
             {/* Bio Paragraph */}
             <p
               style={{
                 fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif",
-                fontSize: "clamp(12px, 1.05vw, 16px)",
+                fontSize: "clamp(11px, 1.0vw, 16px)",
                 fontWeight: 400,
-                lineHeight: 1.55,
+                lineHeight: 1.45,
                 letterSpacing: "0.01em",
                 color: "#A0A0A0",
                 margin: 0,
@@ -391,9 +391,9 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             <p
               style={{
                 fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif",
-                fontSize: "clamp(11.5px, 0.95vw, 15px)",
+                fontSize: "clamp(10.5px, 0.95vw, 15px)",
                 fontWeight: 400,
-                lineHeight: 1.5,
+                lineHeight: 1.4,
                 letterSpacing: "0.01em",
                 color: "#A0A0A0",
                 margin: 0,
@@ -417,7 +417,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             </p>
           </motion.div>
 
-          {/* ── 4. 3 Premium Identity Proof Cards ── */}
+          {/* ── 4. 3 Premium Identity Proof Cards (Side-by-Side 3 Columns) ── */}
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -433,7 +433,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             }}
             className="shrink-0"
           >
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-3">
               <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 20, scale: 0.96 },
@@ -507,9 +507,9 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             <p
               style={{
                 fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif",
-                fontSize: "clamp(11px, 0.85vw, 13px)",
+                fontSize: "clamp(10px, 0.8vw, 13px)",
                 fontWeight: 400,
-                lineHeight: 1.5,
+                lineHeight: 1.4,
                 letterSpacing: "0.01em",
                 color: "#A0A0A0",
                 margin: 0,
