@@ -257,9 +257,9 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
         {/* ══════════════════════════════════════════════════════════════════
             RIGHT COLUMN — High-Impact Quicksand Editorial Layout with Masked Reveals
         ══════════════════════════════════════════════════════════════════ */}
-        <div className="flex flex-col justify-between h-full w-full px-5 sm:px-8 lg:px-16 pt-[64px] sm:pt-[85px] lg:pt-[95px] pb-16 sm:pb-8 box-border gap-0 overflow-hidden">
+        <div className="flex flex-col justify-start gap-2.5 sm:gap-4 h-full w-full px-4 sm:px-8 lg:px-16 pt-[56px] sm:pt-[85px] lg:pt-[95px] pb-20 sm:pb-8 box-border overflow-hidden">
 
-          {/* ── TOP: Category Label & Index with Tracking Expansion ─────── */}
+          {/* ── 1. TOP: Category Label & Index ─────── */}
           <div className="flex justify-between items-center w-full shrink-0">
             <motion.span
               initial={{ opacity: 0, x: -14, letterSpacing: "0.18em" }}
@@ -293,197 +293,191 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             </motion.span>
           </div>
 
-          {/* ── MIDDLE: Headline, Description & 3 Premium Cards ────────── */}
-          <div className="flex flex-col justify-center py-1 sm:py-2 lg:py-3 shrink-0">
-
-            {/* Editorial Line Headline */}
-            <motion.h2
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.12,
-                    delayChildren: 0.05,
-                  },
+          {/* ── 2. Editorial Line Headline ── */}
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.12,
+                  delayChildren: 0.05,
                 },
-              }}
+              },
+            }}
+            style={{
+              margin: 0,
+              fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif",
+              fontSize: "clamp(20px, 3.6vw, 56px)",
+              fontWeight: 700,
+              lineHeight: 1.1,
+              letterSpacing: "-0.02em",
+              color: "#FFFFFF",
+            }}
+            className="shrink-0"
+          >
+            <span className="block overflow-hidden pb-0.5">
+              <motion.span
+                className="inline-block"
+                variants={{
+                  hidden: { y: "115%", opacity: 0 },
+                  visible: {
+                    y: "0%",
+                    opacity: 1,
+                    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] },
+                  },
+                }}
+              >
+                Crafting Intelligent Systems with{" "}
+                <span style={{ color: "#C83228D9", fontWeight: 700 }}>
+                  Passion
+                </span>
+              </motion.span>
+            </span>
+          </motion.h2>
+
+          {/* ── 3. Supporting Statement & Toolkit ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 15, filter: "blur(6px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col gap-1.5 sm:gap-2 shrink-0"
+          >
+            {/* Shortened Bio Paragraph */}
+            <p
               style={{
-                margin: 0,
                 fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif",
-                fontSize: "clamp(20px, 3.6vw, 56px)",
-                fontWeight: 700,
-                lineHeight: 1.1,
-                letterSpacing: "-0.02em",
-                color: "#FFFFFF",
+                fontSize: "clamp(11px, 1.0vw, 16px)",
+                fontWeight: 400,
+                lineHeight: 1.45,
+                letterSpacing: "0.01em",
+                color: "#A0A0A0",
+                margin: 0,
+                maxWidth: 560,
               }}
             >
-              <span className="block overflow-hidden pb-0.5">
-                <motion.span
-                  className="inline-block"
-                  variants={{
-                    hidden: { y: "115%", opacity: 0 },
-                    visible: {
-                      y: "0%",
-                      opacity: 1,
-                      transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] },
-                    },
-                  }}
-                >
-                  Crafting Intelligent Systems with{" "}
-                  <span style={{ color: "#C83228D9", fontWeight: 700 }}>
-                    Passion
-                  </span>
-                </motion.span>
-              </span>
-            </motion.h2>
+              I&apos;m a Data Science &amp; AI enthusiast at UIU turning real-world data into clear insights and production-ready intelligent systems — building robust data pipelines, ML models, and interactive dashboards.
+            </p>
 
-            {/* Supporting Statement Paragraphs */}
-            <motion.div
-              initial={{ opacity: 0, y: 15, filter: "blur(6px)" }}
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              style={{ marginTop: "clamp(4px, 1.2vh, 18px)" }}
+            {/* Toolkit Paragraph */}
+            <p
+              style={{
+                fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif",
+                fontSize: "clamp(10.5px, 0.95vw, 15px)",
+                fontWeight: 400,
+                lineHeight: 1.4,
+                letterSpacing: "0.01em",
+                color: "#A0A0A0",
+                margin: 0,
+                maxWidth: 560,
+              }}
             >
-              {/* Shortened Bio Paragraph */}
-              <p
-                style={{
-                  fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif",
-                  fontSize: "clamp(11px, 1.0vw, 16px)",
-                  fontWeight: 400,
-                  lineHeight: 1.45,
-                  letterSpacing: "0.01em",
-                  color: "#A0A0A0",
-                  margin: 0,
-                  maxWidth: 560,
-                }}
-              >
-                I&apos;m a Data Science &amp; AI enthusiast at UIU turning real-world data into clear insights and production-ready intelligent systems — building robust data pipelines, ML models, and interactive dashboards.
-              </p>
+              My toolkit spans{" "}
+              <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>Python</strong>,{" "}
+              <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>Machine Learning</strong>,{" "}
+              <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>Time Series</strong>,{" "}
+              <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>NLP/LLMs</strong>,{" "}
+              <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>Streamlit</strong>,{" "}
+              <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>FastAPI</strong>,{" "}
+              <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>MySQL/PostgreSQL</strong>,
+              and modern full-stack tools (
+              <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>Next.js</strong>,{" "}
+              <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>JavaScript</strong>,{" "}
+              <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>TypeScript</strong>,{" "}
+              <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>Tailwind</strong>
+              ). I enjoy designing scalable architectures and optimizing data workflows.
+            </p>
+          </motion.div>
 
-              {/* Toolkit Paragraph */}
-              <p
-                style={{
-                  fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif",
-                  fontSize: "clamp(10.5px, 0.95vw, 15px)",
-                  fontWeight: 400,
-                  lineHeight: 1.4,
-                  letterSpacing: "0.01em",
-                  color: "#A0A0A0",
-                  margin: 0,
-                  marginTop: "clamp(4px, 0.8vh, 12px)",
-                  maxWidth: 560,
-                }}
-              >
-                My toolkit spans{" "}
-                <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>Python</strong>,{" "}
-                <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>Machine Learning</strong>,{" "}
-                <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>Time Series</strong>,{" "}
-                <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>NLP/LLMs</strong>,{" "}
-                <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>Streamlit</strong>,{" "}
-                <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>FastAPI</strong>,{" "}
-                <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>MySQL/PostgreSQL</strong>,
-                and modern full-stack tools (
-                <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>Next.js</strong>,{" "}
-                <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>JavaScript</strong>,{" "}
-                <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>TypeScript</strong>,{" "}
-                <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>Tailwind</strong>
-                ). I enjoy designing scalable architectures and optimizing data workflows.
-              </p>
-            </motion.div>
-
-            {/* ── 3 Premium Identity Proof Cards ── */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.12,
-                    delayChildren: 0.35,
-                  },
+          {/* ── 4. 3 Premium Identity Proof Cards ── */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.12,
+                  delayChildren: 0.35,
                 },
-              }}
-              style={{ marginTop: "clamp(6px, 1.5vh, 26px)" }}
-              className="shrink-0"
-            >
-              <div className="grid grid-cols-3 gap-1.5 sm:gap-3">
-                <motion.div
-                  variants={{
-                    hidden: { opacity: 0, y: 20, scale: 0.96 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                      transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
-                    },
-                  }}
-                >
-                  <IdentityProofCard
-                    icon={Trophy}
-                    label="AWARD"
-                    value="1st Runner Up"
-                    subtext="OOP Competition"
-                    meta="UIU · 2025"
-                  />
-                </motion.div>
+              },
+            }}
+            className="shrink-0"
+          >
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-3">
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20, scale: 0.96 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
+                  },
+                }}
+              >
+                <IdentityProofCard
+                  icon={Trophy}
+                  label="AWARD"
+                  value="1st Runner Up"
+                  subtext="OOP Competition"
+                  meta="UIU · 2025"
+                />
+              </motion.div>
 
-                <motion.div
-                  variants={{
-                    hidden: { opacity: 0, y: 20, scale: 0.96 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                      transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
-                    },
-                  }}
-                >
-                  <IdentityProofCard
-                    icon={Briefcase}
-                    label="EXPERIENCE"
-                    value="3+ Years"
-                    subtext="Hands-on Dev"
-                    meta="Data · ML · AI"
-                  />
-                </motion.div>
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20, scale: 0.96 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
+                  },
+                }}
+              >
+                <IdentityProofCard
+                  icon={Briefcase}
+                  label="EXPERIENCE"
+                  value="3+ Years"
+                  subtext="Hands-on Dev"
+                  meta="Data · ML · AI"
+                />
+              </motion.div>
 
-                <motion.div
-                  variants={{
-                    hidden: { opacity: 0, y: 20, scale: 0.96 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                      transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
-                    },
-                  }}
-                >
-                  <IdentityProofCard
-                    icon={Database}
-                    label="DATA"
-                    value="500+ Datasets"
-                    subtext="Explored"
-                    meta="DS · ML · Viz"
-                  />
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20, scale: 0.96 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
+                  },
+                }}
+              >
+                <IdentityProofCard
+                  icon={Database}
+                  label="DATA"
+                  value="500+ Datasets"
+                  subtext="Explored"
+                  meta="DS · ML · Viz"
+                />
+              </motion.div>
+            </div>
+          </motion.div>
 
-          {/* ── BOTTOM: Lower Closing Statement ─────────── */}
+          {/* ── 5. Lower Closing Statement ─────────── */}
           <motion.div
             initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
             className="w-full shrink-0"
-            style={{ marginTop: "clamp(4px, 1.0vh, 18px)" }}
           >
             <p
               style={{
