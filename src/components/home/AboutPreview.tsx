@@ -253,14 +253,14 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             priority
             unoptimized
             sizes="100vw"
-            className="object-contain"
+            className="object-cover"
             style={{ objectPosition: "center top" }}
           />
           {/* Gradient: transparent at top → opaque dark below */}
           <div
             className="absolute inset-0"
             style={{
-              background: "linear-gradient(to bottom, rgba(5,5,5,0.05) 0%, rgba(5,5,5,0.20) 25%, rgba(5,5,5,0.72) 44%, rgba(5,5,5,0.95) 58%, #050505 72%)",
+              background: "linear-gradient(to bottom, rgba(5,5,5,0.0) 0%, rgba(5,5,5,0.10) 30%, rgba(5,5,5,0.65) 50%, rgba(5,5,5,0.92) 65%, #050505 78%)",
             }}
           />
         </div>
@@ -282,10 +282,10 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
         </div>
 
         {/* Flex spacer — controls how much image shows above content */}
-        <div className="relative z-10 flex-[1]" />
+        <div className="relative z-10 flex-[1.4]" />
 
         {/* Content overlay block */}
-        <div className="relative z-10 flex-[4] flex flex-col justify-end px-4 pb-3 gap-[7px]">
+        <div className="relative z-10 flex-[3.6] flex flex-col justify-end px-4 pb-3 gap-[7px]">
 
           {/* Headline */}
           <motion.h2
