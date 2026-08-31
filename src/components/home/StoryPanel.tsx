@@ -23,51 +23,54 @@ function AchievementCard({
 }) {
   return (
     <motion.div
-      className="flex flex-col gap-0.5 sm:gap-1.5 lg:gap-3 items-start text-left"
+      className="flex flex-col justify-between p-3.5 sm:p-4 lg:p-5 rounded-2xl bg-[#111111]/75 border border-white/10 backdrop-blur-md hover:border-white/20 transition-all gap-1.5"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.85, delay, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
     >
-      <h3
-        style={{
-          fontFamily: "'Space Grotesk', sans-serif",
-          fontSize: "clamp(17px, 4.2vw, 88px)",
-          fontWeight: 800,
-          lineHeight: 0.95,
-          letterSpacing: "-0.03em",
-          color: "#F5F2ED",
-          margin: 0,
-          textTransform: "uppercase",
-        }}
-      >
-        {keyword}
-      </h3>
-      <p
-        style={{
-          fontFamily: "'Lexend', sans-serif",
-          fontSize: "clamp(9.5px, 0.85vw, 13px)",
-          fontWeight: 300,
-          lineHeight: 1.4,
-          letterSpacing: "0.02em",
-          color: "rgba(245,242,237,0.65)",
-          margin: 0,
-          textTransform: "uppercase",
-        }}
-        className="line-clamp-2 sm:line-clamp-none max-w-[220px]"
-      >
-        {description}
-      </p>
-      <span
-        style={{
-          fontFamily: "var(--font-mono, monospace)",
-          fontSize: 9,
-          letterSpacing: "0.2em",
-          color: "rgba(245,242,237,0.3)",
-        }}
-      >
-        {index}
-      </span>
+      <div>
+        <div className="flex items-center justify-between mb-1">
+          <h3
+            style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: "clamp(16px, 2.2vw, 88px)",
+              fontWeight: 800,
+              lineHeight: 1.0,
+              letterSpacing: "-0.02em",
+              color: "#F5F2ED",
+              margin: 0,
+              textTransform: "uppercase",
+            }}
+          >
+            {keyword}
+          </h3>
+          <span
+            style={{
+              fontFamily: "var(--font-mono, monospace)",
+              fontSize: 10,
+              letterSpacing: "0.2em",
+              color: "rgba(245,242,237,0.4)",
+            }}
+          >
+            {index}
+          </span>
+        </div>
+        <p
+          style={{
+            fontFamily: "'Lexend', sans-serif",
+            fontSize: "clamp(10px, 0.85vw, 13px)",
+            fontWeight: 300,
+            lineHeight: 1.45,
+            letterSpacing: "0.01em",
+            color: "rgba(245,242,237,0.7)",
+            margin: 0,
+            textTransform: "uppercase",
+          }}
+        >
+          {description}
+        </p>
+      </div>
     </motion.div>
   );
 }
@@ -90,7 +93,7 @@ export function StoryPanel() {
             unoptimized
             sizes="100vw"
             className="object-cover object-top"
-            style={{ filter: "grayscale(15%) brightness(0.42) contrast(1.1)" }}
+            style={{ filter: "grayscale(15%) brightness(0.38) contrast(1.1)" }}
           />
         </div>
 
@@ -99,7 +102,7 @@ export function StoryPanel() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.85) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.65) 45%, rgba(0,0,0,0.9) 100%)",
           }}
         />
 
@@ -114,9 +117,9 @@ export function StoryPanel() {
       </div>
 
       {/* ── Content Layer ─────────────────────────────────────────────── */}
-      <div className="relative z-10 h-full flex flex-col justify-between px-4 sm:px-8 lg:px-16 pt-3 sm:pt-14 lg:pt-20 pb-3 sm:pb-8 lg:pb-12 box-border overflow-hidden">
+      <div className="relative z-10 h-full flex flex-col justify-between px-5 sm:px-8 lg:px-16 pt-5 sm:pt-14 lg:pt-20 pb-24 sm:pb-8 lg:pb-12 box-border overflow-y-auto overflow-x-hidden scrollbar-none">
         {/* ── TOP: Section Label ──────────────────────────────────────── */}
-        <div className="flex justify-between items-start shrink-0">
+        <div className="flex justify-between items-start shrink-0 mb-4 sm:mb-0">
           <span
             style={{
               fontFamily: "var(--font-mono, monospace)",
@@ -141,8 +144,8 @@ export function StoryPanel() {
           </span>
         </div>
 
-        {/* ── MIDDLE: 4 Achievement Keywords ── */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-6 items-start pb-1 sm:pb-4 lg:pb-8 shrink-0">
+        {/* ── MIDDLE: 4 Achievement Keywords Cards ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 items-stretch my-3 sm:my-4 lg:my-0 shrink-0">
           <AchievementCard
             index="01"
             keyword="Build."
@@ -171,7 +174,7 @@ export function StoryPanel() {
 
         {/* ── BOTTOM: Story Narrative, Journey Timeline & Philosophy Quote ── */}
         <motion.div
-          className="border-t border-white/10 pt-2 sm:pt-3 lg:pt-4 flex flex-col gap-2 sm:gap-3 lg:gap-4 shrink-0"
+          className="border-t border-white/15 pt-3 sm:pt-4 lg:pt-4 flex flex-col gap-3 sm:gap-4 lg:gap-4 shrink-0 mt-2 sm:mt-0"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -181,11 +184,11 @@ export function StoryPanel() {
           <p
             style={{
               fontFamily: "'Lexend', sans-serif",
-              fontSize: "clamp(11px, 1.05vw, 16px)",
+              fontSize: "clamp(12px, 1.05vw, 16px)",
               fontWeight: 300,
-              lineHeight: 1.5,
+              lineHeight: 1.65,
               letterSpacing: "0.01em",
-              color: "rgba(245,242,237,0.75)",
+              color: "rgba(245,242,237,0.8)",
               margin: 0,
               maxWidth: 920,
             }}
@@ -194,11 +197,11 @@ export function StoryPanel() {
           </p>
 
           {/* 2. Timeline / Journey Strip */}
-          <div className="relative pt-0.5 sm:pt-1">
+          <div className="relative pt-1">
             {/* Horizontal subtle guide line */}
-            <div className="absolute top-[13px] sm:top-[15px] lg:top-[17px] left-0 right-0 h-[1px] bg-gradient-to-r from-white/15 via-[#C83228]/45 to-white/15" />
+            <div className="hidden sm:block absolute top-[15px] lg:top-[17px] left-0 right-0 h-[1px] bg-gradient-to-r from-white/15 via-[#C83228]/45 to-white/15" />
 
-            <div className="grid grid-cols-5 gap-1.5 sm:gap-2.5 lg:gap-4 relative z-10">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-2.5 lg:gap-4 relative z-10">
               {/* Point 1: 2022 */}
               <div className="flex flex-col items-start gap-1 sm:gap-1.5">
                 <div className="flex items-center gap-1.5 sm:gap-2">
@@ -206,7 +209,7 @@ export function StoryPanel() {
                   <span
                     style={{
                       fontFamily: "var(--font-mono, monospace)",
-                      fontSize: "clamp(10px, 0.9vw, 14px)",
+                      fontSize: "clamp(11px, 0.9vw, 14px)",
                       fontWeight: 700,
                       letterSpacing: "0.1em",
                       color: "#F5F2ED",
@@ -218,15 +221,14 @@ export function StoryPanel() {
                 <span
                   style={{
                     fontFamily: "'Lexend', sans-serif",
-                    fontSize: "clamp(9px, 0.75vw, 12px)",
+                    fontSize: "clamp(10px, 0.75vw, 12px)",
                     fontWeight: 300,
                     letterSpacing: "0.01em",
-                    color: "rgba(245,242,237,0.58)",
-                    lineHeight: 1.3,
+                    color: "rgba(245,242,237,0.65)",
+                    lineHeight: 1.35,
                   }}
-                  className="line-clamp-2 sm:line-clamp-none"
                 >
-                  Python &amp; Viz
+                  Python &amp; Data Visualization
                 </span>
               </div>
 
@@ -237,7 +239,7 @@ export function StoryPanel() {
                   <span
                     style={{
                       fontFamily: "var(--font-mono, monospace)",
-                      fontSize: "clamp(10px, 0.9vw, 14px)",
+                      fontSize: "clamp(11px, 0.9vw, 14px)",
                       fontWeight: 700,
                       letterSpacing: "0.1em",
                       color: "#F5F2ED",
@@ -249,15 +251,14 @@ export function StoryPanel() {
                 <span
                   style={{
                     fontFamily: "'Lexend', sans-serif",
-                    fontSize: "clamp(9px, 0.75vw, 12px)",
+                    fontSize: "clamp(10px, 0.75vw, 12px)",
                     fontWeight: 300,
                     letterSpacing: "0.01em",
-                    color: "rgba(245,242,237,0.58)",
-                    lineHeight: 1.3,
+                    color: "rgba(245,242,237,0.65)",
+                    lineHeight: 1.35,
                   }}
-                  className="line-clamp-2 sm:line-clamp-none"
                 >
-                  UIU Data Science
+                  B.Sc. in Data Science at UIU
                 </span>
               </div>
 
@@ -268,7 +269,7 @@ export function StoryPanel() {
                   <span
                     style={{
                       fontFamily: "var(--font-mono, monospace)",
-                      fontSize: "clamp(10px, 0.9vw, 14px)",
+                      fontSize: "clamp(11px, 0.9vw, 14px)",
                       fontWeight: 700,
                       letterSpacing: "0.1em",
                       color: "#F5F2ED",
@@ -280,15 +281,14 @@ export function StoryPanel() {
                 <span
                   style={{
                     fontFamily: "'Lexend', sans-serif",
-                    fontSize: "clamp(9px, 0.75vw, 12px)",
+                    fontSize: "clamp(10px, 0.75vw, 12px)",
                     fontWeight: 300,
                     letterSpacing: "0.01em",
-                    color: "rgba(245,242,237,0.58)",
-                    lineHeight: 1.3,
+                    color: "rgba(245,242,237,0.65)",
+                    lineHeight: 1.35,
                   }}
-                  className="line-clamp-2 sm:line-clamp-none"
                 >
-                  Real Systems
+                  Solving Real-World Problems
                 </span>
               </div>
 
@@ -299,7 +299,7 @@ export function StoryPanel() {
                   <span
                     style={{
                       fontFamily: "var(--font-mono, monospace)",
-                      fontSize: "clamp(10px, 0.9vw, 14px)",
+                      fontSize: "clamp(11px, 0.9vw, 14px)",
                       fontWeight: 700,
                       letterSpacing: "0.1em",
                       color: "#F5F2ED",
@@ -311,15 +311,14 @@ export function StoryPanel() {
                 <span
                   style={{
                     fontFamily: "'Lexend', sans-serif",
-                    fontSize: "clamp(9px, 0.75vw, 12px)",
+                    fontSize: "clamp(10px, 0.75vw, 12px)",
                     fontWeight: 300,
                     letterSpacing: "0.01em",
-                    color: "rgba(245,242,237,0.58)",
-                    lineHeight: 1.3,
+                    color: "rgba(245,242,237,0.65)",
+                    lineHeight: 1.35,
                   }}
-                  className="line-clamp-2 sm:line-clamp-none"
                 >
-                  OOP Runner-Up
+                  1st Runner-Up, OOP Project
                 </span>
               </div>
 
@@ -330,7 +329,7 @@ export function StoryPanel() {
                   <span
                     style={{
                       fontFamily: "var(--font-mono, monospace)",
-                      fontSize: "clamp(10px, 0.9vw, 14px)",
+                      fontSize: "clamp(11px, 0.9vw, 14px)",
                       fontWeight: 700,
                       letterSpacing: "0.12em",
                       color: "#C83228D9",
@@ -342,29 +341,28 @@ export function StoryPanel() {
                 <span
                   style={{
                     fontFamily: "'Lexend', sans-serif",
-                    fontSize: "clamp(9px, 0.75vw, 12px)",
+                    fontSize: "clamp(10px, 0.75vw, 12px)",
                     fontWeight: 300,
                     letterSpacing: "0.01em",
-                    color: "rgba(245,242,237,0.58)",
-                    lineHeight: 1.3,
+                    color: "rgba(245,242,237,0.65)",
+                    lineHeight: 1.35,
                   }}
-                  className="line-clamp-2 sm:line-clamp-none"
                 >
-                  AI Systems
+                  Building AI-Powered Systems
                 </span>
               </div>
             </div>
           </div>
 
           {/* 3. Personal Philosophy Quote Block */}
-          <div className="pt-0.5">
+          <div className="pt-1">
             <blockquote
               style={{
                 margin: 0,
                 fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: "clamp(12px, 1.85vw, 26px)",
+                fontSize: "clamp(14px, 1.85vw, 26px)",
                 fontWeight: 700,
-                lineHeight: 1.25,
+                lineHeight: 1.3,
                 letterSpacing: "-0.02em",
                 color: "#F5F2ED",
               }}
