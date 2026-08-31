@@ -257,10 +257,10 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
         {/* ══════════════════════════════════════════════════════════════════
             RIGHT COLUMN — High-Impact Quicksand Editorial Layout with Masked Reveals
         ══════════════════════════════════════════════════════════════════ */}
-        <div className="flex flex-col justify-start lg:justify-between h-full w-full px-5 sm:px-8 lg:px-16 pt-[70px] sm:pt-[85px] lg:pt-[95px] pb-24 sm:pb-8 box-border gap-0 overflow-y-auto lg:overflow-hidden scrollbar-none">
+        <div className="flex flex-col justify-between h-full w-full px-4 sm:px-8 lg:px-16 pt-[56px] sm:pt-[85px] lg:pt-[95px] pb-3 sm:pb-8 box-border gap-0 overflow-hidden">
 
           {/* ── TOP: Category Label & Index with Tracking Expansion ─────── */}
-          <div className="flex justify-between items-center w-full shrink-0 mb-3 sm:mb-0">
+          <div className="flex justify-between items-center w-full shrink-0">
             <motion.span
               initial={{ opacity: 0, x: -14, letterSpacing: "0.18em" }}
               whileInView={{ opacity: 1, x: 0, letterSpacing: "0.3em" }}
@@ -294,15 +294,15 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
           </div>
 
           {/* ── MIDDLE: Headline, Description & 3 Premium Cards ────────── */}
-          <div className="flex flex-col justify-center py-2 lg:py-3 shrink-0">
+          <div className="flex flex-col justify-center py-1 sm:py-2 lg:py-3 shrink-0">
 
-            {/* Mobile Portrait with Reveal */}
+            {/* Compact Mobile Portrait */}
             <motion.div
               initial={{ opacity: 0, y: 15, scale: 0.98 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:hidden relative w-full aspect-[16/9] mb-4 rounded-xl overflow-hidden shrink-0"
+              className="lg:hidden relative w-full h-24 sm:h-44 my-1 rounded-xl overflow-hidden shrink-0"
             >
               <Image
                 src="/sazzadsunfi1.jpg"
@@ -338,14 +338,14 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
               style={{
                 margin: 0,
                 fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif",
-                fontSize: "clamp(26px, 4.0vw, 56px)",
+                fontSize: "clamp(20px, 3.6vw, 56px)",
                 fontWeight: 700,
-                lineHeight: 1.15,
+                lineHeight: 1.1,
                 letterSpacing: "-0.02em",
                 color: "#FFFFFF",
               }}
             >
-              <span className="block overflow-hidden pb-1">
+              <span className="block overflow-hidden pb-0.5">
                 <motion.span
                   className="inline-block"
                   variants={{
@@ -371,33 +371,35 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              style={{ marginTop: "clamp(10px, 1.6vh, 18px)" }}
+              style={{ marginTop: "clamp(4px, 1.2vh, 18px)" }}
             >
+              {/* Shortened Bio Paragraph */}
               <p
                 style={{
                   fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif",
-                  fontSize: "clamp(13px, 1.1vw, 16px)",
+                  fontSize: "clamp(11px, 1.0vw, 16px)",
                   fontWeight: 400,
-                  lineHeight: 1.65,
+                  lineHeight: 1.45,
                   letterSpacing: "0.01em",
                   color: "#A0A0A0",
                   margin: 0,
                   maxWidth: 560,
                 }}
               >
-                I&apos;m a Data Science and AI enthusiast who loves turning messy, real-world data into clear insights and production-ready intelligent systems. Currently pursuing my B.Sc. in Data Science at United International University, I focus on building end-to-end solutions — from robust data pipelines and machine learning models to interactive dashboards that actually get used.
+                I&apos;m a Data Science &amp; AI enthusiast at UIU turning real-world data into clear insights and production-ready intelligent systems — building robust data pipelines, ML models, and interactive dashboards.
               </p>
 
+              {/* Toolkit Paragraph */}
               <p
                 style={{
                   fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif",
-                  fontSize: "clamp(13px, 1.1vw, 16px)",
+                  fontSize: "clamp(10.5px, 0.95vw, 15px)",
                   fontWeight: 400,
-                  lineHeight: 1.65,
+                  lineHeight: 1.4,
                   letterSpacing: "0.01em",
                   color: "#A0A0A0",
                   margin: 0,
-                  marginTop: "clamp(8px, 1.2vh, 14px)",
+                  marginTop: "clamp(4px, 0.8vh, 12px)",
                   maxWidth: 560,
                 }}
               >
@@ -414,7 +416,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
                 <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>JavaScript</strong>,{" "}
                 <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>TypeScript</strong>,{" "}
                 <strong style={{ fontWeight: 700, color: "#C8C8C8" }}>Tailwind</strong>
-                ). I enjoy designing scalable architectures, optimizing data workflows, and creating applications that solve real problems.
+                ). I enjoy designing scalable architectures and optimizing data workflows.
               </p>
             </motion.div>
 
@@ -432,10 +434,10 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
                   },
                 },
               }}
-              style={{ marginTop: "clamp(14px, 2.2vh, 26px)" }}
+              style={{ marginTop: "clamp(6px, 1.5vh, 26px)" }}
               className="shrink-0"
             >
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 lg:gap-3">
+              <div className="grid grid-cols-3 gap-1.5 sm:gap-3">
                 <motion.div
                   variants={{
                     hidden: { opacity: 0, y: 20, scale: 0.96 },
@@ -451,8 +453,8 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
                     icon={Trophy}
                     label="AWARD"
                     value="1st Runner Up"
-                    subtext="OOP Project Competition"
-                    meta="United International University · 2025"
+                    subtext="OOP Competition"
+                    meta="UIU · 2025"
                   />
                 </motion.div>
 
@@ -471,7 +473,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
                     icon={Briefcase}
                     label="EXPERIENCE"
                     value="3+ Years"
-                    subtext="Hands-on Development"
+                    subtext="Hands-on Dev"
                     meta="Data · ML · AI"
                   />
                 </motion.div>
@@ -491,8 +493,8 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
                     icon={Database}
                     label="DATA"
                     value="500+ Datasets"
-                    subtext="Explored & Analyzed"
-                    meta="Data Science · Visualization · ML"
+                    subtext="Explored"
+                    meta="DS · ML · Viz"
                   />
                 </motion.div>
               </div>
@@ -506,14 +508,14 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
             className="w-full shrink-0"
-            style={{ marginTop: "clamp(10px, 1.5vh, 18px)" }}
+            style={{ marginTop: "clamp(4px, 1.0vh, 18px)" }}
           >
             <p
               style={{
                 fontFamily: "var(--font-quicksand), 'Quicksand', sans-serif",
-                fontSize: "clamp(12px, 0.8vw, 13px)",
+                fontSize: "clamp(10px, 0.8vw, 13px)",
                 fontWeight: 400,
-                lineHeight: 1.65,
+                lineHeight: 1.4,
                 letterSpacing: "0.01em",
                 color: "#A0A0A0",
                 margin: 0,

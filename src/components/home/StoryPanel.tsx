@@ -117,9 +117,9 @@ export function StoryPanel() {
       </div>
 
       {/* ── Content Layer ─────────────────────────────────────────────── */}
-      <div className="relative z-10 h-full flex flex-col justify-between px-5 sm:px-8 lg:px-16 pt-5 sm:pt-14 lg:pt-20 pb-24 sm:pb-8 lg:pb-12 box-border overflow-y-auto overflow-x-hidden scrollbar-none">
+      <div className="relative z-10 h-full flex flex-col justify-between px-4 sm:px-8 lg:px-16 pt-3 sm:pt-14 lg:pt-20 pb-3 sm:pb-8 lg:pb-12 box-border overflow-hidden">
         {/* ── TOP: Section Label ──────────────────────────────────────── */}
-        <div className="flex justify-between items-start shrink-0 mb-4 sm:mb-0">
+        <div className="flex justify-between items-start shrink-0">
           <span
             style={{
               fontFamily: "var(--font-mono, monospace)",
@@ -145,7 +145,7 @@ export function StoryPanel() {
         </div>
 
         {/* ── MIDDLE: 4 Achievement Keywords Cards ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 items-stretch my-3 sm:my-4 lg:my-0 shrink-0">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6 items-stretch my-1 sm:my-4 lg:my-0 shrink-0">
           <AchievementCard
             index="01"
             keyword="Build."
