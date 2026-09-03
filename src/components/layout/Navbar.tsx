@@ -144,26 +144,26 @@ export function Navbar() {
             <div className="md:hidden">
               <button
                 onClick={() => setMobileMenuOpen(prev => !prev)}
-                className="fixed top-4 right-4 z-[250] flex items-center justify-center w-10 h-10 rounded-full border border-white/20 bg-[#111111]/90 backdrop-blur-xl shadow-[0_8px_25px_rgba(0,0,0,0.85)] transition-all active:scale-95 cursor-pointer"
+                className="fixed top-4 right-4 z-[250] flex items-center justify-center w-10 h-10 rounded-full border border-white/20 bg-white/[0.08] backdrop-blur-2xl shadow-[0_4px_24px_rgba(0,0,0,0.4),inset_0_1px_0_0_rgba(255,255,255,0.2)] hover:bg-white/[0.14] hover:border-white/35 transition-all duration-300 active:scale-95 cursor-pointer group"
                 aria-label="Toggle navigation menu"
               >
-                <div className="flex flex-col gap-[4.5px] w-[18px]">
+                <div className="flex flex-col gap-[4px] w-[16px] items-center">
                   <span
                     className={cn(
-                      "block h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center",
-                      mobileMenuOpen ? "rotate-45 translate-y-[6px]" : ""
+                      "block h-[1.2px] bg-white/90 rounded-full transition-all duration-300 origin-center",
+                      mobileMenuOpen ? "w-[16px] rotate-45 translate-y-[5.2px]" : "w-[16px]"
                     )}
                   />
                   <span
                     className={cn(
-                      "block h-[1.5px] bg-white rounded-full transition-all duration-300",
-                      mobileMenuOpen ? "opacity-0 scale-x-0" : ""
+                      "block h-[1.2px] bg-white/90 rounded-full transition-all duration-300",
+                      mobileMenuOpen ? "opacity-0 scale-x-0" : "w-[11px] ml-auto"
                     )}
                   />
                   <span
                     className={cn(
-                      "block h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center",
-                      mobileMenuOpen ? "-rotate-45 -translate-y-[6px]" : ""
+                      "block h-[1.2px] bg-white/90 rounded-full transition-all duration-300 origin-center",
+                      mobileMenuOpen ? "w-[16px] -rotate-45 -translate-y-[5.2px]" : "w-[16px]"
                     )}
                   />
                 </div>
