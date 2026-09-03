@@ -140,64 +140,66 @@ export function Navbar() {
               </span>
             </button>
 
-            {/* Mobile: Hamburger button */}
-            <button
-              onClick={() => setMobileMenuOpen(prev => !prev)}
-              className="flex md:hidden items-center justify-center w-10 h-10 rounded-full border border-white/15 bg-[#121212]/85 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.6)] transition-all active:scale-95"
-              aria-label="Toggle menu"
-            >
-              <div className="flex flex-col gap-[4.5px] w-[18px]">
-                <span
-                  className={cn(
-                    "block h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center",
-                    mobileMenuOpen ? "rotate-45 translate-y-[6px]" : ""
-                  )}
-                />
-                <span
-                  className={cn(
-                    "block h-[1.5px] bg-white rounded-full transition-all duration-300",
-                    mobileMenuOpen ? "opacity-0 scale-x-0" : ""
-                  )}
-                />
-                <span
-                  className={cn(
-                    "block h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center",
-                    mobileMenuOpen ? "-rotate-45 -translate-y-[6px]" : ""
-                  )}
-                />
-              </div>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile dropdown menu */}
-        <div
-          className={cn(
-            "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
-            mobileMenuOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
-          )}
-        >
-          <nav className="mx-4 mt-2 mb-2 rounded-2xl bg-[#0c0c0c]/95 backdrop-blur-xl border border-white/[0.07] overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.7)]">
-            {navLinks.map((link, i) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={cn(
-                  "flex items-center justify-between px-5 py-3.5 text-sm font-medium transition-colors duration-150",
-                  "border-b border-white/[0.04] last:border-0",
-                  pathname === link.href
-                    ? "text-white bg-white/[0.06]"
-                    : "text-white/50 hover:text-white hover:bg-white/[0.04]"
-                )}
+            {/* Mobile: Floating Fixed 3-Line Hamburger Menu Button & Dropdown */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(prev => !prev)}
+                className="fixed top-4 right-4 z-[250] flex items-center justify-center w-10 h-10 rounded-full border border-white/20 bg-[#111111]/90 backdrop-blur-xl shadow-[0_8px_25px_rgba(0,0,0,0.85)] transition-all active:scale-95 cursor-pointer"
+                aria-label="Toggle navigation menu"
               >
-                <span>{link.name}</span>
-                {pathname === link.href && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
+                <div className="flex flex-col gap-[4.5px] w-[18px]">
+                  <span
+                    className={cn(
+                      "block h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center",
+                      mobileMenuOpen ? "rotate-45 translate-y-[6px]" : ""
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "block h-[1.5px] bg-white rounded-full transition-all duration-300",
+                      mobileMenuOpen ? "opacity-0 scale-x-0" : ""
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "block h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center",
+                      mobileMenuOpen ? "-rotate-45 -translate-y-[6px]" : ""
+                    )}
+                  />
+                </div>
+              </button>
+
+              {/* Floating Mobile Dropdown Menu */}
+              <div
+                className={cn(
+                  "fixed top-16 right-4 z-[250] w-[220px] overflow-hidden transition-all duration-300 ease-in-out",
+                  mobileMenuOpen ? "max-h-[420px] opacity-100 scale-100" : "max-h-0 opacity-0 scale-95 pointer-events-none"
                 )}
-              </Link>
-            ))}
-          </nav>
+                style={{ transformOrigin: "top right" }}
+              >
+                <nav className="rounded-2xl bg-[#0c0c0c]/98 backdrop-blur-2xl border border-white/10 overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.9)] p-1.5">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={cn(
+                        "flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold tracking-wide transition-colors duration-150",
+                        pathname === link.href
+                          ? "text-white bg-white/10 font-bold"
+                          : "text-gray-300 hover:text-white hover:bg-white/[0.06]"
+                      )}
+                    >
+                      <span>{link.name}</span>
+                      {pathname === link.href && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#D90429]" />
+                      )}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+            </div>
+          </div>
         </div>
 
         <style jsx>{`
