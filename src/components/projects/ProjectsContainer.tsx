@@ -865,7 +865,7 @@ function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProjec
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="font-mono text-xs font-bold tracking-[3px] uppercase mb-4"
             style={{ color: "#C83228D9" }}
           >
@@ -873,9 +873,9 @@ function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProjec
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
             <h1
               className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#e2e8f0] tracking-tight leading-tight mb-3 sm:mb-4"
@@ -886,9 +886,9 @@ function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProjec
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.4, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
             className="w-full"
           >
             <p className="text-gray-400 text-xs sm:text-sm md:text-base lg:text-lg font-light tracking-tight max-w-none whitespace-normal sm:whitespace-nowrap">
@@ -903,7 +903,7 @@ function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProjec
         <motion.section
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.4, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col gap-6"
         >
           <FilterBar
@@ -927,34 +927,28 @@ function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProjec
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project, idx) => {
                 const layout = getBentoLayoutClasses(project, idx, filteredProjects.length);
-                const isFeatured = project.featured;
-                const initialY = isFeatured ? 40 : 25;
-                const duration = isFeatured ? 1.4 : 1.0;
-                const delay = (idx % 3) * 0.08 + (isFeatured ? 0.05 : 0);
+                const delay = Math.min(idx, 4) * 0.04;
 
                 const cardVariants = {
                   hidden: {
                     opacity: 0,
-                    y: initialY,
-                    filter: "blur(6px)"
+                    y: 12,
                   },
                   visible: {
                     opacity: 1,
                     y: 0,
-                    filter: "blur(0px)",
                     transition: {
-                      duration: duration,
+                      duration: 0.35,
                       ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
                       delay: delay
                     }
                   },
                   exit: {
                     opacity: 0,
-                    scale: 0.95,
-                    y: 10,
-                    filter: "blur(2px)",
+                    scale: 0.96,
+                    y: 6,
                     transition: {
-                      duration: 0.4,
+                      duration: 0.2,
                       ease: [0.16, 1, 0.3, 1] as [number, number, number, number]
                     }
                   }
@@ -968,7 +962,7 @@ function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProjec
                     initial="hidden"
                     whileInView="visible"
                     exit="exit"
-                    viewport={{ once: true, amount: 0.35, margin: "-120px" }}
+                    viewport={{ once: true, amount: 0.05, margin: "50px" }}
                     className={`${layout.colSpan}`}
                   >
                     <BentoCard
@@ -985,10 +979,10 @@ function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProjec
               {activeCategory === "All" && searchQuery === "" && filteredProjects.length > 0 && (
                 <motion.div
                   layout
-                  initial={{ opacity: 0, y: 25, filter: "blur(6px)" }}
-                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  viewport={{ once: true, amount: 0.35, margin: "-120px" }}
-                  transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.05, margin: "50px" }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
                   className="md:col-span-4"
                 >
                   <QuietSpaceBlock />
