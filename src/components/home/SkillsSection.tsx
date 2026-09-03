@@ -377,10 +377,13 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
               >
                 {/* Left: Index + Category Title */}
                 <div className="lg:w-[320px] shrink-0 flex items-center gap-4">
-                  <span className="font-mono text-sm sm:text-base font-semibold text-[#8A8A8A] group-hover:text-[#00E575] transition-colors duration-300">
+                  <span className="font-mono text-sm sm:text-base font-semibold text-[#8A8A8A] group-hover:text-[#C83228D9] transition-colors duration-300">
                     {row.index}
                   </span>
-                  <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#F5F5F5] group-hover:text-white transition-colors duration-300">
+                  <h3
+                    className="text-base sm:text-lg font-bold tracking-tight transition-colors duration-300"
+                    style={{ color: "#C83228D9" }}
+                  >
                     {row.title}
                   </h3>
                 </div>
@@ -392,12 +395,12 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
                 <div className="flex-1 flex flex-wrap items-center gap-x-2.5 gap-y-2">
                   {row.technologies.map((tech, techIdx) => (
                     <span key={tech} className="inline-flex items-center gap-2.5">
-                      <span className="text-xs sm:text-sm font-normal text-[#8A8A8A] group-hover:text-[#D4D4D4] transition-colors duration-300">
+                      <span className="text-xs sm:text-sm font-medium text-white transition-colors duration-300">
                         {tech}
                       </span>
                       {techIdx < row.technologies.length - 1 && (
                         <span
-                          className="text-[#00E575]/60 text-xs select-none font-bold"
+                          className="text-[#C83228D9]/70 text-xs select-none font-bold"
                           aria-hidden="true"
                         >
                           ·
