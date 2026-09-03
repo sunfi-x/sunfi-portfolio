@@ -33,8 +33,8 @@ export function AboutSectionWrapper({ profile }: AboutSectionWrapperProps) {
   // Layer 2 (02 / CHAPTER - z-20): Overlaps 03. Unveiled by 01, then slides UP to reveal 03.
   // Layer 3 (03 / WORK - z-10): Unveiled by 02, remains fixed at base.
   // ─────────────────────────────────────────────────────────────────────────────
-  const card1Y = useTransform(smoothProgress, [0.0, 0.38], ["0%", "-100%"]);
-  const card2Y = useTransform(smoothProgress, [0.48, 0.85], ["0%", "-100%"]);
+  const card1Y = useTransform(smoothProgress, [0.0, 0.38], ["0%", "100%"]);
+  const card2Y = useTransform(smoothProgress, [0.48, 0.85], ["0%", "100%"]);
 
   return (
     <div
