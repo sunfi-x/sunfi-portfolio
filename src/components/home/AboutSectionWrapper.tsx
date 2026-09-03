@@ -28,31 +28,13 @@ export function AboutSectionWrapper({ profile }: AboutSectionWrapperProps) {
   });
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // 1. LAYER 1: 01 / IDENTITY
-  // Only opacity fade — GPU-composited, zero lag on mobile
+  // STACKED OVERLAP / CURTAIN UNVEIL REVEAL SYSTEM:
+  // Layer 1 (01 / IDENTITY - z-30): Overlaps 02 & 03. Slides UP to reveal 02.
+  // Layer 2 (02 / CHAPTER - z-20): Overlaps 03. Unveiled by 01, then slides UP to reveal 03.
+  // Layer 3 (03 / WORK - z-10): Unveiled by 02, remains fixed at base.
   // ─────────────────────────────────────────────────────────────────────────────
-  const card1Opacity = useTransform(smoothProgress, [0.25, 0.39], [1.0, 0.0]);
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // 2. LAYER 2: 02 / CHAPTER
-  // translateY slide-in + opacity fade when Card 3 rises
-  // ─────────────────────────────────────────────────────────────────────────────
-  const card2Y = useTransform(
-    smoothProgress,
-    [0.0, 0.25, 0.39, 1.0],
-    ["100%", "100%", "0%", "0%"]
-  );
-  const card2Opacity = useTransform(smoothProgress, [0.61, 0.75], [1.0, 0.0]);
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // 3. LAYER 3: 03 / WORK
-  // translateY slide-in only — no further card above it
-  // ─────────────────────────────────────────────────────────────────────────────
-  const card3Y = useTransform(
-    smoothProgress,
-    [0.0, 0.61, 0.75, 1.0],
-    ["100%", "100%", "0%", "0%"]
-  );
+  const card1Y = useTransform(smoothProgress, [0.0, 0.38], ["0%", "-100%"]);
+  const card2Y = useTransform(smoothProgress, [0.48, 0.85], ["0%", "-100%"]);
 
   return (
     <div
@@ -64,29 +46,28 @@ export function AboutSectionWrapper({ profile }: AboutSectionWrapperProps) {
       {/* ── Sticky 100vh Viewport Pinning Container ────────────────────────── */}
       <div className="sticky top-0 w-full h-screen overflow-hidden bg-black">
 
-        {/* ═══ 1. IDENTITY PANEL (01 / IDENTITY) ═══ */}
+        {/* ═══ 1. IDENTITY PANEL (01 / IDENTITY) - Highest Z (z-30), covers Chapter 02 & 03 ═══ */}
         <motion.div
-          className="absolute inset-0 w-full h-full z-10 will-change-transform"
-          style={{ opacity: card1Opacity }}
+          className="absolute inset-0 w-full h-full z-30 will-change-transform bg-[#050505] shadow-[0_30px_70px_rgba(0,0,0,0.95)]"
+          style={{ y: card1Y }}
         >
           <AboutPreview profile={profile} />
         </motion.div>
 
-        {/* ═══ 2. STORY / CHAPTER PANEL (02 / CHAPTER) ═══ */}
+        {/* ═══ 2. STORY / CHAPTER PANEL (02 / CHAPTER) - Middle Z (z-20), covers Work 03 ═══ */}
         <motion.div
-          className="absolute inset-0 w-full h-full z-20 will-change-transform border-t border-white/[0.08]"
-          style={{ y: card2Y, opacity: card2Opacity }}
+          className="absolute inset-0 w-full h-full z-20 will-change-transform bg-[#0a0a0a] shadow-[0_30px_70px_rgba(0,0,0,0.95)]"
+          style={{ y: card2Y }}
         >
           <StoryPanel />
         </motion.div>
 
-        {/* ═══ 3. WORK PANEL (03 / WORK) ═══ */}
-        <motion.div
-          className="absolute inset-0 w-full h-full z-30 will-change-transform border-t border-white/[0.08]"
-          style={{ y: card3Y }}
+        {/* ═══ 3. WORK PANEL (03 / WORK) - Base Z (z-10), revealed when 02 slides up ═══ */}
+        <div
+          className="absolute inset-0 w-full h-full z-10 bg-[#0a0a0a]"
         >
           <WorkPanel />
-        </motion.div>
+        </div>
 
       </div>
     </div>
