@@ -100,8 +100,8 @@ export function Footer() {
       className="relative bg-[#000000] w-full border-t border-white/5"
     >
       
-      {/* PART 1: CONTENT ZONE (Solid background, z-10 covers Part 2) */}
-      <div className="footer-part1 relative z-10 bg-[#050505] border-b border-white/10 shadow-[0_30px_70px_rgba(0,0,0,0.95)]">
+      {/* PART 1: CONTENT ZONE (Solid black background, z-10 covers Part 2) */}
+      <div className="footer-part1 relative z-10 bg-[#000000] border-b border-white/10 shadow-[0_30px_70px_rgba(0,0,0,0.95)]">
         <div className="container mx-auto px-6 max-w-7xl relative z-10 py-8 md:py-[32px] px-4 md:px-[40px] grid grid-cols-1 md:grid-cols-[1.8fr_1fr_1fr_1.5fr] gap-8 md:gap-4 items-start">
           
           {/* 1. Brand Card */}
