@@ -290,11 +290,13 @@ export function AiAssistantWidget() {
                   <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border border-[#121212]" />
                 </div>
 
-                {/* Text Label: Ask Sunfi AI */}
-                <div className="flex items-center gap-1.5 pr-1">
-                  <span className="text-xs font-bold text-white tracking-tight font-quicksand">
-                    Ask Sunfi AI
-                  </span>
+                {/* Logo Image + AI Badge */}
+                <div className="flex items-center gap-1.5 pr-0.5">
+                  <img
+                    src="/logo.png"
+                    alt="Sunfi Logo"
+                    className="h-5 sm:h-5.5 w-auto object-contain"
+                  />
                   <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-[#60A5FA]/20 text-[#60A5FA] border border-[#60A5FA]/30 uppercase tracking-wider">
                     AI
                   </span>
