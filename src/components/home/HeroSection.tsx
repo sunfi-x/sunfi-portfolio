@@ -484,10 +484,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
 
           {/* Right Column: Profile Picture & Orbits */}
           <div className="relative flex items-center justify-center order-1 lg:order-2 h-[350px] md:h-[450px] lg:h-[600px] w-full mt-10 lg:mt-0 hero-image-container">
-            <motion.div
-              variants={itemVariants}
-              className="relative group w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 z-10"
-            >
+            <div className="relative group w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 z-10">
               {/* Multi-layered glowing borders */}
               <motion.div
                 animate={{ rotate: 360 }}
@@ -514,9 +511,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
                   {images.map((src, i) => (
                     <motion.div
                       key={`front-${i}`}
-                      initial={false}
+                      initial={{ opacity: i === 0 ? 1 : 0 }}
                       animate={{ opacity: currentIdx === i ? 1 : 0 }}
-                      transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
                       className="absolute inset-0"
                     >
                       <Image
@@ -524,7 +521,8 @@ export function HeroSection({ profile }: HeroSectionProps) {
                         alt={`${name} - ${i}`}
                         fill
                         className="object-cover"
-                        priority={i === 0}
+                        priority
+                        loading="eager"
                       />
                     </motion.div>
                   ))}
@@ -627,7 +625,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                   </div>
                 ))}
               </motion.div>
-            </motion.div>
+            </div>
           </div>
 
         </motion.div>
