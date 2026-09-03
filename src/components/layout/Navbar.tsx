@@ -143,26 +143,26 @@ export function Navbar() {
             {/* Mobile: Hamburger button */}
             <button
               onClick={() => setMobileMenuOpen(prev => !prev)}
-              className="flex md:hidden items-center justify-center w-9 h-9 rounded-lg border border-white/[0.08] bg-white/[0.04] transition-colors duration-200 hover:bg-white/[0.08]"
+              className="flex md:hidden items-center justify-center w-10 h-10 rounded-full border border-white/15 bg-[#121212]/85 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.6)] transition-all active:scale-95"
               aria-label="Toggle menu"
             >
-              <div className="flex flex-col gap-[5px] w-[18px]">
+              <div className="flex flex-col gap-[4.5px] w-[18px]">
                 <span
                   className={cn(
-                    "block h-[1.5px] bg-white/70 rounded-full transition-all duration-300 origin-center",
-                    mobileMenuOpen ? "rotate-45 translate-y-[6.5px]" : ""
+                    "block h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center",
+                    mobileMenuOpen ? "rotate-45 translate-y-[6px]" : ""
                   )}
                 />
                 <span
                   className={cn(
-                    "block h-[1.5px] bg-white/70 rounded-full transition-all duration-300",
+                    "block h-[1.5px] bg-white rounded-full transition-all duration-300",
                     mobileMenuOpen ? "opacity-0 scale-x-0" : ""
                   )}
                 />
                 <span
                   className={cn(
-                    "block h-[1.5px] bg-white/70 rounded-full transition-all duration-300 origin-center",
-                    mobileMenuOpen ? "-rotate-45 -translate-y-[6.5px]" : ""
+                    "block h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center",
+                    mobileMenuOpen ? "-rotate-45 -translate-y-[6px]" : ""
                   )}
                 />
               </div>
@@ -203,11 +203,11 @@ export function Navbar() {
         <style jsx>{`
           @media (max-width: 768px) {
             header {
-              padding-top: 8px !important;
+              padding-top: 12px !important;
               padding-bottom: 8px !important;
               min-height: unset !important;
               height: auto !important;
-              position: fixed !important;
+              position: absolute !important;
               top: 0 !important;
               left: 0 !important;
               right: 0 !important;
@@ -216,12 +216,16 @@ export function Navbar() {
               display: block !important;
               border-bottom: none !important;
               box-shadow: none !important;
+              background: transparent !important;
             }
             header > div:first-child {
               position: relative !important;
               z-index: 50 !important;
               box-shadow: none !important;
               border: none !important;
+              background: transparent !important;
+              backdrop-filter: none !important;
+              padding: 4px 16px !important;
             }
           }
         `}</style>
