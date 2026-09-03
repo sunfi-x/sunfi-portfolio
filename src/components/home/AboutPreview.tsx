@@ -129,7 +129,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
               className="absolute inset-0"
             >
               <Image
-                src="/sazzadsunfi1.jpg"
+                src="/sunfi1.jpg"
                 alt="Khondoker Sazzad Sunfi"
                 fill
                 priority
@@ -247,7 +247,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
         {/* Full-bleed background image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/sazzadsunfi1.jpg"
+            src="/sunfi1.jpg"
             alt="Khondoker Sazzad Sunfi"
             fill
             priority
