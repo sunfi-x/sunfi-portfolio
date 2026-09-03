@@ -189,10 +189,22 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
 
           {/* Label row */}
           <div className="flex justify-between items-center w-full shrink-0">
-            <motion.span initial={{ opacity: 0, x: -14 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, fontWeight: 500, color: "rgba(245,242,237,0.55)", textTransform: "uppercase", letterSpacing: "0.3em" }}>
+            <motion.span
+              initial={{ opacity: 0, x: -14 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="px-2.5 py-1 rounded-full bg-white/[0.1] border border-white/25 text-white font-bold tracking-[0.25em] text-xs font-mono shadow-sm"
+            >
               ABOUT ME
             </motion.span>
-            <motion.span initial={{ opacity: 0, x: 14 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, letterSpacing: "0.2em", color: "rgba(245,242,237,0.35)", textTransform: "uppercase" }}>
+            <motion.span
+              initial={{ opacity: 0, x: 14 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="px-2.5 py-1 rounded-full bg-[#C83228]/25 border border-[#C83228]/50 text-[#C83228D9] font-bold tracking-[0.2em] text-xs font-mono"
+            >
               01 / IDENTITY
             </motion.span>
           </div>
@@ -269,13 +281,13 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
         <div className="relative z-10 flex justify-between items-center w-full px-4 pt-[52px] shrink-0">
           <motion.span
             initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
-            style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 10, fontWeight: 500, color: "rgba(245,242,237,0.60)", textTransform: "uppercase", letterSpacing: "0.28em" }}
+            className="px-2.5 py-0.5 rounded-full bg-white/[0.12] border border-white/30 text-white font-bold tracking-[0.25em] text-[10px] font-mono shadow-sm"
           >
             ABOUT ME
           </motion.span>
           <motion.span
             initial={{ opacity: 0, x: 10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
-            style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 10, letterSpacing: "0.2em", color: "rgba(245,242,237,0.35)", textTransform: "uppercase" }}
+            className="px-2.5 py-0.5 rounded-full bg-[#C83228]/30 border border-[#C83228]/60 text-[#C83228D9] font-bold tracking-[0.2em] text-[10px] font-mono"
           >
             01 / IDENTITY
           </motion.span>
