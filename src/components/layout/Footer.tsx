@@ -72,20 +72,6 @@ const socialLinks = [
 export function Footer() {
   const brandingRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const el = document.querySelector(".footer-part1");
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el?.classList.add("visible");
-        }
-      },
-      { threshold: 0.1 }
-    );
-    if (el) observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!brandingRef.current) return;
     const rect = brandingRef.current.getBoundingClientRect();
@@ -101,7 +87,7 @@ export function Footer() {
     >
       
       {/* PART 1: CONTENT ZONE (Solid black background, z-10 covers Part 2) */}
-      <div className="footer-part1 relative z-10 bg-[#000000] border-b border-white/10 shadow-[0_30px_70px_rgba(0,0,0,0.95)] min-h-screen flex flex-col justify-between">
+      <div className="footer-part1 relative z-10 bg-[#000000] border-b border-white/10 shadow-[0_30px_70px_rgba(0,0,0,0.95)]">
         <div className="container mx-auto px-6 max-w-7xl relative z-10 py-8 md:py-[32px] px-4 md:px-[40px] grid grid-cols-1 md:grid-cols-[1.8fr_1fr_1fr_1.5fr] gap-8 md:gap-4 items-start">
           
           {/* 1. Brand Card */}
