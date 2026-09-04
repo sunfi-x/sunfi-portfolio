@@ -521,6 +521,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
                         alt={`${name} - ${i}`}
                         fill
                         className="object-cover"
+                        style={{
+                          objectPosition: src === "/sunfi1.jpg" ? "center 18%" : "center top",
+                        }}
                         priority
                         loading="eager"
                       />
