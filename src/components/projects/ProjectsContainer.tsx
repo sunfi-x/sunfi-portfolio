@@ -1005,46 +1005,125 @@ function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProjec
         {/* ==========================================
             HERO SECTION
             ========================================== */}
-        <section className="flex flex-col items-start text-left max-w-4xl pt-4 select-none relative">
-          {/* Subtle hero glow overlay */}
+        <section className="flex flex-col items-start text-left w-full pt-4 select-none relative overflow-hidden">
+
+          {/* Ghost watermark title */}
           <div
-            className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[350px] h-[280px] sm:h-[350px] bg-[radial-gradient(circle,rgba(255,255,255,0.03)_0%,transparent_70%)] filter blur-2xl pointer-events-none -z-10"
-            style={{ opacity: 0.5 }}
-          />
+            aria-hidden="true"
+            className="absolute -top-6 -left-2 text-[clamp(5rem,14vw,11rem)] font-black leading-none tracking-tighter pointer-events-none z-0 whitespace-nowrap"
+            style={{
+              fontFamily: "'Quicksand', sans-serif",
+              color: "transparent",
+              WebkitTextStroke: "1px rgba(255,255,255,0.035)",
+              userSelect: "none",
+            }}
+          >
+            PROJECTS
+          </div>
 
           {/* // Build log label */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="font-mono text-xs font-bold tracking-[3px] uppercase mb-4"
+            className="font-mono text-xs font-bold tracking-[3px] uppercase mb-4 relative z-10"
             style={{ color: "#C83228D9" }}
           >
             // Build log
           </motion.p>
 
+          {/* Main title */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-10"
           >
             <h1
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#e2e8f0] tracking-tight leading-tight mb-3 sm:mb-4"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#e2e8f0] tracking-tight leading-tight mb-4"
               style={{ fontFamily: "'Quicksand', sans-serif" }}
             >
               Projects
             </h1>
           </motion.div>
 
+          {/* Subtitle */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full"
+            className="w-full relative z-10 mb-6"
           >
-            <p className="text-gray-400 text-xs sm:text-sm md:text-base lg:text-lg font-light tracking-tight max-w-none whitespace-normal sm:whitespace-nowrap">
+            <p className="text-gray-500 text-xs sm:text-sm md:text-base font-light tracking-tight max-w-xl">
               Not just code. Systems that think, pipelines that breathe, and visuals that speak.
             </p>
+          </motion.div>
+
+          {/* ── Marquee Ticker ── */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-10 w-full"
+          >
+            {/* thin top rule */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent mb-4" />
+
+            <div className="relative overflow-hidden w-full" style={{ maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}>
+              <div className="flex gap-0 animate-marquee-slow whitespace-nowrap">
+                {[
+                  "FastAPI", "React", "Python", "PyTorch", "Next.js", "TypeScript",
+                  "OpenCV", "TensorFlow", "Keras", "SQLite", "Airflow", "dbt",
+                  "BigQuery", "HuggingFace", "XGBoost", "D3.js", "Streamlit", "Vite",
+                  "Librosa", "Tailwind CSS", "Pandas", "Terraform", "Gemini AI", "OCR",
+                  // duplicate for seamless loop
+                  "FastAPI", "React", "Python", "PyTorch", "Next.js", "TypeScript",
+                  "OpenCV", "TensorFlow", "Keras", "SQLite", "Airflow", "dbt",
+                  "BigQuery", "HuggingFace", "XGBoost", "D3.js", "Streamlit", "Vite",
+                  "Librosa", "Tailwind CSS", "Pandas", "Terraform", "Gemini AI", "OCR",
+                ].map((tag, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center gap-3 px-0 mr-6 text-[11px] font-mono tracking-[0.15em] uppercase shrink-0"
+                  >
+                    <span className="text-white/[0.18] font-light">{tag}</span>
+                    <span className="w-1 h-1 rounded-full bg-white/[0.08] shrink-0" />
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* thin bottom rule */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent mt-4" />
+          </motion.div>
+
+          {/* ── Stat row ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-center gap-6 mt-5 relative z-10"
+          >
+            {[
+              { value: filteredProjects.length.toString().padStart(2, "0"), label: "Projects" },
+              { value: filteredProjects.filter(p => p.featured).length.toString().padStart(2, "0"), label: "Featured" },
+              { value: "05", label: "Categories" },
+            ].map((stat, i) => (
+              <div key={i} className="flex items-center gap-6">
+                {i > 0 && <div className="w-px h-6 bg-white/[0.08]" />}
+                <div className="flex flex-col gap-0.5">
+                  <span
+                    className="text-xl font-black leading-none text-white/70"
+                    style={{ fontFamily: "'Quicksand', sans-serif" }}
+                  >
+                    {stat.value}
+                  </span>
+                  <span className="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-mono">
+                    {stat.label}
+                  </span>
+                </div>
+              </div>
+            ))}
           </motion.div>
         </section>
 
