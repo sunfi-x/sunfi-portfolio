@@ -537,11 +537,11 @@ function extractTech(techStack: string[]): string[] {
 
 // Category → accent color mapping
 const CATEGORY_ACCENT: Record<string, string> = {
-  "AI Systems":        "#C83228",
-  "Web Apps":          "#2E8B57",
-  "E-Commerce":        "#D4A017",
-  "Visualization":     "#4A90D9",
-  "Data Engineering":  "#8B5CF6",
+  "AI Systems":        "#C9A96E",   // warm brass / champagne gold
+  "Web Apps":          "#8FAfa0",   // sage mist
+  "E-Commerce":        "#BFA38A",   // copper sand
+  "Visualization":     "#8BA8BF",   // steel slate
+  "Data Engineering":  "#A99BBF",   // dusty lavender
 };
 
 // ─── HORIZONTAL card (magazine-style, full-width) ─────────────────────────
