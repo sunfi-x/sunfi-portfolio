@@ -120,10 +120,10 @@ export function StoryPanel() {
       <div className="relative z-10 h-full flex flex-col justify-between px-4 sm:px-8 lg:px-16 pt-3 sm:pt-14 lg:pt-20 pb-3 sm:pb-8 lg:pb-12 box-border overflow-hidden">
         {/* ── TOP: Section Label ──────────────────────────────────────── */}
         <div className="flex justify-between items-center shrink-0">
-          <span className="px-2.5 py-1 sm:py-1 rounded-full bg-white/[0.12] border border-white/30 text-white font-bold tracking-[0.25em] text-[10px] sm:text-xs font-mono shadow-sm">
+          <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, fontWeight: 600, color: "#FFFFFF", textTransform: "uppercase", letterSpacing: "0.3em" }}>
             My Story
           </span>
-          <span className="px-2.5 py-1 sm:py-1 rounded-full bg-[#C83228]/30 border border-[#C83228]/60 text-[#C83228D9] font-bold tracking-[0.2em] text-[10px] sm:text-xs font-mono">
+          <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, fontWeight: 600, color: "#C83228D9", textTransform: "uppercase", letterSpacing: "0.2em" }}>
             02 / CHAPTER
           </span>
         </div>
