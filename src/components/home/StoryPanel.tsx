@@ -1,16 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-} from "framer-motion";
 
-// ─── Achievement Card ─────────────────────────────────────────────────────────
-function AchievementCard({
+// ─── Single Keyword Block ──────────────────────────────────────────────────
+function KeywordBlock({
   index,
   keyword,
   description,
@@ -23,54 +17,52 @@ function AchievementCard({
 }) {
   return (
     <motion.div
-      className="flex flex-col justify-between p-3.5 sm:p-4 lg:p-5 rounded-2xl bg-[#111111]/75 border border-white/10 backdrop-blur-md hover:border-white/20 transition-all gap-1.5"
-      initial={{ opacity: 0, y: 20 }}
+      className="flex flex-col gap-2.5 sm:gap-3 min-w-0"
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.85, delay, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div>
-        <div className="flex items-center justify-between mb-1">
-          <h3
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: "clamp(16px, 2.2vw, 88px)",
-              fontWeight: 800,
-              lineHeight: 1.0,
-              letterSpacing: "-0.02em",
-              color: "#F5F2ED",
-              margin: 0,
-              textTransform: "uppercase",
-            }}
-          >
-            {keyword}
-          </h3>
-          <span
-            style={{
-              fontFamily: "var(--font-mono, monospace)",
-              fontSize: 10,
-              letterSpacing: "0.2em",
-              color: "rgba(245,242,237,0.4)",
-            }}
-          >
-            {index}
-          </span>
-        </div>
-        <p
-          style={{
-            fontFamily: "'Lexend', sans-serif",
-            fontSize: "clamp(10px, 0.85vw, 13px)",
-            fontWeight: 300,
-            lineHeight: 1.45,
-            letterSpacing: "0.01em",
-            color: "rgba(245,242,237,0.7)",
-            margin: 0,
-            textTransform: "uppercase",
-          }}
-        >
-          {description}
-        </p>
-      </div>
+      <h3
+        style={{
+          fontFamily: "'Space Grotesk', sans-serif",
+          fontSize: "clamp(28px, 4.2vw, 68px)",
+          fontWeight: 800,
+          lineHeight: 1.0,
+          letterSpacing: "-0.03em",
+          color: "#FFFFFF",
+          margin: 0,
+          textTransform: "uppercase",
+        }}
+      >
+        {keyword}
+      </h3>
+      <p
+        style={{
+          fontFamily: "var(--font-mono, monospace)",
+          fontSize: "clamp(10px, 0.78vw, 12px)",
+          fontWeight: 400,
+          lineHeight: 1.5,
+          letterSpacing: "0.04em",
+          color: "rgba(245,242,237,0.7)",
+          margin: 0,
+          textTransform: "uppercase",
+          maxWidth: 260,
+        }}
+      >
+        {description}
+      </p>
+      <span
+        style={{
+          fontFamily: "var(--font-mono, monospace)",
+          fontSize: 10,
+          letterSpacing: "0.2em",
+          color: "rgba(245,242,237,0.35)",
+          marginTop: 2,
+        }}
+      >
+        {index}
+      </span>
     </motion.div>
   );
 }
@@ -117,243 +109,85 @@ export function StoryPanel() {
       </div>
 
       {/* ── Content Layer ─────────────────────────────────────────────── */}
-      <div className="relative z-10 h-full flex flex-col justify-between px-4 sm:px-8 lg:px-16 pt-3 sm:pt-14 lg:pt-20 pb-3 sm:pb-8 lg:pb-12 box-border overflow-hidden">
+      <div className="relative z-10 h-full flex flex-col justify-between px-6 lg:px-16 pt-16 lg:pt-20 pb-8 lg:pb-12 box-border">
         {/* ── TOP: Section Label ──────────────────────────────────────── */}
-        <div className="flex justify-end items-center shrink-0 w-full">
-          <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, fontWeight: 600, color: "#FFFFFF", textTransform: "uppercase", letterSpacing: "0.2em" }}>
+        <div className="flex justify-between items-center w-full shrink-0">
+          <span
+            style={{
+              fontFamily: "var(--font-mono, monospace)",
+              fontSize: 11,
+              fontWeight: 500,
+              color: "rgba(245,242,237,0.5)",
+              textTransform: "uppercase",
+              letterSpacing: "0.3em",
+            }}
+          >
+            MY STORY
+          </span>
+          <span
+            style={{
+              fontFamily: "var(--font-mono, monospace)",
+              fontSize: 11,
+              fontWeight: 500,
+              color: "rgba(245,242,237,0.5)",
+              textTransform: "uppercase",
+              letterSpacing: "0.2em",
+            }}
+          >
             02 / CHAPTER
           </span>
         </div>
 
-        {/* ── MIDDLE: 4 Achievement Keywords Cards ── */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6 items-stretch my-1 sm:my-4 lg:my-0 shrink-0">
-          <AchievementCard
+        {/* ── MIDDLE: 4 Keyword Columns (BUILD. THINK. DESIGN. EVOLVE.) ── */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 items-start my-auto">
+          <KeywordBlock
             index="01"
-            keyword="Build."
-            description="I build AI-powered systems and data pipelines that turn raw complexity into clarity."
+            keyword="BUILD."
+            description="I BUILD AI-POWERED SYSTEMS AND DATA PIPELINES THAT TURN RAW COMPLEXITY INTO CLARITY."
             delay={0.1}
           />
-          <AchievementCard
+          <KeywordBlock
             index="02"
-            keyword="Think."
-            description="Every project starts with first principles — understanding the problem before writing a single line."
+            keyword="THINK."
+            description="EVERY PROJECT STARTS WITH FIRST PRINCIPLES — UNDERSTANDING THE PROBLEM BEFORE WRITING A SINGLE LINE."
             delay={0.2}
           />
-          <AchievementCard
+          <KeywordBlock
             index="03"
-            keyword="Design."
-            description="I believe technical ideas deserve beautiful presentation. Data without design is just noise."
+            keyword="DESIGN."
+            description="I BELIEVE TECHNICAL IDEAS DESERVE BEAUTIFUL PRESENTATION. DATA WITHOUT DESIGN IS JUST NOISE."
             delay={0.3}
           />
-          <AchievementCard
+          <KeywordBlock
             index="04"
-            keyword="Evolve."
-            description="I'm always learning — new models, new tools, new ways of seeing the world through data."
+            keyword="EVOLVE."
+            description="I'M ALWAYS LEARNING — NEW MODELS, NEW TOOLS, NEW WAYS OF SEEING THE WORLD THROUGH DATA."
             delay={0.4}
           />
         </div>
 
-        {/* ── BOTTOM: Story Narrative, Journey Timeline & Philosophy Quote ── */}
+        {/* ── BOTTOM: Horizontal Divider & Narrative Paragraph ── */}
         <motion.div
-          className="border-t border-white/15 pt-3 sm:pt-4 lg:pt-4 flex flex-col gap-3 sm:gap-4 lg:gap-4 shrink-0 mt-2 sm:mt-0"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 1.0, delay: 0.35 }}
+          className="flex flex-col gap-3 sm:gap-4 shrink-0"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
         >
-          {/* 1. Paragraph */}
+          <div style={{ height: 1, backgroundColor: "rgba(245,242,237,0.15)", width: "100%" }} />
           <p
             style={{
               fontFamily: "'Lexend', sans-serif",
-              fontSize: "clamp(12px, 1.05vw, 16px)",
+              fontSize: "clamp(11px, 0.95vw, 15px)",
               fontWeight: 300,
-              lineHeight: 1.65,
-              letterSpacing: "0.01em",
-              color: "rgba(245,242,237,0.8)",
+              lineHeight: 1.6,
+              color: "rgba(245,242,237,0.75)",
               margin: 0,
-              maxWidth: 920,
+              maxWidth: 960,
             }}
           >
-            I started with Python in 2022, building small web apps just to see numbers turn into charts on a screen. That curiosity turned into a full B.Sc. in Data Science at UIU — and along the way, small experiments became real systems: an award-winning Lost &amp; Found platform, a pipeline that scraped and structured <strong style={{ fontWeight: 700, color: "#F5F2ED" }}>6MB+</strong> of Bangladesh&apos;s real data-science job market data, and a transit management system now cutting resolution time by <strong style={{ fontWeight: 700, color: "#F5F2ED" }}>65%</strong>. Still based in Dhaka. Still building.
+            I&apos;m Khondoker Sazzad Sunfi — a Data Science student from Dhaka, Bangladesh, working at the intersection of machine learning, software engineering, and visual storytelling. I don&apos;t just run models; I craft systems that make sense of the world. Each project is an attempt to communicate something true — through clean code, intelligent pipelines, and intentional design.
           </p>
-
-          {/* 2. Timeline / Journey Strip */}
-          <div className="relative pt-1">
-            {/* Horizontal subtle guide line */}
-            <div className="hidden sm:block absolute top-[15px] lg:top-[17px] left-0 right-0 h-[1px] bg-gradient-to-r from-white/15 via-[#C83228]/45 to-white/15" />
-
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-2.5 lg:gap-4 relative z-10">
-              {/* Point 1: 2022 */}
-              <div className="flex flex-col items-start gap-1 sm:gap-1.5">
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-white/40 border border-white/20 shrink-0" />
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono, monospace)",
-                      fontSize: "clamp(11px, 0.9vw, 14px)",
-                      fontWeight: 700,
-                      letterSpacing: "0.1em",
-                      color: "#F5F2ED",
-                    }}
-                  >
-                    2022
-                  </span>
-                </div>
-                <span
-                  style={{
-                    fontFamily: "'Lexend', sans-serif",
-                    fontSize: "clamp(10px, 0.75vw, 12px)",
-                    fontWeight: 300,
-                    letterSpacing: "0.01em",
-                    color: "rgba(245,242,237,0.65)",
-                    lineHeight: 1.35,
-                  }}
-                >
-                  Python &amp; Data Visualization
-                </span>
-              </div>
-
-              {/* Point 2: 2023 */}
-              <div className="flex flex-col items-start gap-1 sm:gap-1.5">
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-white/40 border border-white/20 shrink-0" />
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono, monospace)",
-                      fontSize: "clamp(11px, 0.9vw, 14px)",
-                      fontWeight: 700,
-                      letterSpacing: "0.1em",
-                      color: "#F5F2ED",
-                    }}
-                  >
-                    2023
-                  </span>
-                </div>
-                <span
-                  style={{
-                    fontFamily: "'Lexend', sans-serif",
-                    fontSize: "clamp(10px, 0.75vw, 12px)",
-                    fontWeight: 300,
-                    letterSpacing: "0.01em",
-                    color: "rgba(245,242,237,0.65)",
-                    lineHeight: 1.35,
-                  }}
-                >
-                  B.Sc. in Data Science at UIU
-                </span>
-              </div>
-
-              {/* Point 3: 2024 */}
-              <div className="flex flex-col items-start gap-1 sm:gap-1.5">
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-white/40 border border-white/20 shrink-0" />
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono, monospace)",
-                      fontSize: "clamp(11px, 0.9vw, 14px)",
-                      fontWeight: 700,
-                      letterSpacing: "0.1em",
-                      color: "#F5F2ED",
-                    }}
-                  >
-                    2024
-                  </span>
-                </div>
-                <span
-                  style={{
-                    fontFamily: "'Lexend', sans-serif",
-                    fontSize: "clamp(10px, 0.75vw, 12px)",
-                    fontWeight: 300,
-                    letterSpacing: "0.01em",
-                    color: "rgba(245,242,237,0.65)",
-                    lineHeight: 1.35,
-                  }}
-                >
-                  Solving Real-World Problems
-                </span>
-              </div>
-
-              {/* Point 4: 2025 */}
-              <div className="flex flex-col items-start gap-1 sm:gap-1.5">
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#C83228] shadow-[0_0_8px_rgba(200,50,40,0.85)] shrink-0" />
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono, monospace)",
-                      fontSize: "clamp(11px, 0.9vw, 14px)",
-                      fontWeight: 700,
-                      letterSpacing: "0.1em",
-                      color: "#F5F2ED",
-                    }}
-                  >
-                    2025
-                  </span>
-                </div>
-                <span
-                  style={{
-                    fontFamily: "'Lexend', sans-serif",
-                    fontSize: "clamp(10px, 0.75vw, 12px)",
-                    fontWeight: 300,
-                    letterSpacing: "0.01em",
-                    color: "rgba(245,242,237,0.65)",
-                    lineHeight: 1.35,
-                  }}
-                >
-                  1st Runner-Up, OOP Project
-                </span>
-              </div>
-
-              {/* Point 5: NOW */}
-              <div className="flex flex-col items-start gap-1 sm:gap-1.5">
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#C83228] shadow-[0_0_8px_rgba(200,50,40,0.95)] shrink-0" />
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono, monospace)",
-                      fontSize: "clamp(11px, 0.9vw, 14px)",
-                      fontWeight: 700,
-                      letterSpacing: "0.12em",
-                      color: "#C83228D9",
-                    }}
-                  >
-                    NOW
-                  </span>
-                </div>
-                <span
-                  style={{
-                    fontFamily: "'Lexend', sans-serif",
-                    fontSize: "clamp(10px, 0.75vw, 12px)",
-                    fontWeight: 300,
-                    letterSpacing: "0.01em",
-                    color: "rgba(245,242,237,0.65)",
-                    lineHeight: 1.35,
-                  }}
-                >
-                  Building AI-Powered Systems
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* 3. Personal Philosophy Quote Block */}
-          <div className="pt-1">
-            <blockquote
-              style={{
-                margin: 0,
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: "clamp(14px, 1.85vw, 26px)",
-                fontWeight: 700,
-                lineHeight: 1.3,
-                letterSpacing: "-0.02em",
-                color: "#F5F2ED",
-              }}
-            >
-              <span className="text-white/90">&ldquo;I don&apos;t trust a system until it&apos;s been used by </span>
-              <span style={{ color: "#C83228D9", fontStyle: "italic", fontWeight: 700 }}>
-                someone who isn&apos;t me.&rdquo;
-              </span>
-            </blockquote>
-          </div>
         </motion.div>
       </div>
     </div>
