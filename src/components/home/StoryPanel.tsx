@@ -119,11 +119,8 @@ export function StoryPanel() {
       {/* ── Content Layer ─────────────────────────────────────────────── */}
       <div className="relative z-10 h-full flex flex-col justify-between px-4 sm:px-8 lg:px-16 pt-3 sm:pt-14 lg:pt-20 pb-3 sm:pb-8 lg:pb-12 box-border overflow-hidden">
         {/* ── TOP: Section Label ──────────────────────────────────────── */}
-        <div className="flex justify-between items-center shrink-0">
-          <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, fontWeight: 600, color: "#FFFFFF", textTransform: "uppercase", letterSpacing: "0.3em" }}>
-            My Story
-          </span>
-          <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, fontWeight: 600, color: "#C83228D9", textTransform: "uppercase", letterSpacing: "0.2em" }}>
+        <div className="flex justify-end items-center shrink-0 w-full">
+          <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, fontWeight: 600, color: "#FFFFFF", textTransform: "uppercase", letterSpacing: "0.2em" }}>
             02 / CHAPTER
           </span>
         </div>

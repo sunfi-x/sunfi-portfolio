@@ -115,11 +115,8 @@ export function WorkPanel() {
 
           {/* ── Content Layer ─────────────────────────────────────────────── */}
           <div className="relative z-10 h-full flex flex-col justify-between px-6 lg:px-16 pt-16 lg:pt-20 pb-8 lg:pb-12 box-border">
-            <div className="flex justify-between items-center">
-              <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, fontWeight: 600, color: "#FFFFFF", textTransform: "uppercase", letterSpacing: "0.3em" }}>
-                My Work
-              </span>
-              <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, fontWeight: 600, color: "#C83228D9", textTransform: "uppercase", letterSpacing: "0.2em" }}>
+            <div className="flex justify-end items-center w-full">
+              <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, fontWeight: 600, color: "#FFFFFF", textTransform: "uppercase", letterSpacing: "0.2em" }}>
                 03 / WORK
               </span>
             </div>

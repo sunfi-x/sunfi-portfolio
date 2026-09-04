@@ -192,7 +192,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
             <motion.span initial={{ opacity: 0, x: -14 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, fontWeight: 600, color: "#FFFFFF", textTransform: "uppercase", letterSpacing: "0.3em" }}>
               ABOUT ME
             </motion.span>
-            <motion.span initial={{ opacity: 0, x: 14 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, fontWeight: 600, color: "#C83228D9", textTransform: "uppercase", letterSpacing: "0.2em" }}>
+            <motion.span initial={{ opacity: 0, x: 14 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, fontWeight: 600, color: "#FFFFFF", textTransform: "uppercase", letterSpacing: "0.2em" }}>
               01 / IDENTITY
             </motion.span>
           </div>
@@ -275,7 +275,7 @@ export function AboutPreview({ profile: _profile }: { profile: Profile | null })
           </motion.span>
           <motion.span
             initial={{ opacity: 0, x: 10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
-            style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 10, fontWeight: 600, color: "#C83228D9", textTransform: "uppercase", letterSpacing: "0.2em" }}
+            style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 10, fontWeight: 600, color: "#FFFFFF", textTransform: "uppercase", letterSpacing: "0.2em" }}
           >
             01 / IDENTITY
           </motion.span>
