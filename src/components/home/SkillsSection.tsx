@@ -336,7 +336,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
               </p>
             </div>
             <div className="px-4 py-3 rounded-lg bg-[#0a0a0a]/80 border border-white/[0.07] min-w-[105px]">
-              <p className="text-xl sm:text-2xl font-bold font-mono text-[#00E575] tracking-tight">
+              <p className="text-xl sm:text-2xl font-bold font-mono text-[#F5F5F5] tracking-tight">
                 04
               </p>
               <p className="text-[10px] sm:text-[11px] font-mono text-[#8A8A8A] uppercase tracking-wider mt-0.5">
@@ -426,19 +426,6 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
         {/* Row 2: Dev + Cloud — scrolls LEFT */}
         <ToolMarquee items={MARQUEE_ROW_02} direction="left" desktopDuration={66} mobileDuration={43} />
       </div>
-
-      {/* ── 4. Footer Statistic ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, delay: 0.35 }}
-        className="container mx-auto px-5 sm:px-8 md:px-12 max-w-6xl mt-10 md:mt-12 pb-10 md:pb-12 flex justify-end"
-      >
-        <p className="text-xs font-mono text-[#8A8A8A] tracking-[0.2em] uppercase select-none">
-          <span className="text-[#F5F5F5] font-semibold">{totalCount}+</span> technologies across{" "}
-          <span className="text-[#00E575] font-semibold">4</span> core areas
-        </p>
-      </motion.div>
     </section>
   );
 }
