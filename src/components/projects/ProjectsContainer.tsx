@@ -1007,10 +1007,10 @@ function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProjec
             ========================================== */}
         <section className="flex flex-col items-start text-left w-full pt-4 select-none relative overflow-hidden">
 
-          {/* Ghost watermark title */}
+          {/* Ghost watermark title — desktop only */}
           <div
             aria-hidden="true"
-            className="absolute -top-6 -left-2 text-[clamp(5rem,14vw,11rem)] font-black leading-none tracking-tighter pointer-events-none z-0 whitespace-nowrap"
+            className="hidden md:block absolute -top-6 -left-2 text-[clamp(6rem,10vw,11rem)] font-black leading-none tracking-tighter pointer-events-none z-0 whitespace-nowrap"
             style={{
               fontFamily: "'Quicksand', sans-serif",
               color: "transparent",
