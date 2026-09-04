@@ -510,172 +510,195 @@ function FilterBar({
   );
 }
 
-// Clean Bento Grid Card — no tilt, no parallax, no orbs
-interface BentoCardProps {
-  project: Project;
-  colSpan: string;
-  aspectRatio: string;
-  index: number;
+// ─── Utility: extract tech pills ────────────────────────────────────────────
+function extractTech(techStack: string[]): string[] {
+  if (!techStack || techStack.length === 0) return [];
+  const keyKeywords = [
+    "FastAPI", "React", "Python", "SQLite", "Gemini AI", "OpenCV",
+    "Tailwind CSS", "Vite", "PyTorch", "Next.js", "TypeScript", "OCR",
+    "Airflow", "dbt", "BigQuery", "Terraform", "HuggingFace", "XGBoost",
+    "TensorFlow", "Keras", "Pandas", "Streamlit", "D3.js", "Librosa"
+  ];
+  const rawStr = Array.isArray(techStack) ? techStack.join(" ") : String(techStack || "");
+  const extracted: string[] = [];
+  keyKeywords.forEach((tech) => {
+    if (rawStr.toLowerCase().includes(tech.toLowerCase()) && !extracted.includes(tech)) {
+      extracted.push(tech);
+    }
+  });
+  if (extracted.length === 0) {
+    techStack.forEach((t) => {
+      const clean = t.replace(/^(Frontend|Backend|Database & Storage|Security & Tools|AI & Computer Vision):\s*/i, "").split(",")[0].trim();
+      if (clean && !extracted.includes(clean)) extracted.push(clean);
+    });
+  }
+  return extracted.slice(0, 4);
 }
 
-function BentoCard({ project, colSpan, aspectRatio, index }: BentoCardProps) {
+// Category → accent color mapping
+const CATEGORY_ACCENT: Record<string, string> = {
+  "AI Systems":        "#C83228",
+  "Web Apps":          "#2E8B57",
+  "E-Commerce":        "#D4A017",
+  "Visualization":     "#4A90D9",
+  "Data Engineering":  "#8B5CF6",
+};
+
+// ─── HORIZONTAL card (magazine-style, full-width) ─────────────────────────
+interface HorizontalCardProps {
+  project: Project;
+  index: number;
+  serialNo: number;
+  reversed?: boolean;
+}
+
+function HorizontalCard({ project, index, serialNo, reversed = false }: HorizontalCardProps) {
   const detailUrl = `/projects/${encodeURIComponent(project.slug.trim())}`;
-  const liveUrl = project.liveUrl?.trim();
+  const liveUrl   = project.liveUrl?.trim();
   const githubUrl = project.githubUrl?.trim();
-
-  // Extract 3-4 clean featured technology pills instead of dumping full sentence categories
-  const featuredTech = useMemo(() => {
-    if (!project.techStack || project.techStack.length === 0) return [];
-    
-    const keyKeywords = [
-      "FastAPI", "React", "Python", "SQLite", "Gemini AI", "OpenCV",
-      "Tailwind CSS", "Vite", "PyTorch", "Next.js", "TypeScript", "OCR"
-    ];
-
-    const rawStr = Array.isArray(project.techStack)
-      ? project.techStack.join(" ")
-      : String(project.techStack || "");
-
-    const extracted: string[] = [];
-
-    keyKeywords.forEach((tech) => {
-      if (rawStr.toLowerCase().includes(tech.toLowerCase()) && !extracted.includes(tech)) {
-        extracted.push(tech);
-      }
-    });
-
-    if (extracted.length === 0) {
-      project.techStack.forEach((t) => {
-        const clean = t.replace(/^(Frontend|Backend|Database & Storage|Security & Tools|AI & Computer Vision):\s*/i, "").split(",")[0].trim();
-        if (clean && !extracted.includes(clean)) extracted.push(clean);
-      });
-    }
-
-    return extracted.slice(0, 4);
-  }, [project.techStack]);
+  const featuredTech = useMemo(() => extractTech(project.techStack), [project.techStack]);
+  const accent = CATEGORY_ACCENT[project.category] ?? "#C83228";
+  const numStr = String(serialNo).padStart(2, "0");
 
   return (
-    <div className={`${colSpan} min-h-[380px] sm:min-h-[420px]`}>
+    <div className="w-full group relative">
       <div
-        className="group relative w-full h-full overflow-hidden bg-[#1D1F21] border border-white/[0.08] rounded-3xl flex flex-col justify-between shadow-[0_10px_30px_-10px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.04)] hover:border-white/25 hover:-translate-y-2 hover:shadow-[0_22px_50px_-10px_rgba(0,0,0,0.95),0_0_20px_rgba(255,255,255,0.04),inset_0_1px_0_rgba(255,255,255,0.1)] transition-all duration-400 ease-out cursor-pointer"
+        className={`relative w-full overflow-hidden bg-[#141416] border border-white/[0.07] rounded-3xl flex flex-col ${
+          reversed ? "md:flex-row-reverse" : "md:flex-row"
+        } min-h-[340px] md:min-h-[420px] shadow-[0_12px_40px_-10px_rgba(0,0,0,0.8)] hover:border-white/20 hover:-translate-y-1 hover:shadow-[0_24px_60px_-10px_rgba(0,0,0,0.95)] transition-all duration-500 ease-out cursor-pointer`}
       >
-        {/* Card Overlay Link to Project Details Page */}
-        <Link
-          href={detailUrl}
-          className="absolute inset-0 z-10"
-          aria-label={`View details for ${project.title}`}
+        {/* Full-overlay link */}
+        <Link href={detailUrl} className="absolute inset-0 z-10" aria-label={`View ${project.title}`} />
+
+        {/* Accent top line */}
+        <div
+          className="absolute top-0 inset-x-0 h-[2px] z-20 pointer-events-none"
+          style={{ background: `linear-gradient(90deg, transparent, ${accent}99, transparent)` }}
         />
 
-        {/* Subtle Top Edge Sheen */}
-        <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-white/30 transition-all duration-500 z-20 pointer-events-none" />
-
-        {/* Visual Header / Showcase Image Container */}
-        <div className="relative w-full h-56 sm:h-64 md:h-72 overflow-hidden border-b border-white/[0.08] bg-[#080808] shrink-0 p-3 sm:p-4">
-          <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/[0.08] bg-[#050505] shadow-inner">
+        {/* ── Image pane ── */}
+        <div className={`relative ${
+          reversed ? "md:rounded-r-3xl" : "md:rounded-l-3xl"
+        } overflow-hidden bg-[#080808] w-full md:w-[52%] shrink-0 min-h-[220px] md:min-h-0 p-3 sm:p-4`}>
+          <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/[0.06] bg-[#050505] min-h-[200px] md:min-h-[360px]">
             {project.imageUrl ? (
               <Image
                 src={project.imageUrl}
                 alt={project.title}
                 fill
-                className={`${
-                  (colSpan.includes("col-span-8") || index === 0) ? "object-cover object-top" : "object-contain"
-                } group-hover:scale-105 transition-transform duration-500`}
+                className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-700"
               />
             ) : (
               <ProjectMockup slug={project.slug} />
             )}
+            {/* Image overlay gradient */}
+            <div
+              className={`absolute inset-0 pointer-events-none ${
+                reversed
+                  ? "bg-gradient-to-l from-[#141416] via-transparent to-transparent opacity-60"
+                  : "bg-gradient-to-r from-[#141416] via-transparent to-transparent opacity-60"
+              }`}
+            />
           </div>
         </div>
 
-        {/* Info Body */}
-        <div className="p-5 sm:p-6 flex flex-col justify-between flex-grow z-20 pointer-events-none">
+        {/* ── Content pane ── */}
+        <div className="flex-1 flex flex-col justify-between p-6 sm:p-8 md:p-10 z-20 pointer-events-none">
           <div>
-            {/* Metadata & Tag */}
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-[10px] uppercase tracking-[0.15em] text-gray-400 font-semibold font-mono">
-                {project.category}
+            {/* Serial + category row */}
+            <div className="flex items-center gap-3 mb-5">
+              <span
+                className="text-4xl md:text-5xl font-black leading-none select-none"
+                style={{ color: `${accent}22`, fontFamily: "'Quicksand', sans-serif" }}
+              >
+                {numStr}
               </span>
-              {project.featured && (
-                <>
-                  <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
-                  <span className="text-[9px] uppercase tracking-wider text-[#2E8B57] font-mono font-bold">
-                    Featured
-                  </span>
-                </>
-              )}
+              <div className="flex flex-col gap-1">
+                <span
+                  className="text-[9px] uppercase tracking-[0.2em] font-bold font-mono"
+                  style={{ color: accent }}
+                >
+                  {project.category}
+                </span>
+                {project.featured && (
+                  <span className="text-[9px] uppercase tracking-widest text-white/40 font-mono">Featured</span>
+                )}
+              </div>
             </div>
 
             {/* Title */}
             <h3
-              className="text-white text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight mb-3 leading-snug group-hover:text-[#C83228D9] transition-colors duration-300 line-clamp-2"
+              className="text-white text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-4 leading-snug group-hover:opacity-80 transition-opacity duration-300 line-clamp-2"
               style={{ fontFamily: "'Quicksand', sans-serif" }}
             >
               {project.title}
             </h3>
 
-            {/* Short Description (line-clamp-2 max) */}
-            <p className="text-gray-300 text-xs sm:text-sm leading-relaxed font-light mb-4 line-clamp-2">
+            {/* Description */}
+            <p className="text-gray-400 text-sm leading-relaxed font-light mb-6 line-clamp-3 md:line-clamp-4">
               {project.description}
             </p>
-          </div>
 
-          {/* Card Footer controls */}
-          <div>
-            {/* Featured Tech Tags (Clean 3-4 pills max) */}
-            <div className="flex flex-wrap gap-1.5 mb-4">
+            {/* Tech pills */}
+            <div className="flex flex-wrap gap-2 mb-6">
               {featuredTech.map((tech) => (
                 <span
                   key={tech}
-                  className="px-2.5 py-0.5 bg-white/[0.04] border border-white/[0.08] rounded-full text-[10px] text-gray-300 font-mono tracking-wide"
+                  className="px-3 py-1 rounded-full text-[10px] font-mono tracking-wide border"
+                  style={{
+                    backgroundColor: `${accent}10`,
+                    borderColor: `${accent}30`,
+                    color: `${accent}cc`
+                  }}
                 >
                   {tech}
                 </span>
               ))}
             </div>
+          </div>
 
-            <div className="flex items-center justify-between border-t border-white/[0.06] pt-3 text-[11px] font-mono pointer-events-auto z-30 relative">
-              {/* Github Link */}
-              {githubUrl ? (
-                <a
-                  href={githubUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
-                >
-                  <FaGithub className="w-3.5 h-3.5" />
-                  <span>Source</span>
-                </a>
-              ) : (
-                <span className="text-gray-600 flex items-center gap-1.5">
-                  <FaGithub className="w-3.5 h-3.5" />
-                  <span>Source</span>
-                </span>
-              )}
+          {/* Footer */}
+          <div className="flex items-center justify-between border-t pt-4 pointer-events-auto z-30 relative" style={{ borderColor: `${accent}20` }}>
+            {githubUrl ? (
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors duration-200 text-xs font-mono"
+              >
+                <FaGithub className="w-3.5 h-3.5" />
+                <span>Source</span>
+              </a>
+            ) : (
+              <span className="text-gray-700 flex items-center gap-1.5 text-xs font-mono">
+                <FaGithub className="w-3.5 h-3.5" />
+                <span>Source</span>
+              </span>
+            )}
 
-              {/* Live App / Explore Button */}
-              {liveUrl ? (
-                <a
-                  href={liveUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="flex items-center gap-1.5 text-black hover:text-black font-semibold text-xs transition-all duration-300 bg-[#2E8B57] hover:bg-[#1fba59] px-3 py-1 rounded-full shadow-[0_2px_12px_rgba(34,197,94,0.25)] hover:scale-[1.02] group/link"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
-                  <span>Live</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 text-black" />
-                </a>
-              ) : (
-                <Link
-                  href={detailUrl}
-                  className="flex items-center gap-1 text-gray-300 hover:text-white font-medium group/link transition-colors duration-200"
-                >
-                  <span>Read Details</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                </Link>
-              )}
-            </div>
+            {liveUrl ? (
+              <a
+                href={liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-1.5 text-xs font-semibold px-4 py-1.5 rounded-full transition-all duration-300 hover:scale-[1.03]"
+                style={{ backgroundColor: accent, color: "#fff", boxShadow: `0 2px 14px ${accent}40` }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse" />
+                <span>Live</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            ) : (
+              <Link
+                href={detailUrl}
+                className="flex items-center gap-1 text-xs text-gray-300 hover:text-white font-medium transition-colors duration-200"
+              >
+                <span>Read Details</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -683,19 +706,171 @@ function BentoCard({ project, colSpan, aspectRatio, index }: BentoCardProps) {
   );
 }
 
-// Quiet Space Bento Block to bring whitespace as a luxury element in the editorial layout
+// ─── VERTICAL card (magazine grid column) ────────────────────────────────────
+interface VerticalCardProps {
+  project: Project;
+  index: number;
+  serialNo: number;
+}
+
+function VerticalCard({ project, index, serialNo }: VerticalCardProps) {
+  const detailUrl = `/projects/${encodeURIComponent(project.slug.trim())}`;
+  const liveUrl   = project.liveUrl?.trim();
+  const githubUrl = project.githubUrl?.trim();
+  const featuredTech = useMemo(() => extractTech(project.techStack), [project.techStack]);
+  const accent = CATEGORY_ACCENT[project.category] ?? "#C83228";
+  const numStr = String(serialNo).padStart(2, "0");
+
+  return (
+    <div className="w-full group relative">
+      <div
+        className="relative w-full overflow-hidden bg-[#141416] border border-white/[0.07] rounded-3xl flex flex-col min-h-[420px] shadow-[0_12px_40px_-10px_rgba(0,0,0,0.8)] hover:border-white/20 hover:-translate-y-2 hover:shadow-[0_24px_60px_-10px_rgba(0,0,0,0.95)] transition-all duration-500 ease-out cursor-pointer"
+      >
+        {/* Full-overlay link */}
+        <Link href={detailUrl} className="absolute inset-0 z-10" aria-label={`View ${project.title}`} />
+
+        {/* Accent top line */}
+        <div
+          className="absolute top-0 inset-x-0 h-[2px] z-20 pointer-events-none"
+          style={{ background: `linear-gradient(90deg, transparent, ${accent}88, transparent)` }}
+        />
+
+        {/* Image area */}
+        <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-[#080808] shrink-0 p-3">
+          <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/[0.06] bg-[#050505]">
+            {project.imageUrl ? (
+              <Image
+                src={project.imageUrl}
+                alt={project.title}
+                fill
+                className="object-cover object-top group-hover:scale-[1.04] transition-transform duration-700"
+              />
+            ) : (
+              <ProjectMockup slug={project.slug} />
+            )}
+          </div>
+          {/* Serial number watermark on image */}
+          <span
+            className="absolute bottom-4 right-4 text-5xl font-black leading-none select-none pointer-events-none z-10"
+            style={{ color: `${accent}18`, fontFamily: "'Quicksand', sans-serif" }}
+          >
+            {numStr}
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 flex flex-col justify-between p-5 sm:p-6 z-20 pointer-events-none">
+          <div>
+            {/* Category */}
+            <div className="flex items-center gap-2 mb-3">
+              <span
+                className="text-[9px] uppercase tracking-[0.2em] font-bold font-mono"
+                style={{ color: accent }}
+              >
+                {project.category}
+              </span>
+              {project.featured && (
+                <>
+                  <span className="w-1 h-1 rounded-full bg-white/20" />
+                  <span className="text-[9px] uppercase tracking-wider text-white/35 font-mono">Featured</span>
+                </>
+              )}
+            </div>
+
+            {/* Title */}
+            <h3
+              className="text-white text-lg sm:text-xl font-extrabold tracking-tight mb-2.5 leading-snug line-clamp-2 group-hover:opacity-75 transition-opacity duration-300"
+              style={{ fontFamily: "'Quicksand', sans-serif" }}
+            >
+              {project.title}
+            </h3>
+
+            {/* Description */}
+            <p className="text-gray-500 text-xs leading-relaxed font-light mb-4 line-clamp-2">
+              {project.description}
+            </p>
+
+            {/* Tech pills */}
+            <div className="flex flex-wrap gap-1.5 mb-4">
+              {featuredTech.slice(0, 3).map((tech) => (
+                <span
+                  key={tech}
+                  className="px-2.5 py-0.5 rounded-full text-[9px] font-mono tracking-wide border"
+                  style={{
+                    backgroundColor: `${accent}0d`,
+                    borderColor: `${accent}25`,
+                    color: `${accent}aa`
+                  }}
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="flex items-center justify-between border-t pt-3 pointer-events-auto z-30 relative" style={{ borderColor: `${accent}18` }}>
+            {githubUrl ? (
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-1.5 text-gray-500 hover:text-white transition-colors duration-200 text-[11px] font-mono"
+              >
+                <FaGithub className="w-3 h-3" />
+                <span>Source</span>
+              </a>
+            ) : (
+              <span className="text-gray-700 flex items-center gap-1.5 text-[11px] font-mono">
+                <FaGithub className="w-3 h-3" />
+                <span>Source</span>
+              </span>
+            )}
+
+            {liveUrl ? (
+              <a
+                href={liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-1.5 text-[11px] font-semibold px-3 py-1 rounded-full transition-all duration-300 hover:scale-[1.04]"
+                style={{ backgroundColor: accent, color: "#fff", boxShadow: `0 2px 10px ${accent}35` }}
+              >
+                <span className="w-1 h-1 rounded-full bg-white/70 animate-pulse" />
+                <span>Live</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+            ) : (
+              <Link
+                href={detailUrl}
+                className="flex items-center gap-1 text-[11px] text-gray-400 hover:text-white font-medium transition-colors duration-200"
+              >
+                <span>Details</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Quiet Space Block ────────────────────────────────────────────────────────
 function QuietSpaceBlock() {
   return (
-    <div className="w-full md:col-span-4 rounded-3xl border border-white/[0.08] bg-[#1D1F21] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] flex flex-col justify-center p-6 sm:p-8 min-h-[200px] sm:min-h-[280px] select-none">
-      <p className="text-[#b4bcc2] text-xs sm:text-sm leading-relaxed font-light tracking-wide italic border-l-2 border-white/30 pl-4">
-        "Built slowly. Designed with restraint. Every interface tells a story of intention."
+    <div className="w-full rounded-3xl border border-white/[0.06] bg-[#0f0f10] flex flex-col justify-center p-8 min-h-[200px] select-none">
+      <p className="text-[#6b7280] text-sm leading-relaxed font-light tracking-wide italic border-l-2 border-white/[0.12] pl-4">
+        &ldquo;Built slowly. Designed with restraint. Every interface tells a story of intention.&rdquo;
       </p>
-      <span className="text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-widest mt-4 pl-4 font-mono">
+      <span className="text-[9px] text-gray-600 uppercase tracking-widest mt-4 pl-4 font-mono">
         Sunfi Design Manifesto
       </span>
     </div>
   );
 }
+
 
 // Main page rendering wrapper
 function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProject[] }) {
@@ -797,34 +972,10 @@ function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProjec
       });
   }, [activeCategory, searchQuery, sortBy, allProjects]);
 
-  // Responsive Bento Layout mapping with min-h fallbacks for mobile screens
-  const getBentoLayoutClasses = (project: Project, index: number, total: number) => {
-    if (activeCategory !== "All" || searchQuery !== "") {
-      if (project.featured) {
-        return { colSpan: "w-full md:col-span-8", aspectRatio: "min-h-[420px] md:min-h-0 md:aspect-[16/10]" };
-      }
-      return { colSpan: "w-full md:col-span-4", aspectRatio: "min-h-[380px] md:min-h-0 md:aspect-[4/5]" };
-    }
-
-    if (index === 0) {
-      return { colSpan: "w-full md:col-span-8", aspectRatio: "min-h-[420px] md:min-h-0 md:aspect-[16/10]" };
-    }
-    if (index === 1) {
-      return { colSpan: "w-full md:col-span-4", aspectRatio: "min-h-[380px] md:min-h-0 md:aspect-[4/5]" };
-    }
-    if (index === 2 || index === 3 || index === 4) {
-      return { colSpan: "w-full md:col-span-4", aspectRatio: "min-h-[380px] md:min-h-0 md:aspect-[4/5]" };
-    }
-    if (index === 5) {
-      return { colSpan: "w-full md:col-span-8", aspectRatio: "min-h-[420px] md:min-h-0 md:aspect-[16/10]" };
-    }
-    if (index === 6) {
-      return { colSpan: "w-full md:col-span-4", aspectRatio: "min-h-[380px] md:min-h-0 md:aspect-[4/5]" };
-    }
-    if (index === 7) {
-      return { colSpan: "w-full md:col-span-8", aspectRatio: "min-h-[420px] md:min-h-0 md:aspect-[16/10]" };
-    }
-    return { colSpan: "w-full md:col-span-4", aspectRatio: "min-h-[380px] md:min-h-0 md:aspect-[4/5]" };
+  // Classify projects into horizontal (featured) and vertical (regular)
+  // for the magazine layout
+  const classifyProject = (project: Project): "horizontal" | "vertical" => {
+    return project.featured ? "horizontal" : "vertical";
   };
 
   return (
@@ -917,79 +1068,120 @@ function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProjec
         </motion.section>
 
         {/* ==========================================
-            EDITORIAL BENTO GRID
+            MAGAZINE LAYOUT GRID
             ========================================== */}
         <section className="relative w-full">
-          <motion.div
-            layout
-            className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 md:gap-10"
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project, idx) => {
-                const layout = getBentoLayoutClasses(project, idx, filteredProjects.length);
-                const delay = Math.min(idx, 4) * 0.04;
+          <AnimatePresence mode="popLayout">
+            {/* ── Render projects in magazine layout ── */}
+            {(() => {
+              const cardVariants = {
+                hidden:   { opacity: 0, y: 16 },
+                visible:  (delay: number) => ({
+                  opacity: 1, y: 0,
+                  transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as [number,number,number,number], delay }
+                }),
+                exit:     { opacity: 0, scale: 0.97, y: 8, transition: { duration: 0.2 } }
+              };
 
-                const cardVariants = {
-                  hidden: {
-                    opacity: 0,
-                    y: 12,
-                  },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: {
-                      duration: 0.35,
-                      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-                      delay: delay
-                    }
-                  },
-                  exit: {
-                    opacity: 0,
-                    scale: 0.96,
-                    y: 6,
-                    transition: {
-                      duration: 0.2,
-                      ease: [0.16, 1, 0.3, 1] as [number, number, number, number]
-                    }
-                  }
-                };
+              // Separate into horizontal (featured) and vertical (regular)
+              const horizontal = filteredProjects.filter((p) => classifyProject(p) === "horizontal");
+              const vertical   = filteredProjects.filter((p) => classifyProject(p) === "vertical");
 
-                return (
-                  <motion.div
-                    key={project.id}
-                    layout
-                    variants={cardVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    exit="exit"
-                    viewport={{ once: true, amount: 0.05, margin: "50px" }}
-                    className={`${layout.colSpan}`}
-                  >
-                    <BentoCard
-                        project={project}
-                        colSpan={layout.colSpan}
-                        aspectRatio={layout.aspectRatio}
-                        index={idx}
-                      />
-                  </motion.div>
-                );
-              })}
+              // Build a serial number map across all projects (sorted order)
+              const serialMap = new Map<string | number, number>();
+              filteredProjects.forEach((p, i) => serialMap.set(p.id, i + 1));
 
-              {/* Append the quiet manifesto block to the bento list when displaying the default state */}
-              {activeCategory === "All" && searchQuery === "" && filteredProjects.length > 0 && (
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.05, margin: "50px" }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-                  className="md:col-span-4"
-                >
-                  <QuietSpaceBlock />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
+              return (
+                <div className="flex flex-col gap-6 sm:gap-8 md:gap-10">
+
+                  {/* ── Section 1: Featured / Horizontal cards ── */}
+                  {horizontal.length > 0 && (
+                    <div className="flex flex-col gap-6 sm:gap-8">
+                      {horizontal.map((project, idx) => (
+                        <motion.div
+                          key={project.id}
+                          layout
+                          custom={Math.min(idx, 3) * 0.06}
+                          variants={cardVariants}
+                          initial="hidden"
+                          whileInView="visible"
+                          exit="exit"
+                          viewport={{ once: true, amount: 0.05, margin: "40px" }}
+                        >
+                          <HorizontalCard
+                            project={project}
+                            index={idx}
+                            serialNo={serialMap.get(project.id) ?? idx + 1}
+                            reversed={idx % 2 !== 0}
+                          />
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Divider between sections */}
+                  {horizontal.length > 0 && vertical.length > 0 && (
+                    <div className="flex items-center gap-4">
+                      <div className="flex-1 h-px bg-white/[0.05]" />
+                      <span className="text-[9px] text-gray-600 uppercase tracking-[0.3em] font-mono select-none">More work</span>
+                      <div className="flex-1 h-px bg-white/[0.05]" />
+                    </div>
+                  )}
+
+                  {/* ── Section 2: Regular / Vertical cards in 3-col grid ── */}
+                  {vertical.length > 0 && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                      {vertical.map((project, idx) => (
+                        <motion.div
+                          key={project.id}
+                          layout
+                          custom={Math.min(idx, 4) * 0.05 + 0.05}
+                          variants={cardVariants}
+                          initial="hidden"
+                          whileInView="visible"
+                          exit="exit"
+                          viewport={{ once: true, amount: 0.05, margin: "40px" }}
+                        >
+                          <VerticalCard
+                            project={project}
+                            index={idx}
+                            serialNo={serialMap.get(project.id) ?? horizontal.length + idx + 1}
+                          />
+                        </motion.div>
+                      ))}
+
+                      {/* Manifesto quiet block at the end of vertical grid */}
+                      {activeCategory === "All" && searchQuery === "" && (
+                        <motion.div
+                          layout
+                          initial={{ opacity: 0, y: 12 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true, amount: 0.05, margin: "40px" }}
+                          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+                        >
+                          <QuietSpaceBlock />
+                        </motion.div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* If ALL projects are featured (horizontal only), append manifesto below */}
+                  {vertical.length === 0 && activeCategory === "All" && searchQuery === "" && (
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.05, margin: "40px" }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+                      className="md:max-w-md"
+                    >
+                      <QuietSpaceBlock />
+                    </motion.div>
+                  )}
+                </div>
+              );
+            })()}
+          </AnimatePresence>
 
           {/* Empty Search Result state */}
           {filteredProjects.length === 0 && (
