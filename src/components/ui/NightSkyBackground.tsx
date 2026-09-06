@@ -116,10 +116,34 @@ export function NightSkyBackground() {
     let shootingStars: ShootingStar[] = [];
 
     const spawnShootingStar = () => {
-      const angle = (Math.random() * 15 + 30) * (Math.PI / 180);
-      const speed = Math.random() * 10 + 9;
-      const length = Math.random() * 160 + 110;
-      const widthVal = Math.random() * 1.2 + 0.8;
+      const angle = (Math.random() * 20 + 25) * (Math.PI / 180);
+
+      // Randomize Speed Type: Speedy / Slow / Standard
+      const typeRoll = Math.random();
+      let speed: number;
+      let length: number;
+      let maxLife: number;
+      let widthVal: number;
+
+      if (typeRoll < 0.38) {
+        // Speedy / Fast Meteor (Lightning streak)
+        speed = Math.random() * 10 + 18; // 18-28 px/frame
+        length = Math.random() * 120 + 200; // long 200-320px streak
+        maxLife = Math.floor(Math.random() * 18 + 22);
+        widthVal = Math.random() * 0.6 + 1.2;
+      } else if (typeRoll < 0.70) {
+        // Gentle / Slow Meteor (Drifting star)
+        speed = Math.random() * 3 + 4.5; // 4.5-7.5 px/frame
+        length = Math.random() * 60 + 90; // 90-150px soft trail
+        maxLife = Math.floor(Math.random() * 35 + 70);
+        widthVal = Math.random() * 0.5 + 0.8;
+      } else {
+        // Standard Meteor
+        speed = Math.random() * 5 + 10; // 10-15 px/frame
+        length = Math.random() * 80 + 130;
+        maxLife = Math.floor(Math.random() * 25 + 40);
+        widthVal = Math.random() * 0.5 + 1.0;
+      }
 
       const spawnOnTop = Math.random() < 0.65;
       const startX = spawnOnTop
@@ -128,8 +152,6 @@ export function NightSkyBackground() {
       const startY = spawnOnTop
         ? -Math.random() * 50
         : Math.random() * (height * 0.5);
-
-      const maxLife = Math.floor(Math.random() * 40 + 55);
 
       shootingStars.push({
         x: startX,
@@ -140,9 +162,9 @@ export function NightSkyBackground() {
         dx: Math.cos(angle) * speed,
         dy: Math.sin(angle) * speed,
         opacity: 0,
-        maxOpacity: Math.random() * 0.4 + 0.55,
+        maxOpacity: Math.random() * 0.35 + 0.6,
         width: widthVal,
-        color: "#FFFFFF",
+        color: Math.random() < 0.3 ? "#E0F2FE" : "#FFFFFF",
         life: 0,
         maxLife,
       });
@@ -173,8 +195,9 @@ export function NightSkyBackground() {
       }
     };
 
+    // Frequent, lively shooting star interval (~1s to 2.5s)
     let spawnTimer = 0;
-    const nextSpawnInterval = () => Math.floor(Math.random() * 200 + 180);
+    const nextSpawnInterval = () => Math.floor(Math.random() * 90 + 55);
     let currentInterval = nextSpawnInterval();
 
     // Event Listeners for Mouse Interactivity
@@ -296,6 +319,10 @@ export function NightSkyBackground() {
       spawnTimer++;
       if (spawnTimer >= currentInterval) {
         spawnShootingStar();
+        // 35% chance to spawn a second twin shooting star right after
+        if (Math.random() < 0.35) {
+          setTimeout(() => spawnShootingStar(), Math.random() * 200 + 80);
+        }
         spawnTimer = 0;
         currentInterval = nextSpawnInterval();
       }
