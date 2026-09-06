@@ -198,7 +198,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
       ? urlFor(profile.avatar).width(600).height(600).fit("crop").url()
       : "/sazzadsunfi.jpg";
 
-  const images = ["/sunfi1.jpg", avatarSrc];
+  const images = ["/sunfi1.jpg", "/sunfi3.jpg"];
   const [currentIdx, setCurrentIdx] = useState(0);
   const [contributionCount, setContributionCount] = useState<string | number>("...");
 
@@ -522,7 +522,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                         fill
                         className="object-cover"
                         style={{
-                          objectPosition: src === "/sunfi1.jpg" ? "center 22%" : "center top",
+                          objectPosition: src === "/sunfi1.jpg" ? "center 22%" : "center 20%",
                         }}
                         priority
                         loading="eager"
