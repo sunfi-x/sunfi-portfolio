@@ -230,7 +230,7 @@ export function NightSkyBackground() {
       ctx.fillStyle = voidGradient;
       ctx.fillRect(0, 0, width, height);
 
-      // 2. Mouse Glow Halo under cursor
+      // 2. Ultra-subtle Mouse Glow Halo under cursor
       if (mouse.active && !isMobile) {
         const mouseGlow = ctx.createRadialGradient(
           mouse.x,
@@ -238,10 +238,9 @@ export function NightSkyBackground() {
           0,
           mouse.x,
           mouse.y,
-          180
+          70
         );
-        mouseGlow.addColorStop(0, "rgba(224, 242, 254, 0.06)"); // faint soft blue aura
-        mouseGlow.addColorStop(0.5, "rgba(165, 243, 252, 0.02)");
+        mouseGlow.addColorStop(0, "rgba(255, 255, 255, 0.015)");
         mouseGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
         ctx.fillStyle = mouseGlow;
         ctx.fillRect(0, 0, width, height);
@@ -265,7 +264,7 @@ export function NightSkyBackground() {
         const renderX = star.x + parallaxX * star.depth;
         const renderY = star.y + parallaxY * star.depth;
 
-        // Check distance to mouse for soft hover brightening effect
+        // Subtle distance check to mouse for gentle hover effect
         let currentAlpha = star.alpha;
         let currentRadius = star.radius;
 
@@ -273,10 +272,10 @@ export function NightSkyBackground() {
           const dx = mouse.x - renderX;
           const dy = mouse.y - renderY;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            const proximityFactor = 1 - dist / 120;
-            currentAlpha = Math.min(1, star.alpha + proximityFactor * 0.45);
-            currentRadius = star.radius + proximityFactor * 0.8;
+          if (dist < 70) {
+            const proximityFactor = 1 - dist / 70;
+            currentAlpha = Math.min(1, star.alpha + proximityFactor * 0.15);
+            currentRadius = star.radius + proximityFactor * 0.2;
           }
         }
 
