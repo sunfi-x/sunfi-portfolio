@@ -195,7 +195,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
   // Use CMS avatar if available, otherwise fall back to local image
   const avatarSrc =
     profile?.avatar?.asset?._ref
-      ? urlFor(profile.avatar).width(600).height(600).fit("crop").url()
+      ? urlFor(profile.avatar).width(800).height(800).url()
       : "/sazzadsunfi.jpg";
 
   const images = ["/sunfi1.jpg", avatarSrc];
@@ -522,7 +522,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
                         fill
                         className="object-cover"
                         style={{
-                          objectPosition: src === "/sunfi1.jpg" ? "center 18%" : "center top",
+                          objectPosition: i === 0 ? "center 18%" : "center 28%",
+                          transform: i === 1 ? "scale(0.92)" : "none",
+                          transformOrigin: "center top",
                         }}
                         priority
                         loading="eager"
