@@ -230,23 +230,7 @@ export function NightSkyBackground() {
       ctx.fillStyle = voidGradient;
       ctx.fillRect(0, 0, width, height);
 
-      // 2. Ultra-subtle Mouse Glow Halo under cursor
-      if (mouse.active && !isMobile) {
-        const mouseGlow = ctx.createRadialGradient(
-          mouse.x,
-          mouse.y,
-          0,
-          mouse.x,
-          mouse.y,
-          70
-        );
-        mouseGlow.addColorStop(0, "rgba(255, 255, 255, 0.015)");
-        mouseGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
-        ctx.fillStyle = mouseGlow;
-        ctx.fillRect(0, 0, width, height);
-      }
-
-      // 3. Render & Update Twinkling Stars with 3D Parallax & Mouse Proximity Interaction
+      // 2. Render & Update Twinkling Stars with 3D Parallax
       for (let i = 0; i < stars.length; i++) {
         const star = stars[i];
 
@@ -264,20 +248,8 @@ export function NightSkyBackground() {
         const renderX = star.x + parallaxX * star.depth;
         const renderY = star.y + parallaxY * star.depth;
 
-        // Subtle distance check to mouse for gentle hover effect
         let currentAlpha = star.alpha;
         let currentRadius = star.radius;
-
-        if (mouse.active && !isMobile) {
-          const dx = mouse.x - renderX;
-          const dy = mouse.y - renderY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 70) {
-            const proximityFactor = 1 - dist / 70;
-            currentAlpha = Math.min(1, star.alpha + proximityFactor * 0.15);
-            currentRadius = star.radius + proximityFactor * 0.2;
-          }
-        }
 
         ctx.save();
         ctx.globalAlpha = currentAlpha;
