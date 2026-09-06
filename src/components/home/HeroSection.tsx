@@ -522,7 +522,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                         fill
                         className="object-cover"
                         style={{
-                          objectPosition: src === "/sunfi1.jpg" ? "center 18%" : "center top",
+                          objectPosition: src === "/sunfi1.jpg" ? "center 22%" : "center top",
                         }}
                         priority
                         loading="eager"
