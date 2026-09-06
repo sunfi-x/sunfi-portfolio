@@ -198,17 +198,17 @@ export function HeroSection({ profile }: HeroSectionProps) {
       ? urlFor(profile.avatar).width(600).height(600).fit("crop").url()
       : "/sazzadsunfi.jpg";
 
-  const images = ["/sunfi1.jpg", "/sunfi3.jpg"];
+  const images = ["/sazzadsunfi.jpg", "/sunfi3.jpg"];
   const [currentIdx, setCurrentIdx] = useState(0);
   const [contributionCount, setContributionCount] = useState<string | number>("...");
 
   useEffect(() => {
     const swapInterval = setInterval(() => {
       setCurrentIdx((prev) => (prev + 1) % images.length);
-    }, 4000);
+    }, 3000);
 
     return () => clearInterval(swapInterval);
-  }, [avatarSrc]);
+  }, [images.length]);
 
   useEffect(() => {
     const fetchContributions = async () => {
@@ -522,7 +522,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                         fill
                         className="object-cover"
                         style={{
-                          objectPosition: src === "/sunfi1.jpg" ? "center 22%" : "center 20%",
+                          objectPosition: src === "/sazzadsunfi.jpg" ? "center top" : "center 20%",
                         }}
                         priority
                         loading="eager"
