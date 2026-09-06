@@ -383,7 +383,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 className={`quicksandHeading hero-name-container mb-4 text-white leading-[1.1] flex flex-row flex-wrap items-center justify-center lg:justify-start gap-x-2 sm:gap-x-3`}
             >
               <span className="font-semibold text-white">{firstName}&nbsp;</span>
-              <span className="font-bold text-[#C83228D9] relative inline-block">
+              <span className="font-bold text-[#AB2020] relative inline-block">
                 {lastName}
               </span>
             </motion.h1>
@@ -397,7 +397,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 <span key={index} className="inline-block">
                   {part.trim()}
                   {index < array.length - 1 && (
-                    <span className="text-[#C83228D9] mx-3 opacity-70 inline-block translate-y-[-1px]">|</span>
+                    <span className="text-[#AB2020] mx-3 opacity-70 inline-block translate-y-[-1px]">|</span>
                   )}
                 </span>
               ))}
