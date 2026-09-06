@@ -325,7 +325,12 @@ export function ImageCard({ actIndex, triggerKey, badgeDeltaX, badgeDeltaY }: {
                 animate={{ opacity: i === actIndex ? 1 : 0 }} transition={{ duration: 0.6 }}>
                                 <Image src={a.image} alt={`Sunfi – Act ${i + 1}`} fill
                   sizes="(max-width: 768px) 90vw, (max-width: 1280px) 45vw, 320px"
-                  className="object-cover object-top"
+                  className="object-cover"
+                  style={{
+                    objectPosition: i === 0 ? "center 18%" : "center top",
+                    transform: i === 0 ? "scale(1.18)" : "none",
+                    transformOrigin: "center 20%",
+                  }}
                   priority={i === 0} />
               </motion.div>
             ))}
