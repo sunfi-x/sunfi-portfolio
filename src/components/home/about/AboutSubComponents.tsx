@@ -327,9 +327,9 @@ export function ImageCard({ actIndex, triggerKey, badgeDeltaX, badgeDeltaY }: {
                   sizes="(max-width: 768px) 90vw, (max-width: 1280px) 45vw, 320px"
                   className="object-cover"
                   style={{
-                    objectPosition: i === 0 ? "center 18%" : "center top",
-                    transform: i === 0 ? "scale(1.18)" : "none",
-                    transformOrigin: "center 20%",
+                    objectPosition: i === 0 ? "center 15%" : "center top",
+                    transform: i === 0 ? "scale(1.42)" : "none",
+                    transformOrigin: "center 16%",
                   }}
                   priority={i === 0} />
               </motion.div>
