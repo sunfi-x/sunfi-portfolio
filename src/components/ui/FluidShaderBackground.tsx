@@ -2,17 +2,21 @@
 
 import React, { useEffect, useRef } from "react";
 
-interface TrailPoint {
+interface SmokeParticle {
   x: number;
   y: number;
   vx: number;
   vy: number;
-  radius: number;
+  size: number;
+  maxSize: number;
   alpha: number;
+  maxAlpha: number;
+  life: number;
+  maxLife: number;
+  rotation: number;
+  rotSpeed: number;
   colorStop0: string;
   colorStop1: string;
-  rotation: number;
-  life: number;
 }
 
 export function FluidShaderBackground() {
@@ -28,7 +32,7 @@ export function FluidShaderBackground() {
     let width = 0;
     let height = 0;
 
-    // Mouse tracking with smooth lerp
+    // Mouse position & velocity tracking
     const mouse = {
       x: -1000,
       y: -1000,
@@ -36,7 +40,8 @@ export function FluidShaderBackground() {
       targetY: -1000,
       prevX: -1000,
       prevY: -1000,
-      speed: 0,
+      vx: 0,
+      vy: 0,
       active: false,
     };
 
@@ -77,197 +82,159 @@ export function FluidShaderBackground() {
     window.addEventListener("touchmove", handleTouchMove);
     handleResize();
 
-    // Shader Color Palettes matching shaders.com & image reference
-    const colorPalettes = [
-      { stop0: "rgba(124, 58, 237, 0.85)", stop1: "rgba(76, 29, 149, 0)" },   // Deep Violet
-      { stop0: "rgba(59, 130, 246, 0.80)", stop1: "rgba(30, 58, 138, 0)" },   // Electric Blue
-      { stop0: "rgba(6, 182, 212, 0.70)", stop1: "rgba(14, 116, 144, 0)" },  // Neon Cyan
-      { stop0: "rgba(192, 38, 211, 0.75)", stop1: "rgba(112, 26, 117, 0)" }, // Vibrant Magenta
-      { stop0: "rgba(147, 51, 234, 0.80)", stop1: "rgba(88, 28, 135, 0)" },  // Royal Purple
+    // Soft Smoke Color Tones (Velvety violet, electric purple, indigo & cyan highlights)
+    const smokeColors = [
+      { stop0: "rgba(139, 92, 246, ", stop1: "rgba(76, 29, 149, 0)" },  // Electric Violet
+      { stop0: "rgba(99, 102, 241, ", stop1: "rgba(30, 58, 138, 0)" },  // Indigo Smoke
+      { stop0: "rgba(168, 85, 247, ", stop1: "rgba(88, 28, 135, 0)" },  // Royal Purple Smoke
+      { stop0: "rgba(14, 165, 233, ", stop1: "rgba(14, 116, 144, 0)" }, // Cyan Smoke Highlight
+      { stop0: "rgba(217, 70, 239, ", stop1: "rgba(112, 26, 117, 0)" }, // Magenta Smoke Touch
     ];
 
-    // Orbiting shader control blobs attached to cursor
-    const orbiters = colorPalettes.map((palette, i) => ({
-      angle: (i / colorPalettes.length) * Math.PI * 2,
-      distance: 60 + (i % 3) * 40,
-      speed: (0.015 + (i % 2) * 0.01) * (i % 2 === 0 ? 1 : -1),
-      radius: 220 + (i % 3) * 70,
-      palette,
-      x: 0,
-      y: 0,
-    }));
-
-    // Dynamic Trail Points generated along mouse movement
-    const trailPoints: TrailPoint[] = [];
-
+    const smokeParticles: SmokeParticle[] = [];
     let time = 0;
 
-    // Create high-detail film grain overlay texture
-    const grainCanvas = document.createElement("canvas");
-    grainCanvas.width = 256;
-    grainCanvas.height = 256;
-    const grainCtx = grainCanvas.getContext("2d");
-    if (grainCtx) {
-      const grainImg = grainCtx.createImageData(256, 256);
-      const data = grainImg.data;
-      for (let i = 0; i < data.length; i += 4) {
-        const val = Math.random() * 255;
-        data[i] = val;
-        data[i + 1] = val;
-        data[i + 2] = val;
-        data[i + 3] = 18; // Tactile grain opacity
-      }
-      grainCtx.putImageData(grainImg, 0, 0);
-    }
-    const grainPattern = ctx.createPattern(grainCanvas, "repeat");
+    // Helper: Create soft volumetric smoke cloud texture
+    const createSmokeTexture = (colorStop0: string, colorStop1: string, alpha: number) => {
+      const pCanvas = document.createElement("canvas");
+      pCanvas.width = 128;
+      pCanvas.height = 128;
+      const pCtx = pCanvas.getContext("2d");
+      if (!pCtx) return pCanvas;
+
+      const grad = pCtx.createRadialGradient(64, 64, 0, 64, 64, 64);
+      grad.addColorStop(0, `${colorStop0}${alpha})`);
+      grad.addColorStop(0.35, `${colorStop0}${alpha * 0.45})`);
+      grad.addColorStop(0.7, `${colorStop0}${alpha * 0.15})`);
+      grad.addColorStop(1, colorStop1);
+
+      pCtx.fillStyle = grad;
+      pCtx.beginPath();
+      pCtx.arc(64, 64, 64, 0, Math.PI * 2);
+      pCtx.fill();
+
+      return pCanvas;
+    };
+
+    // Cache soft smoke textures
+    const smokeTextures = smokeColors.map((col) => ({
+      tex: createSmokeTexture(col.stop0, col.stop1, 0.25),
+      col,
+    }));
 
     const render = () => {
-      time += 0.02;
+      time += 0.015;
 
-      // Calculate mouse speed and smooth lerp position
-      const dx = mouse.targetX - mouse.x;
-      const dy = mouse.targetY - mouse.y;
-      mouse.speed = Math.sqrt(dx * dx + dy * dy);
+      // Mouse smooth position & velocity calculation
+      mouse.vx = (mouse.targetX - mouse.x) * 0.1;
+      mouse.vy = (mouse.targetY - mouse.y) * 0.1;
+      mouse.x += mouse.vx;
+      mouse.y += mouse.vy;
 
-      mouse.x += dx * 0.08;
-      mouse.y += dy * 0.08;
+      const mouseSpeed = Math.sqrt(mouse.vx * mouse.vx + mouse.vy * mouse.vy);
 
-      // Spawn new shader trail points as mouse moves
-      if (mouse.active && (Math.abs(dx) > 1 || Math.abs(dy) > 1)) {
-        const palette = colorPalettes[trailPoints.length % colorPalettes.length];
-        trailPoints.push({
-          x: mouse.x + (Math.random() - 0.5) * 20,
-          y: mouse.y + (Math.random() - 0.5) * 20,
-          vx: (mouse.x - mouse.prevX) * 0.15 + (Math.random() - 0.5) * 0.5,
-          vy: (mouse.y - mouse.prevY) * 0.15 + (Math.random() - 0.5) * 0.5,
-          radius: 180 + Math.random() * 120 + Math.min(mouse.speed * 2, 100),
-          alpha: 0.8,
-          colorStop0: palette.stop0,
-          colorStop1: palette.stop1,
-          rotation: Math.random() * Math.PI * 2,
-          life: 1.0,
-        });
+      // Spawn continuous gaseous smoke particles along mouse movement
+      if (mouse.active && (Math.abs(mouse.vx) > 0.05 || Math.abs(mouse.vy) > 0.05 || mouseSpeed > 0.1)) {
+        const spawnCount = Math.min(Math.floor(mouseSpeed * 0.8) + 2, 6);
+
+        for (let i = 0; i < spawnCount; i++) {
+          const colorIdx = Math.floor(Math.random() * smokeColors.length);
+          const colorObj = smokeColors[colorIdx];
+
+          // Random offset around cursor for organic smoke volume
+          const angle = Math.random() * Math.PI * 2;
+          const spread = Math.random() * 25;
+
+          smokeParticles.push({
+            x: mouse.x + Math.cos(angle) * spread,
+            y: mouse.y + Math.sin(angle) * spread,
+            vx: mouse.vx * 0.35 + (Math.random() - 0.5) * 1.2,
+            vy: mouse.vy * 0.35 + (Math.random() - 0.5) * 1.2 - 0.3, // Subtle thermal upward drift
+            size: 60 + Math.random() * 50,
+            maxSize: 180 + Math.random() * 140,
+            alpha: 0.22 + Math.random() * 0.12,
+            maxAlpha: 0.25,
+            life: 0,
+            maxLife: 90 + Math.random() * 60, // ~2-3 seconds lifetime
+            rotation: Math.random() * Math.PI * 2,
+            rotSpeed: (Math.random() - 0.5) * 0.015,
+            colorStop0: colorObj.stop0,
+            colorStop1: colorObj.stop1,
+          });
+        }
       }
 
       mouse.prevX = mouse.x;
       mouse.prevY = mouse.y;
 
-      // Cap trail max points to keep performance butter smooth
-      if (trailPoints.length > 35) {
-        trailPoints.shift();
+      // Limit particle count for high 60fps performance
+      if (smokeParticles.length > 180) {
+        smokeParticles.splice(0, smokeParticles.length - 180);
       }
 
-      // Clear canvas with rich pitch black
+      // PURE PITCH BLACK CANVAS (No grain overlay)
       ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, width, height);
 
-      // Set blend mode to screen for vibrant fluid color mixing
+      // Screen blend mode for seamless gaseous smoke ribbon blending
       ctx.globalCompositeOperation = "screen";
 
-      // 1. Render Mouse Trail Shader Blobs (generated along mouse path)
-      for (let i = trailPoints.length - 1; i >= 0; i--) {
-        const p = trailPoints[i];
-        p.life -= 0.015;
-        p.x += p.vx;
-        p.y += p.vy;
+      // Render and update smoke particles
+      for (let i = smokeParticles.length - 1; i >= 0; i--) {
+        const p = smokeParticles[i];
+        p.life++;
+
+        // Curl noise / sine wave fluid drift
+        const noiseX = Math.sin(time * 2 + p.y * 0.01 + i) * 0.6;
+        const noiseY = Math.cos(time * 1.5 + p.x * 0.01 + i) * 0.4;
+
+        p.x += p.vx + noiseX;
+        p.y += p.vy + noiseY;
+
+        // Friction slowing down initial momentum
         p.vx *= 0.96;
         p.vy *= 0.96;
-        p.radius += 0.8;
 
-        if (p.life <= 0) {
-          trailPoints.splice(i, 1);
+        // Smoke expanding as it dissipates
+        const progress = p.life / p.maxLife;
+        const currentSize = p.size + (p.maxSize - p.size) * Math.sin(progress * Math.PI * 0.5);
+        p.rotation += p.rotSpeed;
+
+        // Smooth fade-in and fade-out curve
+        let currentAlpha = 0;
+        if (progress < 0.15) {
+          currentAlpha = (progress / 0.15) * p.alpha;
+        } else {
+          currentAlpha = (1 - (progress - 0.15) / 0.85) * p.alpha;
+        }
+
+        if (p.life >= p.maxLife || currentAlpha <= 0.001) {
+          smokeParticles.splice(i, 1);
           continue;
         }
 
-        const currentAlpha = p.life * p.alpha;
-        const gradient = ctx.createRadialGradient(
-          p.x,
-          p.y,
-          0,
-          p.x,
-          p.y,
-          Math.max(p.radius, 10)
-        );
+        // Draw soft gaseous smoke cloud
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.globalAlpha = currentAlpha;
 
-        gradient.addColorStop(
-          0,
-          p.colorStop0.replace(/[\d\.]+\)$/, `${currentAlpha})`)
-        );
-        gradient.addColorStop(
-          0.6,
-          p.colorStop0.replace(/[\d\.]+\)$/, `${currentAlpha * 0.35})`)
-        );
-        gradient.addColorStop(1, p.colorStop1);
+        const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, currentSize);
+        grad.addColorStop(0, `${p.colorStop0}0.45)`);
+        grad.addColorStop(0.4, `${p.colorStop0}0.2)`);
+        grad.addColorStop(0.75, `${p.colorStop0}0.05)`);
+        grad.addColorStop(1, p.colorStop1);
 
-        ctx.fillStyle = gradient;
+        ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, Math.max(p.radius, 10), 0, Math.PI * 2);
+        ctx.arc(0, 0, currentSize, 0, Math.PI * 2);
         ctx.fill();
-      }
 
-      // 2. Render Main Orbiting Shader Mesh directly under Cursor
-      if (mouse.active && mouse.x > 0 && mouse.y > 0) {
-        orbiters.forEach((orb, i) => {
-          orb.angle += orb.speed;
-
-          // Organic wobbly orbit centered on mouse cursor
-          const currentDist = orb.distance + Math.sin(time * 2 + i) * 25;
-          const targetOrbX = mouse.x + Math.cos(orb.angle) * currentDist;
-          const targetOrbY = mouse.y + Math.sin(orb.angle) * currentDist;
-
-          orb.x += (targetOrbX - orb.x) * 0.1;
-          orb.y += (targetOrbY - orb.y) * 0.1;
-
-          const dynamicRadius =
-            orb.radius + Math.sin(time * 1.8 + i) * 35 + Math.min(mouse.speed * 1.5, 80);
-
-          const gradient = ctx.createRadialGradient(
-            orb.x,
-            orb.y,
-            0,
-            orb.x,
-            orb.y,
-            Math.max(dynamicRadius, 10)
-          );
-
-          gradient.addColorStop(0, orb.palette.stop0);
-          gradient.addColorStop(
-            0.5,
-            orb.palette.stop0.replace(/[\d\.]+\)$/, "0.4)")
-          );
-          gradient.addColorStop(1, orb.palette.stop1);
-
-          ctx.fillStyle = gradient;
-          ctx.beginPath();
-          ctx.arc(orb.x, orb.y, Math.max(dynamicRadius, 10), 0, Math.PI * 2);
-          ctx.fill();
-        });
+        ctx.restore();
       }
 
       // Reset composite mode
       ctx.globalCompositeOperation = "source-over";
-
-      // 3. Subtle edge vignette to blend cleanly into pure black page border
-      const vignette = ctx.createRadialGradient(
-        width * 0.5,
-        height * 0.5,
-        Math.min(width, height) * 0.4,
-        width * 0.5,
-        height * 0.5,
-        Math.max(width, height) * 0.85
-      );
-      vignette.addColorStop(0, "rgba(0,0,0,0)");
-      vignette.addColorStop(0.8, "rgba(0,0,0,0.5)");
-      vignette.addColorStop(1, "rgba(0,0,0,0.95)");
-
-      ctx.fillStyle = vignette;
-      ctx.fillRect(0, 0, width, height);
-
-      // 4. Shader Film Grain Overlay across active shader area
-      if (grainPattern) {
-        ctx.fillStyle = grainPattern;
-        ctx.fillRect(0, 0, width, height);
-      }
 
       animationFrameId = requestAnimationFrame(render);
     };
