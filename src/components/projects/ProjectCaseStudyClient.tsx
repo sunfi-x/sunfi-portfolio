@@ -26,6 +26,7 @@ import type { Project } from "@/sanity/lib/types";
 import { getProjectDetailData } from "@/data/project-details-data";
 import { ProjectImageGallery } from "./ProjectImageGallery";
 import { ArchitectureVisualizer } from "./ArchitectureVisualizer";
+import { SystemConceptsGrid } from "./SystemConceptsGrid";
 
 interface ProjectCaseStudyProps {
   project: Project;
@@ -44,6 +45,7 @@ export function ProjectCaseStudyClient({ project }: ProjectCaseStudyProps) {
     return [
       { id: "summary", label: "Executive Summary" },
       { id: "problem", label: "Problem & Motivation" },
+      { id: "concepts", label: "System Concepts & Methods" },
       { id: "architecture", label: "System Architecture" },
       { id: "tech-stack", label: "Tech Stack & Tools" },
       { id: "challenges", label: "Engineering Breakthroughs" },
@@ -327,7 +329,19 @@ export function ProjectCaseStudyClient({ project }: ProjectCaseStudyProps) {
               </div>
             </section>
 
-            {/* --- SECTION 3: SYSTEM ARCHITECTURE & DATA FLOW --- */}
+            {/* --- SECTION 3: SYSTEM CONCEPTS & INTERACTIVE METHODS --- */}
+            <section id="concepts" className="scroll-mt-32 space-y-6">
+              <div className="flex items-center gap-3 border-b border-white/[0.08] pb-4">
+                <Cpu className="w-5 h-5 text-[#10B981]" />
+                <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                  System Concepts &amp; Methods
+                </h2>
+              </div>
+
+              <SystemConceptsGrid />
+            </section>
+
+            {/* --- SECTION 4: SYSTEM ARCHITECTURE & DATA FLOW --- */}
             <section id="architecture" className="scroll-mt-32 space-y-6">
               <div className="flex items-center gap-3 border-b border-white/[0.08] pb-4">
                 <Layers className="w-5 h-5 text-sky-400" />
