@@ -13,6 +13,7 @@ import { GeistSans } from "geist/font/sans";
 
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { useState, useEffect } from "react";
+import { SmokeTrailCanvas } from "@/components/ui/SmokeTrailCanvas";
 
 // CSS import for Space Grotesk is handled in JSX style block
 
@@ -241,6 +242,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
       className="relative flex items-center justify-center pt-24 pb-16 bg-transparent overflow-hidden min-h-[85vh] hero-mobile-fix"
       style={{ willChange: "transform", transform: "translateZ(0)" }}
     >
+      {/* Full-bleed mouse-reactive Smoke Trail Canvas */}
+      <SmokeTrailCanvas />
+
       <style jsx global>{`
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
 
