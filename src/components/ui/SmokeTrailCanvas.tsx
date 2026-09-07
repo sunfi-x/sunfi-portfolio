@@ -66,9 +66,9 @@ const CFG = {
   // TINT: very subtle warm-red hint tied to site's #E53935 / #AB2020 theme
   TINT_RGB: [229, 57, 53] as [number, number, number],
   // Per-particle probability of having a tint (0 = none, 1 = all)
-  TINT_CHANCE: 0.25,
+  TINT_CHANCE: 0.65,
   // Maximum tint fraction (0 = pure white smoke, 0.08 = barely visible red)
-  TINT_MAX: 0.07,
+  TINT_MAX: 0.75,
 };
 
 // ============================================================================
