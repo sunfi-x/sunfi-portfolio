@@ -250,13 +250,18 @@ export function SpiderCornerWeb() {
       is360: true,
     };
 
-    const leftCorner = createCornerWebGrid(leftCornerConfig);
-    const avatarRadial = createRadial360WebGrid(avatarRadialConfig);
+    const webs: { grid: WebNode[][]; focal: WebNode; config: WebConfig }[] = [];
 
-    websRef.current = [
-      { grid: leftCorner.grid, focal: leftCorner.focal, config: leftCornerConfig },
-      { grid: avatarRadial.grid, focal: avatarRadial.focal, config: avatarRadialConfig },
-    ];
+    // Only include Top-Left web if NOT on mobile (w >= 768)
+    if (w >= 768) {
+      const leftCorner = createCornerWebGrid(leftCornerConfig);
+      webs.push({ grid: leftCorner.grid, focal: leftCorner.focal, config: leftCornerConfig });
+    }
+
+    const avatarRadial = createRadial360WebGrid(avatarRadialConfig);
+    webs.push({ grid: avatarRadial.grid, focal: avatarRadial.focal, config: avatarRadialConfig });
+
+    websRef.current = webs;
   }, []);
 
   useEffect(() => {

@@ -102,22 +102,21 @@ function CuteSpiderWebSVG({ size, spokes, rings }: { size: number; spokes: numbe
 export function SpiderWebClickEffect() {
   const [bursts, setBursts] = useState<WebBurst[]>([]);
 
-  const handleClick = useCallback((e: MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (target.closest("button, a, input, textarea")) return;
+  const handleTrigger = useCallback((clientX: number, clientY: number, target: HTMLElement | null) => {
+    if (target?.closest("button, a, input, textarea")) return;
 
     const heroSection = document.getElementById("hero");
     if (!heroSection) return;
 
     const rect = heroSection.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
 
     const newBurst: WebBurst = {
       id: Date.now() + Math.random(),
       x,
       y,
-      size: Math.floor(140 + Math.random() * 50), // Small-medium cute size (140px - 190px)
+      size: Math.floor(120 + Math.random() * 45), // Responsive size (120px - 165px)
       spokes: Math.floor(8 + Math.random() * 2), // 8-9 spokes
       rings: Math.floor(4 + Math.random() * 2), // 4-5 concentric rings
     };
@@ -125,15 +124,28 @@ export function SpiderWebClickEffect() {
     setBursts((prev) => [...prev.slice(-4), newBurst]);
   }, []);
 
+  const handleClick = useCallback((e: MouseEvent) => {
+    handleTrigger(e.clientX, e.clientY, e.target as HTMLElement);
+  }, [handleTrigger]);
+
+  const handleTouch = useCallback((e: TouchEvent) => {
+    if (e.touches && e.touches.length > 0) {
+      const touch = e.touches[0];
+      handleTrigger(touch.clientX, touch.clientY, e.target as HTMLElement);
+    }
+  }, [handleTrigger]);
+
   useEffect(() => {
     const heroSection = document.getElementById("hero");
     if (!heroSection) return;
 
     heroSection.addEventListener("click", handleClick);
+    heroSection.addEventListener("touchstart", handleTouch, { passive: true });
     return () => {
       heroSection.removeEventListener("click", handleClick);
+      heroSection.removeEventListener("touchstart", handleTouch);
     };
-  }, [handleClick]);
+  }, [handleClick, handleTouch]);
 
   // Remove expired bursts after 5.5s
   useEffect(() => {
