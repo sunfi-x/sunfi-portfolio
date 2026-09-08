@@ -424,7 +424,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 <span key={index} className="inline-block">
                   {part.trim()}
                   {index < array.length - 1 && (
-                    <span className="text-[#AB2020] mx-3 opacity-70 inline-block translate-y-[-1px]">|</span>
+                    <span className="text-[#E0291D] mx-3 opacity-70 inline-block translate-y-[-1px]">|</span>
                   )}
                 </span>
               ))}

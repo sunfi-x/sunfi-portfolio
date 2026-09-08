@@ -17,13 +17,13 @@ interface PoseConfig {
 }
 
 const POSES: PoseConfig[] = [
-  // 1. Top Center Header (spiderman1 - upside down hanging)
+  // 1. Top Header Left Blank Space (spiderman1 - upside down hanging, bigger & shifted left)
   {
     src: "/spiderman/spiderman1.png",
     alt: "Spider-Man Hanging Upside Down",
-    containerStyle: { top: "0%", left: "50%", transform: "translateX(-50%)" },
-    widthPx: 220,
-    heightPx: 330,
+    containerStyle: { top: "0%", left: "40%", transform: "translateX(-50%)" },
+    widthPx: 260,
+    heightPx: 390,
     hasWebThreadTop: true,
     initialAnimation: { y: -350, opacity: 0, scale: 0.8 },
     animateAnimation: { y: 0, opacity: 1, scale: 1 },
@@ -40,11 +40,11 @@ const POSES: PoseConfig[] = [
     animateAnimation: { x: 0, opacity: 1 },
     exitAnimation: { y: -300, x: -150, opacity: 0, rotate: -20 }, // Leaps out up-left
   },
-  // 3. Bottom Center Ground (spiderman3 - sitting crouching)
+  // 3. Bottom Center-Left Ground (spiderman3 - sitting crouching shifted slightly left)
   {
     src: "/spiderman/spiderman3.png",
     alt: "Spider-Man Sitting Bottom Ground",
-    containerStyle: { bottom: "2%", left: "48%", transform: "translateX(-50%)" },
+    containerStyle: { bottom: "2%", left: "40%", transform: "translateX(-50%)" },
     widthPx: 260,
     heightPx: 290,
     initialAnimation: { y: 250, opacity: 0, scale: 0.8 },
@@ -96,11 +96,11 @@ const POSES: PoseConfig[] = [
     animateAnimation: { x: 0, opacity: 1 },
     exitAnimation: { y: -250, x: 200, opacity: 0, rotate: 15 }, // Swings out top-right
   },
-  // 8. Middle Gap Between Bio & Profile Photo (spiderman8)
+  // 8. Middle Gap Shifted Left (spiderman8)
   {
     src: "/spiderman/spiderman8.png",
     alt: "Spider-Man Middle Blank Space",
-    containerStyle: { top: "48%", left: "44%", transform: "translate(-50%, -50%)" },
+    containerStyle: { top: "48%", left: "38%", transform: "translate(-50%, -50%)" },
     widthPx: 250,
     heightPx: 300,
     initialAnimation: { scale: 0.1, opacity: 0 },
