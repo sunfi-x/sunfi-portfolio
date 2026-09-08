@@ -13,8 +13,9 @@ import { GeistSans } from "geist/font/sans";
 
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { useState, useEffect } from "react";
-import { SmokeFlowBackground } from "@/components/ui/SmokeFlowBackground";
-import { SmokeTrailCanvas } from "@/components/ui/SmokeTrailCanvas";
+import { SpiderWebClickEffect } from "@/components/ui/SpiderWebClickEffect";
+import { SpidermanPoseManager } from "@/components/ui/SpidermanPoseManager";
+import { SpiderCornerWeb } from "@/components/ui/SpiderCornerWeb";
 
 // CSS import for Space Grotesk is handled in JSX style block
 
@@ -240,11 +241,17 @@ export function HeroSection({ profile }: HeroSectionProps) {
   return (
     <section
       id="hero"
-      className="relative flex items-center justify-center pt-24 pb-16 bg-transparent overflow-hidden min-h-[85vh] hero-mobile-fix"
+      className="relative flex items-center justify-center pt-4 pb-4 bg-black overflow-hidden min-h-[85vh] hero-mobile-fix"
       style={{ willChange: "transform", transform: "translateZ(0)" }}
     >
-      {/* Mouse-reactive Fluid Curl-Noise Smoke Trail Layer */}
-      <SmokeTrailCanvas />
+      {/* Spider-Man Interactive Click Web Burst Layer */}
+      <SpiderWebClickEffect />
+
+      {/* Realistic Interactive Corner Spider Webs & Avatar 360 Radial Web (z-[2]) */}
+      <SpiderCornerWeb />
+
+      {/* Spider-Man Dynamic Character Pose System (z-[5]) */}
+      <SpidermanPoseManager />
 
       <style jsx global>{`
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
@@ -362,7 +369,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
 }
 `}</style>
 
-      <div className="container mx-auto px-6 lg:px-12 z-[2] relative">
+      <div className="container mx-auto px-6 lg:px-12 z-[10] relative">
         <motion.div
           className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center"
           variants={containerVariants}
@@ -489,7 +496,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
 
           {/* Right Column: Profile Picture & Orbits */}
           <div className="relative flex items-center justify-center order-1 lg:order-2 h-[350px] md:h-[450px] lg:h-[600px] w-full mt-10 lg:mt-0 hero-image-container">
-            <div className="relative group w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 z-10">
+            <div id="hero-avatar-center" className="relative group w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 z-10">
               {/* Multi-layered glowing borders */}
               <motion.div
                 animate={{ rotate: 360 }}
