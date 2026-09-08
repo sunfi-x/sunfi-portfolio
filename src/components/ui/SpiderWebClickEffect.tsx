@@ -6,7 +6,6 @@ interface WebBurst {
   id: number;
   x: number;
   y: number;
-  rotation: number;
   size: number;
   spokes: number;
   rings: number;
@@ -16,7 +15,7 @@ interface WebBurst {
 function CuteSpiderWebSVG({ size, spokes, rings }: { size: number; spokes: number; rings: number }) {
   const cx = size / 2;
   const cy = size / 2;
-  const maxR = size / 2 - 8;
+  const maxR = size / 2 - 6;
 
   const spokeAngles: number[] = [];
   for (let i = 0; i < spokes; i++) {
@@ -47,7 +46,6 @@ function CuteSpiderWebSVG({ size, spokes, rings }: { size: number; spokes: numbe
       const x2 = cx + Math.cos(a2) * currentR;
       const y2 = cy + Math.sin(a2) * currentR;
 
-      // Sag control point toward hub
       const midX = (x1 + x2) / 2;
       const midY = (y1 + y2) / 2;
       const cpX = cx + (midX - cx) * 0.82;
@@ -79,7 +77,7 @@ function CuteSpiderWebSVG({ size, spokes, rings }: { size: number; spokes: numbe
       className="w-full h-full drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]"
     >
       <g
-        stroke="rgba(240, 245, 255, 0.85)"
+        stroke="rgba(240, 245, 255, 0.88)"
         strokeWidth="1.1"
         strokeLinecap="round"
         fill="none"
@@ -87,14 +85,14 @@ function CuteSpiderWebSVG({ size, spokes, rings }: { size: number; spokes: numbe
         {spokeLines}
       </g>
       <g
-        stroke="rgba(220, 235, 255, 0.65)"
+        stroke="rgba(220, 235, 255, 0.68)"
         strokeWidth="0.85"
         strokeLinecap="round"
         fill="none"
       >
         {ringPaths}
       </g>
-      <g fill="rgba(255, 255, 255, 0.9)" stroke="none">
+      <g fill="rgba(255, 255, 255, 0.95)" stroke="none">
         {junctionDots}
       </g>
     </svg>
@@ -119,13 +117,12 @@ export function SpiderWebClickEffect() {
       id: Date.now() + Math.random(),
       x,
       y,
-      rotation: Math.floor(Math.random() * 360),
-      size: Math.floor(140 + Math.random() * 60), // Small-medium cute size (140px - 200px)
-      spokes: Math.floor(7 + Math.random() * 3), // 7-9 spokes
+      size: Math.floor(140 + Math.random() * 50), // Small-medium cute size (140px - 190px)
+      spokes: Math.floor(8 + Math.random() * 2), // 8-9 spokes
       rings: Math.floor(4 + Math.random() * 2), // 4-5 concentric rings
     };
 
-    setBursts((prev) => [...prev.slice(-4), newBurst]); // Max 5 active click webs
+    setBursts((prev) => [...prev.slice(-4), newBurst]);
   }, []);
 
   useEffect(() => {
@@ -138,7 +135,7 @@ export function SpiderWebClickEffect() {
     };
   }, [handleClick]);
 
-  // Remove expired bursts after 5.5s (4s sticky + 1.5s fade)
+  // Remove expired bursts after 5.5s
   useEffect(() => {
     if (bursts.length === 0) return;
 
@@ -155,13 +152,12 @@ export function SpiderWebClickEffect() {
       {bursts.map((burst) => (
         <div
           key={burst.id}
-          className="absolute -translate-x-1/2 -translate-y-1/2 animate-cute-spider-web"
+          className="absolute animate-cute-spider-web-fixed"
           style={{
             left: `${burst.x}px`,
             top: `${burst.y}px`,
             width: `${burst.size}px`,
             height: `${burst.size}px`,
-            transform: `translate(-50%, -50%) rotate(${burst.rotation}deg)`,
           }}
         >
           <CuteSpiderWebSVG
@@ -173,26 +169,26 @@ export function SpiderWebClickEffect() {
       ))}
 
       <style jsx global>{`
-        @keyframes cuteSpiderWebPop {
+        @keyframes cuteSpiderWebFixed {
           0% {
-            transform: translate(-50%, -50%) scale(0.15) rotate(0deg);
+            transform: translate(-50%, -50%) scale(0.3);
             opacity: 0;
           }
-          15% {
-            transform: translate(-50%, -50%) scale(1.0) rotate(6deg);
-            opacity: 0.9;
+          8% {
+            transform: translate(-50%, -50%) scale(1.0);
+            opacity: 0.95;
           }
-          75% {
-            transform: translate(-50%, -50%) scale(1.02) rotate(8deg);
-            opacity: 0.85;
+          70% {
+            transform: translate(-50%, -50%) scale(1.0);
+            opacity: 0.90;
           }
           100% {
-            transform: translate(-50%, -50%) scale(1.06) rotate(12deg);
+            transform: translate(-50%, -50%) scale(1.0);
             opacity: 0;
           }
         }
-        .animate-cute-spider-web {
-          animation: cuteSpiderWebPop 5.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .animate-cute-spider-web-fixed {
+          animation: cuteSpiderWebFixed 5.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
           will-change: transform, opacity;
         }
       `}</style>
