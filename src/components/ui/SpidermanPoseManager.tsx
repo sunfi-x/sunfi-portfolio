@@ -14,31 +14,33 @@ interface PoseConfig {
   initialAnimation: any;
   animateAnimation: any;
   exitAnimation: any;
+  transition?: any;
 }
 
 const POSES: PoseConfig[] = [
-  // 1. Top Header Left Blank Space (spiderman1 - upside down hanging, bigger & shifted left)
+  // 1. Top Header Blank Space Between Text & Avatar (spiderman1 - upside down hanging, slow descent)
   {
     src: "/spiderman/spiderman1.png",
     alt: "Spider-Man Hanging Upside Down",
-    containerStyle: { top: "0%", left: "40%", transform: "translateX(-50%)" },
+    containerStyle: { top: "0%", left: "47%", transform: "translateX(-50%)" },
     widthPx: 260,
     heightPx: 390,
     hasWebThreadTop: true,
-    initialAnimation: { y: -350, opacity: 0, scale: 0.8 },
+    initialAnimation: { y: -450, opacity: 0, scale: 0.85 },
     animateAnimation: { y: 0, opacity: 1, scale: 1 },
-    exitAnimation: { y: 150, x: 250, opacity: 0, scale: 0.6, rotate: 25 }, // Swings out down-right
+    exitAnimation: { y: 150, x: 250, opacity: 0, scale: 0.6, rotate: 25 },
+    transition: { duration: 2.2, ease: [0.16, 1, 0.3, 1] }, // Very slow & smooth descent
   },
-  // 2. Right Wall Edge (spiderman2 - wall crawling)
+  // 2. Right Wall Edge (spiderman2 - wall crawling flush to right wall & larger)
   {
     src: "/spiderman/spiderman2.png",
     alt: "Spider-Man Wall Crawling Right",
-    containerStyle: { top: "20%", right: "2%" },
-    widthPx: 240,
-    heightPx: 340,
+    containerStyle: { top: "16%", right: "0%" },
+    widthPx: 290,
+    heightPx: 410,
     initialAnimation: { x: 300, opacity: 0 },
     animateAnimation: { x: 0, opacity: 1 },
-    exitAnimation: { y: -300, x: -150, opacity: 0, rotate: -20 }, // Leaps out up-left
+    exitAnimation: { y: -300, x: -150, opacity: 0, rotate: -20 },
   },
   // 3. Bottom Center-Left Ground (spiderman3 - sitting crouching shifted slightly left)
   {
@@ -148,7 +150,7 @@ export function SpidermanPoseManager() {
           initial={activePose.initialAnimation}
           animate={activePose.animateAnimation}
           exit={activePose.exitAnimation}
-          transition={{ type: "spring", stiffness: 140, damping: 16 }}
+          transition={activePose.transition || { type: "spring", stiffness: 140, damping: 16 }}
           onClick={(e) => {
             e.stopPropagation();
             nextPose();
