@@ -28,12 +28,12 @@ const ALL_POSES: PoseConfig[] = [
     src: "/spiderman/spiderman1.png",
     alt: "Spider-Man Hanging Upside Down",
     containerStyle: { top: "0%", left: "47%", transform: "translateX(-50%)" },
-    // On phone: slightly more to the right, descending over the upper right orbit circle
-    mobileContainerStyle: { top: "2%", right: "8%", left: "auto", transform: "none" },
+    // On phone: slightly more to the right over the right orbit arc, hangs freely and clearly
+    mobileContainerStyle: { top: "3%", right: "2%", left: "auto", transform: "none" },
     widthPx: 270,
     heightPx: 400,
-    mobileWidthPx: 125,
-    mobileHeightPx: 185,
+    mobileWidthPx: 135,
+    mobileHeightPx: 195,
     hasWebThreadTop: true,
     initialAnimation: { y: -450, opacity: 0, scale: 0.85 },
     animateAnimation: { y: 0, opacity: 1, scale: 1 },
@@ -46,8 +46,8 @@ const ALL_POSES: PoseConfig[] = [
     src: "/spiderman/spiderman2.png",
     alt: "Spider-Man Wall Crawling Right",
     containerStyle: { top: "16%", right: "0%" },
-    // On phone: higher up in the open blank space between orbit bottom and above Sunfi
-    mobileContainerStyle: { top: "24%", right: "0%" },
+    // On phone: just a bit lower into the blank space above Sunfi (top: 27%)
+    mobileContainerStyle: { top: "27%", right: "0%" },
     widthPx: 310,
     heightPx: 430,
     mobileWidthPx: 130,
