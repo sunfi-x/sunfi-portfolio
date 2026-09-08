@@ -395,8 +395,23 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 className={`quicksandHeading hero-name-container mb-4 text-white leading-[1.1] flex flex-row flex-wrap items-center justify-center lg:justify-start gap-x-2 sm:gap-x-3`}
             >
               <span className="font-semibold text-white">{firstName}&nbsp;</span>
-              <span className="font-bold text-[#AB2020] relative inline-block">
+              <span className="font-bold text-[#E0291D] relative inline-block pb-1">
                 {lastName}
+                {/* Stylish Glowing Underline */}
+                <svg
+                  viewBox="0 0 120 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="absolute left-0 -bottom-1 w-full h-2.5 pointer-events-none overflow-visible"
+                >
+                  <path
+                    d="M 2 6 Q 60 12 118 4"
+                    stroke="#E0291D"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                    className="drop-shadow-[0_0_8px_rgba(224,41,29,0.8)]"
+                  />
+                </svg>
               </span>
             </motion.h1>
 
