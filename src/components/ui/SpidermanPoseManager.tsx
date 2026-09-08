@@ -28,12 +28,12 @@ const ALL_POSES: PoseConfig[] = [
     src: "/spiderman/spiderman1.png",
     alt: "Spider-Man Hanging Upside Down",
     containerStyle: { top: "0%", left: "47%", transform: "translateX(-50%)" },
-    // On phone: slightly more to the right over the right orbit arc, hangs freely and clearly
-    mobileContainerStyle: { top: "3%", right: "2%", left: "auto", transform: "none" },
+    // On phone: moved further to the right edge (right: -5px) so it hangs completely free from behind avatar
+    mobileContainerStyle: { top: "4%", right: "-5px", left: "auto", transform: "none" },
     widthPx: 270,
     heightPx: 400,
-    mobileWidthPx: 135,
-    mobileHeightPx: 195,
+    mobileWidthPx: 140,
+    mobileHeightPx: 200,
     hasWebThreadTop: true,
     initialAnimation: { y: -450, opacity: 0, scale: 0.85 },
     animateAnimation: { y: 0, opacity: 1, scale: 1 },
