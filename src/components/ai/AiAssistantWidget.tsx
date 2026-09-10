@@ -289,19 +289,11 @@ export function AiAssistantWidget() {
         <AnimatePresence>
           {!isOpen && (
             <>
-              {/* Pill Trigger Button — Comet border sweeps once around on load */}
+              {/* Pill Trigger Button — Comet border sweeps around */}
               <style>{`
                 @keyframes comet-spin {
                   from { transform: rotate(0deg); }
                   to   { transform: rotate(360deg); }
-                }
-                @keyframes comet-glow-in {
-                  from { opacity: 0; box-shadow: none; }
-                  to   { opacity: 1; box-shadow: 0 0 22px 5px rgba(99,179,237,0.4); }
-                }
-                @keyframes comet-glow-out {
-                  from { opacity: 1; box-shadow: 0 0 22px 5px rgba(99,179,237,0.4); }
-                  to   { opacity: 0; box-shadow: none; }
                 }
               `}</style>
 
@@ -311,9 +303,6 @@ export function AiAssistantWidget() {
                 style={{
                   padding: "2px",
                   backgroundColor: "#121212",
-                  animation: showAurora
-                    ? "comet-glow-in 0.3s ease forwards, comet-glow-out 0.7s ease 5s forwards"
-                    : undefined,
                 }}
               >
                 {/* Comet rotator: large square, centered, spins exactly once */}
