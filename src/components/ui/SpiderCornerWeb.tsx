@@ -301,6 +301,11 @@ export function SpiderCornerWeb() {
     hero.addEventListener("mouseleave", onMouseLeave);
 
     const animate = () => {
+      if (canvas.width < 768) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        return; // Disable background web animation loop on mobile for super fast speed & zero lag
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (const web of websRef.current) {

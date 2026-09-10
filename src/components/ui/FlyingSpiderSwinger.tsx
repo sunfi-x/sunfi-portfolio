@@ -101,6 +101,10 @@ export function FlyingSpiderSwinger() {
     let animId: number;
 
     const render = () => {
+      if (width < 768) {
+        ctx.clearRect(0, 0, width, height);
+        return; // Don't run RAF animation loop on mobile for zero lag
+      }
       ctx.clearRect(0, 0, width, height);
 
       const sp = heroSpiderman;
