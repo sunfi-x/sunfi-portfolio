@@ -572,8 +572,7 @@ function HorizontalCard({ project, index, serialNo, reversed = false }: Horizont
 
         {/* Accent top line */}
         <div
-          className="absolute top-0 inset-x-0 h-[2px] z-20 pointer-events-none"
-          style={{ background: `linear-gradient(90deg, transparent, ${accent}99, transparent)` }}
+          className="absolute top-0 inset-x-0 h-[1.5px] z-20 pointer-events-none bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:via-white/40 transition-all duration-500"
         />
 
         {/* ── Image pane ── */}
@@ -608,27 +607,28 @@ function HorizontalCard({ project, index, serialNo, reversed = false }: Horizont
             {/* Serial + category row */}
             <div className="flex items-center gap-3 mb-5">
               <span
-                className="text-4xl md:text-5xl font-black leading-none select-none"
-                style={{ color: `${accent}22`, fontFamily: "'Quicksand', sans-serif" }}
+                className="text-4xl md:text-5xl font-black leading-none select-none text-white/15 group-hover:text-white/25 transition-colors duration-300"
+                style={{ fontFamily: "'Quicksand', sans-serif" }}
               >
                 {numStr}
               </span>
               <div className="flex flex-col gap-1">
                 <span
-                  className="text-[9px] uppercase tracking-[0.2em] font-bold font-mono"
-                  style={{ color: accent }}
+                  className="text-[10px] uppercase tracking-[0.2em] font-bold font-mono text-gray-300 px-2.5 py-0.5 rounded-md bg-white/[0.06] border border-white/10 w-fit"
                 >
                   {project.category}
                 </span>
                 {project.featured && (
-                  <span className="text-[9px] uppercase tracking-widest text-white/40 font-mono">Featured</span>
+                  <span className="text-[9px] uppercase tracking-[0.15em] font-semibold text-white/40">
+                    Featured
+                  </span>
                 )}
               </div>
             </div>
 
             {/* Title */}
             <h3
-              className="text-white text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-4 leading-snug group-hover:opacity-80 transition-opacity duration-300 line-clamp-2"
+              className="text-white text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-4 leading-snug group-hover:text-white/90 transition-colors duration-300 line-clamp-2"
               style={{ fontFamily: "'Quicksand', sans-serif" }}
             >
               {project.title}
@@ -678,11 +678,11 @@ function HorizontalCard({ project, index, serialNo, reversed = false }: Horizont
                 target="_blank"
                 rel="noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-2 text-xs font-semibold px-4 py-1.5 rounded-full bg-white/[0.08] hover:bg-[#EA1E0F] text-white border border-white/15 hover:border-[#EA1E0F] transition-all duration-300 hover:shadow-[0_0_20px_rgba(234,30,15,0.4)] hover:scale-[1.03]"
+                className="flex items-center gap-2 text-xs font-semibold px-4 py-1.5 rounded-full bg-white/[0.08] hover:bg-white hover:text-black text-white border border-white/15 hover:border-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:scale-[1.03] group/live"
               >
                 <span className="w-2 h-2 rounded-full bg-[#22C55E] shadow-[0_0_8px_#22C55E] animate-pulse" />
                 <span>Live</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5 transition-transform" />
               </a>
             ) : (
               <Link
@@ -725,11 +725,10 @@ function VerticalCard({ project, index, serialNo }: VerticalCardProps) {
 
         {/* Accent top line */}
         <div
-          className="absolute top-0 inset-x-0 h-[2px] z-20 pointer-events-none"
-          style={{ background: `linear-gradient(90deg, transparent, ${accent}88, transparent)` }}
+          className="absolute top-0 inset-x-0 h-[1.5px] z-20 pointer-events-none bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:via-white/40 transition-all duration-500"
         />
 
-        {/* Image area */}
+        {/* Image Area */}
         <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-[#080808] shrink-0 p-3">
           <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/[0.06] bg-[#050505]">
             {project.imageUrl ? (
@@ -737,50 +736,43 @@ function VerticalCard({ project, index, serialNo }: VerticalCardProps) {
                 src={project.imageUrl}
                 alt={project.title}
                 fill
-                className="object-cover object-top group-hover:scale-[1.04] transition-transform duration-700"
+                className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-700"
               />
             ) : (
               <ProjectMockup slug={project.slug} />
             )}
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#141416]/80 opacity-60" />
           </div>
-          {/* Serial number watermark on image */}
-          <span
-            className="absolute bottom-4 right-4 text-5xl font-black leading-none select-none pointer-events-none z-10"
-            style={{ color: `${accent}18`, fontFamily: "'Quicksand', sans-serif" }}
-          >
-            {numStr}
-          </span>
         </div>
 
-        {/* Content */}
-        <div className="flex-1 flex flex-col justify-between p-5 sm:p-6 z-20 pointer-events-none">
+        {/* Content Area */}
+        <div className="flex-1 flex flex-col justify-between p-6 z-20 pointer-events-none">
           <div>
-            {/* Category */}
-            <div className="flex items-center gap-2 mb-3">
+            {/* Header row */}
+            <div className="flex items-center justify-between gap-3 mb-4">
               <span
-                className="text-[9px] uppercase tracking-[0.2em] font-bold font-mono"
-                style={{ color: accent }}
+                className="text-3xl font-black leading-none select-none text-white/15 group-hover:text-white/25 transition-colors duration-300"
+                style={{ fontFamily: "'Quicksand', sans-serif" }}
+              >
+                {numStr}
+              </span>
+              <span
+                className="text-[9px] uppercase tracking-[0.18em] font-bold font-mono text-gray-300 px-2.5 py-0.5 rounded-md bg-white/[0.06] border border-white/10"
               >
                 {project.category}
               </span>
-              {project.featured && (
-                <>
-                  <span className="w-1 h-1 rounded-full bg-white/20" />
-                  <span className="text-[9px] uppercase tracking-wider text-white/35 font-mono">Featured</span>
-                </>
-              )}
             </div>
 
             {/* Title */}
             <h3
-              className="text-white text-lg sm:text-xl font-extrabold tracking-tight mb-2.5 leading-snug line-clamp-2 group-hover:opacity-75 transition-opacity duration-300"
+              className="text-white text-xl font-extrabold tracking-tight mb-2.5 leading-snug group-hover:text-white/90 transition-colors duration-300 line-clamp-2"
               style={{ fontFamily: "'Quicksand', sans-serif" }}
             >
               {project.title}
             </h3>
 
             {/* Description */}
-            <p className="text-gray-500 text-xs leading-relaxed font-light mb-4 line-clamp-2">
+            <p className="text-gray-400 text-xs leading-relaxed font-light mb-4 line-clamp-3">
               {project.description}
             </p>
 
@@ -823,11 +815,11 @@ function VerticalCard({ project, index, serialNo }: VerticalCardProps) {
                 target="_blank"
                 rel="noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1.5 text-[11px] font-semibold px-3.5 py-1 rounded-full bg-white/[0.08] hover:bg-[#EA1E0F] text-white border border-white/15 hover:border-[#EA1E0F] transition-all duration-300 hover:shadow-[0_0_18px_rgba(234,30,15,0.4)] hover:scale-[1.04]"
+                className="flex items-center gap-1.5 text-[11px] font-semibold px-3.5 py-1 rounded-full bg-white/[0.08] hover:bg-white hover:text-black text-white border border-white/15 hover:border-white transition-all duration-300 hover:shadow-[0_0_18px_rgba(255,255,255,0.3)] hover:scale-[1.04] group/live"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] shadow-[0_0_6px_#22C55E] animate-pulse" />
                 <span>Live</span>
-                <ArrowUpRight className="w-3 h-3" />
+                <ArrowUpRight className="w-3 h-3 group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5 transition-transform" />
               </a>
             ) : (
               <Link

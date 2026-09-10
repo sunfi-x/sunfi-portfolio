@@ -36,8 +36,9 @@ export function ParticlesBackground() {
     }
   }, []);
 
-  // Do not render particles at all on resume page
-  if (pathname?.startsWith("/resume")) {
+  // Do not render particles on resume, project detail, and blog detail pages
+  const excluded = ["/resume", "/projects/", "/blogs/"];
+  if (excluded.some((r) => pathname?.startsWith(r))) {
     return null;
   }
 
