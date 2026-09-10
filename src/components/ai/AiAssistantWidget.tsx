@@ -99,12 +99,30 @@ export function AiAssistantWidget() {
   const [error, setError] = useState<string | null>(null);
   const [showQuickPrompts, setShowQuickPrompts] = useState(true);
   const [hasNewMessage, setHasNewMessage] = useState(false);
-  // Comet border: 3 rounds × 1.6s = 4.8s + glow fade = ~6s total
+  // Comet border: repeats every 10s after animation ends (5.4s active + 10s pause = 15.4s cycle)
   const [showAurora, setShowAurora] = useState(false);
   useEffect(() => {
-    const t1 = setTimeout(() => setShowAurora(true), 800);
-    const t2 = setTimeout(() => setShowAurora(false), 6200);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    const ACTIVE = 5400;           // animation duration (3 rounds × 1.6s + fade)
+    const PAUSE  = 10000;          // pause between animations
+    const CYCLE  = ACTIVE + PAUSE; // 15.4s total cycle
+
+    let intervalId: ReturnType<typeof setInterval>;
+
+    const triggerAurora = () => {
+      setShowAurora(true);
+      setTimeout(() => setShowAurora(false), ACTIVE);
+    };
+
+    // First play after 800ms, then repeat every CYCLE
+    const firstTimer = setTimeout(() => {
+      triggerAurora();
+      intervalId = setInterval(triggerAurora, CYCLE);
+    }, 800);
+
+    return () => {
+      clearTimeout(firstTimer);
+      clearInterval(intervalId);
+    };
   }, []);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
