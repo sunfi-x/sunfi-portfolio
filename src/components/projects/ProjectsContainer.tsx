@@ -680,7 +680,7 @@ function HorizontalCard({ project, index, serialNo, reversed = false }: Horizont
                 onClick={(e) => e.stopPropagation()}
                 className="flex items-center gap-2 text-xs font-semibold px-4 py-1.5 rounded-full bg-white/[0.08] hover:bg-[#EA1E0F] text-white border border-white/15 hover:border-[#EA1E0F] transition-all duration-300 hover:shadow-[0_0_20px_rgba(234,30,15,0.4)] hover:scale-[1.03]"
               >
-                <span className="w-2 h-2 rounded-full bg-[#EA1E0F] group-hover:bg-white animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-[#22C55E] shadow-[0_0_8px_#22C55E] animate-pulse" />
                 <span>Live</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
@@ -825,7 +825,7 @@ function VerticalCard({ project, index, serialNo }: VerticalCardProps) {
                 onClick={(e) => e.stopPropagation()}
                 className="flex items-center gap-1.5 text-[11px] font-semibold px-3.5 py-1 rounded-full bg-white/[0.08] hover:bg-[#EA1E0F] text-white border border-white/15 hover:border-[#EA1E0F] transition-all duration-300 hover:shadow-[0_0_18px_rgba(234,30,15,0.4)] hover:scale-[1.04]"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#EA1E0F] group-hover:bg-white animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] shadow-[0_0_6px_#22C55E] animate-pulse" />
                 <span>Live</span>
                 <ArrowUpRight className="w-3 h-3" />
               </a>
