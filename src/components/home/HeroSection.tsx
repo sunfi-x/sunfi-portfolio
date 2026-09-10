@@ -14,7 +14,6 @@ import { GeistSans } from "geist/font/sans";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { useState, useEffect } from "react";
 import { SpiderWebClickEffect } from "@/components/ui/SpiderWebClickEffect";
-import { SpidermanPoseManager } from "@/components/ui/SpidermanPoseManager";
 import { SpiderCornerWeb } from "@/components/ui/SpiderCornerWeb";
 import { FlyingSpiderSwinger } from "@/components/ui/FlyingSpiderSwinger";
 
@@ -253,9 +252,6 @@ export function HeroSection({ profile }: HeroSectionProps) {
 
       {/* Dynamic Flying & Web-Swinging Spiders Layer (z-[4]) */}
       <FlyingSpiderSwinger />
-
-      {/* Spider-Man Dynamic Character Pose System (z-[5]) */}
-      <SpidermanPoseManager />
 
       <style jsx global>{`
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
