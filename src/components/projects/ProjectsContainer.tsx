@@ -537,11 +537,11 @@ function extractTech(techStack: string[]): string[] {
 
 // Category → accent color mapping
 const CATEGORY_ACCENT: Record<string, string> = {
-  "AI Systems":        "#C9A96E",   // warm brass / champagne gold
-  "Web Apps":          "#8FAfa0",   // sage mist
-  "E-Commerce":        "#BFA38A",   // copper sand
-  "Visualization":     "#8BA8BF",   // steel slate
-  "Data Engineering":  "#A99BBF",   // dusty lavender
+  "AI Systems":        "#EA1E0F",   // Bright Vivid Red
+  "Web Apps":          "#E50C0C",   // Crimson Red
+  "E-Commerce":        "#C91414",   // Pure Scarlet Red
+  "Visualization":     "#C11414",   // Deep Bold Red
+  "Data Engineering":  "#AF1212",   // Rich Dark Red
 };
 
 // ─── HORIZONTAL card (magazine-style, full-width) ─────────────────────────
@@ -557,7 +557,7 @@ function HorizontalCard({ project, index, serialNo, reversed = false }: Horizont
   const liveUrl   = project.liveUrl?.trim();
   const githubUrl = project.githubUrl?.trim();
   const featuredTech = useMemo(() => extractTech(project.techStack), [project.techStack]);
-  const accent = CATEGORY_ACCENT[project.category] ?? "#C83228";
+  const accent = CATEGORY_ACCENT[project.category] ?? "#EA1E0F";
   const numStr = String(serialNo).padStart(2, "0");
 
   return (
@@ -718,7 +718,7 @@ function VerticalCard({ project, index, serialNo }: VerticalCardProps) {
   const liveUrl   = project.liveUrl?.trim();
   const githubUrl = project.githubUrl?.trim();
   const featuredTech = useMemo(() => extractTech(project.techStack), [project.techStack]);
-  const accent = CATEGORY_ACCENT[project.category] ?? "#C83228";
+  const accent = CATEGORY_ACCENT[project.category] ?? "#EA1E0F";
   const numStr = String(serialNo).padStart(2, "0");
 
   return (
