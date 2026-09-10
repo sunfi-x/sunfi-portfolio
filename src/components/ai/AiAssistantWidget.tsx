@@ -99,6 +99,13 @@ export function AiAssistantWidget() {
   const [error, setError] = useState<string | null>(null);
   const [showQuickPrompts, setShowQuickPrompts] = useState(true);
   const [hasNewMessage, setHasNewMessage] = useState(false);
+  // Comet border: 3 rounds × 1.6s = 4.8s + glow fade = ~6s total
+  const [showAurora, setShowAurora] = useState(false);
+  useEffect(() => {
+    const t1 = setTimeout(() => setShowAurora(true), 800);
+    const t2 = setTimeout(() => setShowAurora(false), 6200);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -264,56 +271,109 @@ export function AiAssistantWidget() {
         <AnimatePresence>
           {!isOpen && (
             <>
-              {/* Pill Trigger Button with Avatar + Label + Chat Icon */}
-              <motion.button
-                key="trigger"
-                onClick={() => setIsOpen(true)}
-                aria-label="Ask Sunfi AI"
-                className="relative flex items-center gap-2.5 px-3 py-2 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 transition-all font-quicksand"
+              {/* Pill Trigger Button — Comet border sweeps once around on load */}
+              <style>{`
+                @keyframes comet-spin {
+                  from { transform: rotate(0deg); }
+                  to   { transform: rotate(360deg); }
+                }
+                @keyframes comet-glow-in {
+                  from { opacity: 0; box-shadow: none; }
+                  to   { opacity: 1; box-shadow: 0 0 22px 5px rgba(99,179,237,0.4); }
+                }
+                @keyframes comet-glow-out {
+                  from { opacity: 1; box-shadow: 0 0 22px 5px rgba(99,179,237,0.4); }
+                  to   { opacity: 0; box-shadow: none; }
+                }
+              `}</style>
+
+              {/* Outer pill: overflow-hidden clips the spinning gradient to just the 2px border gap */}
+              <div
+                className="relative rounded-full overflow-hidden"
                 style={{
+                  padding: "2px",
                   backgroundColor: "#121212",
-                  boxShadow: "0 10px 30px rgba(0, 0, 0, 0.85), 0 0 15px rgba(255, 255, 255, 0.05)",
-                  border: "1.5px solid rgba(255, 255, 255, 0.18)",
-                  fontFamily: "var(--font-quicksand), sans-serif",
+                  animation: showAurora
+                    ? "comet-glow-in 0.3s ease forwards, comet-glow-out 0.7s ease 5s forwards"
+                    : undefined,
                 }}
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0, opacity: 0 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
-                {/* Avatar Image sazzadsunfi.jpg */}
-                <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/20 flex-shrink-0">
-                  <Image src="/sazzadsunfi.jpg" alt="Sunfi" fill className="object-cover rounded-full" sizes="32px" />
-                  {/* Online status indicator */}
-                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border border-[#121212]" />
-                </div>
-
-                {/* Logo Image + AI Badge */}
-                <div className="flex items-center gap-1.5 pr-0.5">
-                  <img
-                    src="/logo.png"
-                    alt="Sunfi Logo"
-                    className="h-5 sm:h-5.5 w-auto object-contain"
+                {/* Comet rotator: large square, centered, spins exactly once */}
+                {showAurora && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      /* Make it a square big enough to cover the pill corners */
+                      width: "300%",
+                      height: "300%",
+                      top: "-100%",
+                      left: "-100%",
+                      borderRadius: "50%",
+                      background: [
+                        "conic-gradient(",
+                        "  from 0deg,",
+                        "  transparent 0deg,",
+                        "  transparent 160deg,",
+                        "  rgba(6,182,212,0.15) 195deg,",   /* teal ghost tail */
+                        "  rgba(79,134,247,0.5)  230deg,",  /* blue mid-tail   */
+                        "  rgba(168,85,247,0.85) 265deg,",  /* purple tail     */
+                        "  rgba(255,255,255,1)   345deg,",  /* bright white head */
+                        "  rgba(255,255,255,0.6) 355deg,",  /* fade after head */
+                        "  transparent          360deg",
+                        ")",
+                      ].join(""),
+                      animation: "comet-spin 1.6s cubic-bezier(0.4,0,0.6,1) 3 forwards",
+                    }}
                   />
-                  <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-[#60A5FA]/20 text-[#60A5FA] border border-[#60A5FA]/30 uppercase tracking-wider">
-                    AI
-                  </span>
-                </div>
-
-                {/* Chat / Sparkle Icon */}
-                <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-white flex-shrink-0">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                  </svg>
-                </div>
-
-                {/* New message badge */}
-                {hasNewMessage && (
-                  <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-[#D90429] border-2 border-[#121212] z-20 animate-pulse" />
                 )}
-              </motion.button>
+
+                {/* Button sits on top, z-index:1, its bg covers the spinner center */}
+                <motion.button
+                  key="trigger"
+                  onClick={() => setIsOpen(true)}
+                  aria-label="Ask Sunfi AI"
+                  className="relative z-10 flex items-center gap-2.5 px-3 py-2 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 transition-all font-quicksand"
+                  style={{
+                    backgroundColor: "#121212",
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.85)",
+                    border: "none",
+                    fontFamily: "var(--font-quicksand), sans-serif",
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {/* Avatar Image sazzadsunfi.jpg */}
+                  <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/20 flex-shrink-0">
+                    <Image src="/sazzadsunfi.jpg" alt="Sunfi" fill className="object-cover rounded-full" sizes="32px" />
+                    {/* Online status indicator */}
+                    <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border border-[#121212]" />
+                  </div>
+
+                  {/* Logo Image + AI Badge */}
+                  <div className="flex items-center gap-1.5 pr-0.5">
+                    <img
+                      src="/logo.png"
+                      alt="Sunfi Logo"
+                      className="h-5 sm:h-5.5 w-auto object-contain"
+                    />
+                    <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-[#60A5FA]/20 text-[#60A5FA] border border-[#60A5FA]/30 uppercase tracking-wider">
+                      AI
+                    </span>
+                  </div>
+
+                  {/* Chat icon */}
+                  <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-white flex-shrink-0">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    </svg>
+                  </div>
+
+                  {/* New message badge */}
+                  {hasNewMessage && (
+                    <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-[#D90429] border-2 border-[#121212] z-20 animate-pulse" />
+                  )}
+                </motion.button>
+              </div>{/* end comet border wrapper */}
             </>
           )}
         </AnimatePresence>
