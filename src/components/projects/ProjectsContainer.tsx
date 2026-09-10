@@ -644,12 +644,7 @@ function HorizontalCard({ project, index, serialNo, reversed = false }: Horizont
               {featuredTech.map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 rounded-full text-[10px] font-mono tracking-wide border"
-                  style={{
-                    backgroundColor: `${accent}10`,
-                    borderColor: `${accent}30`,
-                    color: `${accent}cc`
-                  }}
+                  className="px-3 py-1 rounded-full text-[11px] font-mono tracking-wide bg-white/[0.05] border border-white/[0.10] text-gray-300 hover:border-white/20 transition-colors"
                 >
                   {tech}
                 </span>
@@ -658,20 +653,20 @@ function HorizontalCard({ project, index, serialNo, reversed = false }: Horizont
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-between border-t pt-4 pointer-events-auto z-30 relative" style={{ borderColor: `${accent}20` }}>
+          <div className="flex items-center justify-between border-t border-white/[0.08] pt-4 pointer-events-auto z-30 relative">
             {githubUrl ? (
               <a
                 href={githubUrl}
                 target="_blank"
                 rel="noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors duration-200 text-xs font-mono"
+                className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors duration-200 text-xs font-mono group/git"
               >
-                <FaGithub className="w-3.5 h-3.5" />
+                <FaGithub className="w-3.5 h-3.5 group-hover/git:scale-110 transition-transform" />
                 <span>Source</span>
               </a>
             ) : (
-              <span className="text-gray-700 flex items-center gap-1.5 text-xs font-mono">
+              <span className="text-gray-600 flex items-center gap-1.5 text-xs font-mono">
                 <FaGithub className="w-3.5 h-3.5" />
                 <span>Source</span>
               </span>
@@ -683,10 +678,9 @@ function HorizontalCard({ project, index, serialNo, reversed = false }: Horizont
                 target="_blank"
                 rel="noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1.5 text-xs font-semibold px-4 py-1.5 rounded-full transition-all duration-300 hover:scale-[1.03]"
-                style={{ backgroundColor: accent, color: "#fff", boxShadow: `0 2px 14px ${accent}40` }}
+                className="flex items-center gap-2 text-xs font-semibold px-4 py-1.5 rounded-full bg-white/[0.08] hover:bg-[#EA1E0F] text-white border border-white/15 hover:border-[#EA1E0F] transition-all duration-300 hover:shadow-[0_0_20px_rgba(234,30,15,0.4)] hover:scale-[1.03]"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-[#EA1E0F] group-hover:bg-white animate-pulse" />
                 <span>Live</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
@@ -792,15 +786,10 @@ function VerticalCard({ project, index, serialNo }: VerticalCardProps) {
 
             {/* Tech pills */}
             <div className="flex flex-wrap gap-1.5 mb-4">
-              {featuredTech.slice(0, 3).map((tech) => (
+              {featuredTech.map((tech) => (
                 <span
                   key={tech}
-                  className="px-2.5 py-0.5 rounded-full text-[9px] font-mono tracking-wide border"
-                  style={{
-                    backgroundColor: `${accent}0d`,
-                    borderColor: `${accent}25`,
-                    color: `${accent}aa`
-                  }}
+                  className="px-2.5 py-0.5 rounded-full text-[10px] font-mono tracking-wide bg-white/[0.05] border border-white/[0.10] text-gray-300 hover:border-white/20 transition-colors"
                 >
                   {tech}
                 </span>
@@ -809,20 +798,20 @@ function VerticalCard({ project, index, serialNo }: VerticalCardProps) {
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-between border-t pt-3 pointer-events-auto z-30 relative" style={{ borderColor: `${accent}18` }}>
+          <div className="flex items-center justify-between border-t border-white/[0.08] pt-3 pointer-events-auto z-30 relative">
             {githubUrl ? (
               <a
                 href={githubUrl}
                 target="_blank"
                 rel="noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1.5 text-gray-500 hover:text-white transition-colors duration-200 text-[11px] font-mono"
+                className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors duration-200 text-[11px] font-mono group/git"
               >
-                <FaGithub className="w-3 h-3" />
+                <FaGithub className="w-3 h-3 group-hover/git:scale-110 transition-transform" />
                 <span>Source</span>
               </a>
             ) : (
-              <span className="text-gray-700 flex items-center gap-1.5 text-[11px] font-mono">
+              <span className="text-gray-600 flex items-center gap-1.5 text-[11px] font-mono">
                 <FaGithub className="w-3 h-3" />
                 <span>Source</span>
               </span>
@@ -834,10 +823,9 @@ function VerticalCard({ project, index, serialNo }: VerticalCardProps) {
                 target="_blank"
                 rel="noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1.5 text-[11px] font-semibold px-3 py-1 rounded-full transition-all duration-300 hover:scale-[1.04]"
-                style={{ backgroundColor: accent, color: "#fff", boxShadow: `0 2px 10px ${accent}35` }}
+                className="flex items-center gap-1.5 text-[11px] font-semibold px-3.5 py-1 rounded-full bg-white/[0.08] hover:bg-[#EA1E0F] text-white border border-white/15 hover:border-[#EA1E0F] transition-all duration-300 hover:shadow-[0_0_18px_rgba(234,30,15,0.4)] hover:scale-[1.04]"
               >
-                <span className="w-1 h-1 rounded-full bg-white/70 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#EA1E0F] group-hover:bg-white animate-pulse" />
                 <span>Live</span>
                 <ArrowUpRight className="w-3 h-3" />
               </a>
