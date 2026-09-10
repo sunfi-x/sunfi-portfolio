@@ -16,6 +16,7 @@ import { useState, useEffect } from "react";
 import { SpiderWebClickEffect } from "@/components/ui/SpiderWebClickEffect";
 import { SpiderCornerWeb } from "@/components/ui/SpiderCornerWeb";
 import { FlyingSpiderSwinger } from "@/components/ui/FlyingSpiderSwinger";
+import { ParticlesBackground } from "@/components/ui/ParticlesBackground";
 
 // CSS import for Space Grotesk is handled in JSX style block
 
@@ -244,6 +245,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
       className="relative flex items-center justify-center pt-4 pb-4 bg-black overflow-hidden min-h-[85vh] hero-mobile-fix"
       style={{ willChange: "transform", transform: "translateZ(0)" }}
     >
+      {/* Classic Red Particle Connections Background Layer */}
+      <ParticlesBackground />
+
       {/* Spider-Man Interactive Click Web Burst Layer */}
       <SpiderWebClickEffect />
 
