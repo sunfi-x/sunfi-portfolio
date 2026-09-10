@@ -162,8 +162,10 @@ const ALL_POSES: PoseConfig[] = [
 export function SpidermanPoseManager() {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -174,13 +176,13 @@ export function SpidermanPoseManager() {
 
   // Filter poses: On phone/mobile, strictly cycle through 1, 2, 4, 5
   const activePosesList = useMemo(() => {
-    if (isMobile) {
+    if (mounted && isMobile) {
       return ALL_POSES.filter((p) =>
         ["spiderman1", "spiderman2", "spiderman4", "spiderman5"].includes(p.id)
       );
     }
     return ALL_POSES;
-  }, [isMobile]);
+  }, [isMobile, mounted]);
 
   // Reset index if out of bounds after resize
   useEffect(() => {
@@ -202,12 +204,12 @@ export function SpidermanPoseManager() {
 
   const activePose = activePosesList[currentIdx] || activePosesList[0];
 
-  const currentStyle = isMobile
+  const currentStyle = (mounted && isMobile)
     ? activePose.mobileContainerStyle || activePose.containerStyle
     : activePose.containerStyle;
 
-  const width = isMobile ? activePose.mobileWidthPx || 140 : activePose.widthPx;
-  const height = isMobile ? activePose.mobileHeightPx || 180 : activePose.heightPx;
+  const width = (mounted && isMobile) ? activePose.mobileWidthPx || 140 : activePose.widthPx;
+  const height = (mounted && isMobile) ? activePose.mobileHeightPx || 180 : activePose.heightPx;
 
   return (
     // STRICTLY LAYER z-[5] — ABOVE WEBS (z-[2]), BEHIND CONTENT (z-[10])
