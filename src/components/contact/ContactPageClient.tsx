@@ -78,10 +78,10 @@ export function ContactPageClient({
   const socialLinks = contactInfo?.socialLinks ?? [];
 
   return (
-    <div className="w-full min-h-[calc(100vh-160px)] bg-transparent text-white relative z-10 px-4 md:px-[5%] lg:px-[60px] pt-4 md:pt-8 pb-20 flex flex-col justify-start overflow-hidden font-sans">
+    <div className="w-full min-h-[calc(100vh-160px)] bg-transparent text-white relative z-10 px-4 md:px-[5%] lg:px-[60px] pt-16 md:pt-28 pb-20 flex flex-col justify-start overflow-hidden font-sans">
       {/* Giant background text "Contact Me" */}
       <div
-        className="absolute top-4 md:top-8 left-0 w-full px-4 md:px-[5%] lg:px-[60px] text-white/[0.10] font-black select-none pointer-events-none tracking-tighter leading-none z-0 overflow-hidden font-sans"
+        className="absolute top-2 md:top-4 left-0 w-full px-4 md:px-[5%] lg:px-[60px] text-white/[0.08] font-black select-none pointer-events-none tracking-tighter leading-none z-0 overflow-hidden font-sans"
         style={{
           fontSize: "clamp(60px, 18vw, 280px)",
           WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 95%)",
@@ -92,7 +92,7 @@ export function ContactPageClient({
       </div>
 
       {/* 2. HERO + FORM SECTION */}
-      <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-[48px] max-w-[90vw] mx-auto w-full mb-16 z-10 items-center">
+      <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-[48px] max-w-[90vw] mx-auto w-full mb-16 z-10 items-center pt-8 md:pt-16">
 
         {/* Left column */}
         <div className="relative z-10 space-y-8 flex flex-col justify-center">
