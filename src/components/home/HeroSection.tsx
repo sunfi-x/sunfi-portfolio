@@ -12,6 +12,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { GeistSans } from "geist/font/sans";
 
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { useState, useEffect } from "react";
 import { ParticlesBackground } from "@/components/ui/ParticlesBackground";
 
 // CSS import for Space Grotesk is handled in JSX style block
