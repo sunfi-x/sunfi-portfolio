@@ -59,7 +59,7 @@ export function BlogPageClient({ headings, readTime, children }: BlogPageClientP
   }, [headings]);
 
   return (
-    <div style={{ backgroundColor: "#050505", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#000000", minHeight: "100vh" }}>
       {/* Reading Progress Bar */}
       <ReadingProgress />
 
