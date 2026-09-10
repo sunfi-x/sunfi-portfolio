@@ -85,7 +85,7 @@ export function NeuralGallery({ images }: { images: GalleryImage[] }) {
   // --- MOBILE VIEW ---
   if (isMobile) {
     return (
-      <div className="min-h-screen bg-[#050505] py-20 px-6">
+      <div className="min-h-screen bg-transparent py-20 px-6">
         <header className="mb-12 text-center">
           <h1 className="text-4xl font-bold mb-4 tracking-tighter text-white">
             VISUAL <span className="text-[#FF003C]">DIARY</span>
@@ -112,7 +112,7 @@ export function NeuralGallery({ images }: { images: GalleryImage[] }) {
 
   // --- DESKTOP NEURAL VIEW ---
   return (
-    <div className="relative w-full min-h-screen bg-[#050505] overflow-hidden cursor-default select-none">
+    <div className="relative w-full min-h-screen bg-transparent overflow-hidden cursor-default select-none">
       {/* Background FX */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-[100]" 
            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Cfilter id='noiseFilter'%3%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />

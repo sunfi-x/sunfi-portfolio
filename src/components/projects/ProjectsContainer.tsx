@@ -979,7 +979,7 @@ function ProjectsPageContent({ sanityProjects }: { sanityProjects?: SanityProjec
   };
 
   return (
-    <div className="projects-page-container bg-[#050505] min-h-screen text-[#F5F5F5] selection:bg-white/15 selection:text-white pb-24 md:pb-32 pt-0 mt-[-5rem] sm:mt-[-6rem] relative overflow-x-hidden max-w-full">
+    <div className="projects-page-container bg-transparent min-h-screen text-[#F5F5F5] selection:bg-white/15 selection:text-white pb-24 md:pb-32 pt-0 mt-[-5rem] sm:mt-[-6rem] relative overflow-x-hidden max-w-full">
       
       {/* Google fonts style rules for Quicksand */}
       <style dangerouslySetInnerHTML={{

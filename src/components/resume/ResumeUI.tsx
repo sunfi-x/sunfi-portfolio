@@ -95,7 +95,7 @@ export function ResumeUI({ resume, versions, currentSlug }: ResumeUIProps) {
 
   return (
     <div 
-      className={`${quicksand.className} !font-quicksand pt-16 md:pt-20`} 
+      className={`${quicksand.className} !font-quicksand pt-16 md:pt-20 relative z-20`} 
       style={{ 
         background: '#000000', 
         minHeight: '100vh', 

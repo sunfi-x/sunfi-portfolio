@@ -15,7 +15,7 @@ export default async function BlogsPage() {
   const blogs = await fetchAllBlogs();
 
   return (
-    <section className="bg-[#050505] text-[#ffffff] min-h-screen mt-[-5rem] sm:mt-[-6rem] pt-24 sm:pt-28 md:pt-32 pb-24 font-['Quicksand',sans-serif]">
+    <section className="bg-transparent text-[#ffffff] min-h-screen mt-[-5rem] sm:mt-[-6rem] pt-24 sm:pt-28 md:pt-32 pb-24 font-['Quicksand',sans-serif]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
         

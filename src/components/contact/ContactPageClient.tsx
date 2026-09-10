@@ -78,7 +78,7 @@ export function ContactPageClient({
   const socialLinks = contactInfo?.socialLinks ?? [];
 
   return (
-    <div className="w-full min-h-[calc(100vh-160px)] bg-[#000000] text-white relative z-10 px-4 md:px-[5%] lg:px-[60px] pt-24 md:pt-52 pb-20 flex flex-col justify-start overflow-hidden font-sans">
+    <div className="w-full min-h-[calc(100vh-160px)] bg-transparent text-white relative z-10 px-4 md:px-[5%] lg:px-[60px] pt-4 md:pt-8 pb-20 flex flex-col justify-start overflow-hidden font-sans">
       {/* Giant background text "Contact Me" */}
       <div
         className="absolute top-4 md:top-8 left-0 w-full px-4 md:px-[5%] lg:px-[60px] text-white/[0.10] font-black select-none pointer-events-none tracking-tighter leading-none z-0 overflow-hidden font-sans"

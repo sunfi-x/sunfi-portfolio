@@ -158,7 +158,7 @@ export function FilmGallery({ images }: { images: GalleryImage[] }) {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#050505] overflow-hidden py-20 px-4 md:px-12">
+    <div className="relative min-h-screen bg-transparent overflow-hidden py-20 px-4 md:px-12">
       {/* Film Grain Overlay */}
       <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.04]">
         <svg width="100%" height="100%">

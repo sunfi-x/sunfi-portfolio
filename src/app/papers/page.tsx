@@ -15,7 +15,7 @@ export default async function PapersPage() {
   const papers = await fetchAllPapers();
 
   return (
-    <div className="min-h-screen w-full bg-[#050505] text-white mt-[-5rem] sm:mt-[-6rem] flex items-center justify-center pt-24 pb-12 md:py-0 md:h-screen md:overflow-hidden">
+    <div className="min-h-screen w-full bg-transparent text-white mt-[-5rem] sm:mt-[-6rem] flex items-center justify-center pt-24 pb-12 md:py-0 md:h-screen md:overflow-hidden">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
         

@@ -87,7 +87,7 @@ export function BentoGallery({ images }: { images: GalleryImage[] }) {
   }, [images]);
 
   return (
-    <div className="min-h-screen bg-[#050505] overflow-x-hidden">
+    <div className="min-h-screen bg-transparent overflow-x-hidden">
       {/* Header: keep centered with padding, only header has padding */}
       <header className="py-24 mb-0 text-center px-4">
         <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tighter text-white uppercase italic">

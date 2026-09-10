@@ -5,6 +5,8 @@ import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { type Engine } from "@tsparticles/engine";
 
+import { usePathname } from "next/navigation";
+
 // Singleton engine — initialized once, never resets
 let _engineReady = false;
 let _enginePromise: Promise<void> | null = null;
@@ -21,6 +23,7 @@ function ensureEngine(): Promise<void> {
 }
 
 export function ParticlesBackground() {
+  const pathname = usePathname();
   const [ready, setReady] = useState(_engineReady);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -32,6 +35,11 @@ export function ParticlesBackground() {
       ensureEngine().then(() => setReady(true));
     }
   }, []);
+
+  // Do not render particles at all on resume page
+  if (pathname?.startsWith("/resume")) {
+    return null;
+  }
 
   if (!ready) return null;
 

@@ -62,12 +62,12 @@ export function GalleryGrid({ images }: { images: GalleryImage[] }) {
   const slides = buildSlides(images);
 
   return (
-    <div className={`min-h-screen bg-black ${quicksand.className}`} style={{ backgroundColor: '#000000' }}>
+    <div className={`min-h-screen bg-transparent ${quicksand.className}`}>
       {/* ── Blink keyframe ── */}
       <style>{BLINK_STYLE}</style>
 
       {/* ── Header ── */}
-      <header className="px-8 md:px-16 py-20 bg-black" style={{ backgroundColor: '#000000' }}>
+      <header className="px-8 md:px-16 pt-4 pb-8 bg-transparent">
         <h1 style={{ fontFamily: 'Quicksand, sans-serif', color: '#FFFFFF' }} className="text-4xl md:text-6xl font-bold uppercase mb-8">
           STORIES WITHOUT WORDS
         </h1>
