@@ -7,6 +7,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollResetClient } from "@/components/layout/ScrollResetClient";
 import { AiAssistantWidget } from "@/components/ai/AiAssistantWidget";
+import { ParticlesBackground } from "@/components/ui/ParticlesBackground";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -72,12 +73,14 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap" rel="stylesheet" />
       </head>
       <body
-        className="min-h-full flex flex-col relative selection:bg-[#D90429]/30 selection:text-white"
+        className="min-h-full flex flex-col relative selection:bg-[#D90429]/30 selection:text-white bg-black"
         suppressHydrationWarning
       >
+        {/* Full-page particle background — fixed, covers entire viewport */}
+        <ParticlesBackground />
         <ScrollResetClient />
         <Navbar />
-        <main className="flex-1 pt-24 pb-16">
+        <main className="flex-1">
           {children}
         </main>
         <Footer />

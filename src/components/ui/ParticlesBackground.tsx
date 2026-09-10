@@ -1,100 +1,103 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { type Engine } from "@tsparticles/engine";
 
+// Singleton: engine initialized once for entire app lifetime — no resets
+let _engineReady = false;
+let _enginePromise: Promise<void> | null = null;
+
+function ensureEngine(): Promise<void> {
+  if (_engineReady) return Promise.resolve();
+  if (_enginePromise) return _enginePromise;
+  _enginePromise = initParticlesEngine(async (engine: Engine) => {
+    await loadSlim(engine);
+  }).then(() => {
+    _engineReady = true;
+  });
+  return _enginePromise;
+}
+
 export function ParticlesBackground() {
-  const [init, setInit] = useState(false);
+  const [ready, setReady] = useState(_engineReady); // start true if already initialized
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
+    // Detect mobile once (no resize listener = no re-render = no particle reset)
+    setIsMobile(window.innerWidth < 768);
 
-    initParticlesEngine(async (engine: Engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
-
-    return () => window.removeEventListener("resize", checkMobile);
+    if (!_engineReady) {
+      ensureEngine().then(() => setReady(true));
+    }
   }, []);
 
-  if (!init) return null;
+  if (!ready) return null;
 
   return (
-    <div className="absolute inset-0 z-0">
-      <Particles
-        id="tsparticles"
-        className="w-full h-full"
-        options={{
-          background: {
-            color: {
-              value: "#000000",
+    <Particles
+      id="tsparticles-global"
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 0,
+        pointerEvents: "none",
+      }}
+      options={{
+        background: {
+          color: { value: "transparent" },
+        },
+        fullScreen: {
+          enable: true,
+          zIndex: 0,
+        },
+        fpsLimit: isMobile ? 30 : 60,
+        interactivity: {
+          events: {
+            onHover: {
+              enable: !isMobile,
+              mode: "repulse",
             },
           },
-          fpsLimit: isMobile ? 30 : 60,
-          interactivity: {
-            events: {
-              onHover: {
-                enable: !isMobile,
-                mode: "repulse",
-              },
-            },
-            modes: {
-              repulse: {
-                distance: 100,
-                duration: 0.4,
-              },
+          modes: {
+            repulse: {
+              distance: 100,
+              duration: 0.4,
             },
           },
-          particles: {
-            color: {
-              value: "#D90429",
-            },
-            links: {
-              color: "#D90429",
-              distance: isMobile ? 100 : 140,
-              enable: true,
-              opacity: isMobile ? 0.4 : 0.6,
-              width: 1,
-            },
-            move: {
-              direction: "none",
-              enable: true,
-              outModes: {
-                default: "out",
-              },
-              random: true,
-              speed: isMobile ? 1.2 : 2,
-              straight: false,
-            },
-            number: {
-              density: {
-                enable: true,
-                width: 1000,
-                height: 1000,
-              },
-              value: isMobile ? 25 : 65,
-            },
-            opacity: {
-              value: { min: 0.3, max: 0.7 },
-            },
-            shape: {
-              type: "circle",
-            },
-            size: {
-              value: { min: 1, max: isMobile ? 2 : 3 },
-            },
+        },
+        particles: {
+          color: { value: "#D90429" },
+          links: {
+            color: "#D90429",
+            distance: isMobile ? 100 : 140,
+            enable: true,
+            opacity: isMobile ? 0.4 : 0.6,
+            width: 1,
           },
-          detectRetina: !isMobile,
-        }}
-      />
-    </div>
+          move: {
+            direction: "none",
+            enable: true,
+            outModes: { default: "out" },
+            random: true,
+            speed: isMobile ? 1.2 : 2,
+            straight: false,
+          },
+          number: {
+            density: { enable: true, width: 1000, height: 1000 },
+            value: isMobile ? 25 : 65,
+          },
+          opacity: {
+            value: { min: 0.3, max: 0.7 },
+          },
+          shape: { type: "circle" },
+          size: {
+            value: { min: 1, max: isMobile ? 2 : 3 },
+          },
+        },
+        detectRetina: !isMobile,
+      }}
+    />
   );
 }

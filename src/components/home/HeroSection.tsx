@@ -13,7 +13,7 @@ import { GeistSans } from "geist/font/sans";
 
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { useState, useEffect } from "react";
-import { ParticlesBackground } from "@/components/ui/ParticlesBackground";
+
 
 // CSS import for Space Grotesk is handled in JSX style block
 
@@ -239,12 +239,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
   return (
     <section
       id="hero"
-      className="relative flex items-center justify-center pt-4 pb-4 bg-black overflow-hidden min-h-[85vh] hero-mobile-fix"
+      className="relative flex items-center justify-center overflow-hidden min-h-[85vh] hero-mobile-fix"
       style={{ willChange: "transform", transform: "translateZ(0)" }}
     >
-      {/* Classic Red Particle Connections Background Layer */}
-      <ParticlesBackground />
-
       <style jsx global>{`
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
 
