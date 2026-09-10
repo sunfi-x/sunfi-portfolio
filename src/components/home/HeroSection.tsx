@@ -12,10 +12,6 @@ import { urlFor } from "@/sanity/lib/image";
 import { GeistSans } from "geist/font/sans";
 
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
-import { useState, useEffect } from "react";
-import { SpiderWebClickEffect } from "@/components/ui/SpiderWebClickEffect";
-import { SpiderCornerWeb } from "@/components/ui/SpiderCornerWeb";
-import { FlyingSpiderSwinger } from "@/components/ui/FlyingSpiderSwinger";
 import { ParticlesBackground } from "@/components/ui/ParticlesBackground";
 
 // CSS import for Space Grotesk is handled in JSX style block
@@ -247,15 +243,6 @@ export function HeroSection({ profile }: HeroSectionProps) {
     >
       {/* Classic Red Particle Connections Background Layer */}
       <ParticlesBackground />
-
-      {/* Spider-Man Interactive Click Web Burst Layer */}
-      <SpiderWebClickEffect />
-
-      {/* Realistic Interactive Corner Spider Webs & Avatar 360 Radial Web (z-[2]) */}
-      <SpiderCornerWeb />
-
-      {/* Dynamic Flying & Web-Swinging Spiders Layer (z-[4]) */}
-      <FlyingSpiderSwinger />
 
       <style jsx global>{`
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
