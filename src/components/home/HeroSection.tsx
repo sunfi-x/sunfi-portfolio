@@ -16,6 +16,7 @@ import { useState, useEffect } from "react";
 import { SpiderWebClickEffect } from "@/components/ui/SpiderWebClickEffect";
 import { SpidermanPoseManager } from "@/components/ui/SpidermanPoseManager";
 import { SpiderCornerWeb } from "@/components/ui/SpiderCornerWeb";
+import { FlyingSpiderSwinger } from "@/components/ui/FlyingSpiderSwinger";
 
 // CSS import for Space Grotesk is handled in JSX style block
 
@@ -249,6 +250,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
 
       {/* Realistic Interactive Corner Spider Webs & Avatar 360 Radial Web (z-[2]) */}
       <SpiderCornerWeb />
+
+      {/* Dynamic Flying & Web-Swinging Spiders Layer (z-[4]) */}
+      <FlyingSpiderSwinger />
 
       {/* Spider-Man Dynamic Character Pose System (z-[5]) */}
       <SpidermanPoseManager />
