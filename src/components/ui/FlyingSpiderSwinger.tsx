@@ -2,26 +2,48 @@
 
 import React, { useEffect, useRef } from "react";
 
-interface FlyingSpider {
+interface FlyingSpiderman {
   x: number;
   y: number;
-  vx: number;
-  vy: number;
   anchorX: number;
   anchorY: number;
+  targetAnchorX: number;
+  targetAnchorY: number;
   webLength: number;
   angle: number;
   angularVelocity: number;
   phase: "shooting" | "swinging" | "releasing";
-  shootProgress: number; // 0 to 1
-  size: number;
-  targetAnchorX: number;
-  targetAnchorY: number;
+  shootProgress: number;
+  imgIndex: number;
+  width: number;
+  height: number;
+  releaseVx: number;
+  releaseVy: number;
 }
+
+const SPIDERMAN_IMAGES = [
+  "/spiderman/spiderman1.png",
+  "/spiderman/spiderman2.png",
+  "/spiderman/spiderman4.png",
+  "/spiderman/spiderman6.png",
+  "/spiderman/spiderman7.png",
+  "/spiderman/spiderman8.png",
+];
 
 export function FlyingSpiderSwinger() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef = useRef({ x: -9999, y: -9999 });
+  const loadedImagesRef = useRef<HTMLImageElement[]>([]);
+
+  // Preload Spider-Man PNG Images
+  useEffect(() => {
+    const images: HTMLImageElement[] = [];
+    SPIDERMAN_IMAGES.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      images.push(img);
+    });
+    loadedImagesRef.current = images;
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -47,253 +69,184 @@ export function FlyingSpiderSwinger() {
     const ro = new ResizeObserver(resize);
     ro.observe(hero);
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseRef.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      };
-    };
+    const createFlyingSpiderman = (startX?: number, startY?: number): FlyingSpiderman => {
+      const isMobile = width < 768;
+      const sX = startX ?? (isMobile ? width * 0.1 : width * 0.15);
+      const sY = startY ?? (isMobile ? height * 0.5 : height * 0.4);
 
-    hero.addEventListener("mousemove", handleMouseMove);
-
-    // Initialize 2-3 Flying Swung Spiders
-    const createSpider = (initialX?: number, initialY?: number): FlyingSpider => {
-      const startX = initialX ?? Math.random() * (width || 800);
-      const startY = initialY ?? (height ? height * 0.4 + Math.random() * (height * 0.3) : 300);
-      
-      // Target anchor somewhere above the spider on top border or ceiling area
-      const targetAnchorX = Math.max(50, Math.min(width - 50, startX + (Math.random() - 0.5) * 400));
-      const targetAnchorY = Math.max(10, Math.random() * (height * 0.25));
+      const targetAnchorX = Math.max(40, Math.min(width - 40, sX + (Math.random() > 0.5 ? 1 : -1) * (width * 0.35)));
+      const targetAnchorY = Math.max(10, Math.random() * (height * 0.2));
 
       return {
-        x: startX,
-        y: startY,
-        vx: (Math.random() - 0.5) * 4,
-        vy: (Math.random() - 0.5) * 2,
-        anchorX: startX,
-        anchorY: startY,
+        x: sX,
+        y: sY,
+        anchorX: sX,
+        anchorY: sY,
         targetAnchorX,
         targetAnchorY,
-        webLength: 200,
-        angle: 0,
-        angularVelocity: (Math.random() > 0.5 ? 1 : -1) * (0.03 + Math.random() * 0.03),
+        webLength: isMobile ? 160 : 220,
+        angle: -0.8,
+        angularVelocity: 0.035,
         phase: "shooting",
         shootProgress: 0,
-        size: 14 + Math.random() * 8, // Cute small spider size
+        imgIndex: Math.floor(Math.random() * SPIDERMAN_IMAGES.length),
+        width: isMobile ? 90 : 130,
+        height: isMobile ? 120 : 170,
+        releaseVx: 0,
+        releaseVy: 0,
       };
     };
 
-    const spiders: FlyingSpider[] = [
-      createSpider(width * 0.2, height * 0.5),
-      createSpider(width * 0.7, height * 0.6),
-    ];
-
+    let heroSpiderman: FlyingSpiderman = createFlyingSpiderman();
     let animId: number;
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      spiders.forEach((spider, idx) => {
-        // -------------------------------------------------------------
-        // STATE 1: SHOOTING WEB TO TOP ANCHOR
-        // -------------------------------------------------------------
-        if (spider.phase === "shooting") {
-          spider.shootProgress += 0.08;
-          
-          // Current tip of the expanding web line being shot out
-          const currentWebX = spider.x + (spider.targetAnchorX - spider.x) * spider.shootProgress;
-          const currentWebY = spider.y + (spider.targetAnchorY - spider.y) * spider.shootProgress;
+      const sp = heroSpiderman;
+      const isMobile = width < 768;
 
-          // Draw shooting web thread with glowing white/silver effect
-          ctx.save();
-          ctx.shadowColor = "rgba(255, 255, 255, 0.9)";
-          ctx.shadowBlur = 8;
-          ctx.strokeStyle = "rgba(240, 245, 255, 0.85)";
-          ctx.lineWidth = 1.8;
-          ctx.beginPath();
-          ctx.moveTo(spider.x, spider.y);
-          ctx.lineTo(currentWebX, currentWebY);
-          ctx.stroke();
+      // Update responsive dimensions
+      sp.width = isMobile ? 90 : 130;
+      sp.height = isMobile ? 120 : 170;
 
-          // Draw glowing web node at tip
-          ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
-          ctx.beginPath();
-          ctx.arc(currentWebX, currentWebY, 2.5, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.restore();
+      // -----------------------------------------------------------------
+      // PHASE 1: SHOOTING WHITE WEB THREAD TO CEILING/TOP ANCHOR
+      // -----------------------------------------------------------------
+      if (sp.phase === "shooting") {
+        sp.shootProgress += 0.07;
 
-          // Once web connects to ceiling target
-          if (spider.shootProgress >= 1) {
-            spider.phase = "swinging";
-            spider.anchorX = spider.targetAnchorX;
-            spider.anchorY = spider.targetAnchorY;
-            
-            const dx = spider.x - spider.anchorX;
-            const dy = spider.y - spider.anchorY;
-            spider.webLength = Math.sqrt(dx * dx + dy * dy);
-            spider.angle = Math.atan2(dx, dy);
-          }
+        const currentWebX = sp.x + (sp.targetAnchorX - sp.x) * sp.shootProgress;
+        const currentWebY = sp.y + (sp.targetAnchorY - sp.y) * sp.shootProgress;
 
-          // Move spider slightly while shooting
-          spider.x += spider.vx * 0.5;
-          spider.y += spider.vy * 0.5;
-        }
-
-        // -------------------------------------------------------------
-        // STATE 2: SWINGING ON CONNECTED WEB THREAD
-        // -------------------------------------------------------------
-        else if (spider.phase === "swinging") {
-          // Pendulum Physics Motion
-          const gravity = 0.0018;
-          const angularAccel = (-gravity / (spider.webLength / 150)) * Math.sin(spider.angle);
-          
-          spider.angularVelocity += angularAccel;
-          spider.angularVelocity *= 0.992; // Slight air resistance damping
-          spider.angle += spider.angularVelocity;
-
-          // Update position based on pendulum angle
-          spider.x = spider.anchorX + Math.sin(spider.angle) * spider.webLength;
-          spider.y = spider.anchorY + Math.cos(spider.angle) * spider.webLength;
-
-          // Repulsion from mouse cursor if nearby!
-          const mdx = spider.x - mouseRef.current.x;
-          const mdy = spider.y - mouseRef.current.y;
-          const dist = Math.sqrt(mdx * mdx + mdy * mdy);
-          if (dist < 120) {
-            spider.angularVelocity += (mdx > 0 ? 0.004 : -0.004);
-          }
-
-          // Draw Glowing Connected Silver Web Thread from Anchor to Spider
-          ctx.save();
-          ctx.shadowColor = "rgba(255, 255, 255, 0.8)";
-          ctx.shadowBlur = 6;
-          ctx.strokeStyle = "rgba(230, 240, 255, 0.75)";
-          ctx.lineWidth = 1.5;
-
-          // Slight curved sag to make the web thread feel realistic and fluid
-          const midX = (spider.anchorX + spider.x) / 2;
-          const midY = (spider.anchorY + spider.y) / 2 + 10;
-
-          ctx.beginPath();
-          ctx.moveTo(spider.anchorX, spider.anchorY);
-          ctx.quadraticCurveTo(midX, midY, spider.x, spider.y);
-          ctx.stroke();
-
-          // Anchor point glowing web-spot
-          ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
-          ctx.beginPath();
-          ctx.arc(spider.anchorX, spider.anchorY, 3, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.restore();
-
-          // Release web after 4-6 seconds or when swing slows down
-          if (Math.abs(spider.angularVelocity) < 0.002 && Math.abs(spider.angle) < 0.08) {
-            spider.phase = "releasing";
-            spider.vx = Math.cos(spider.angle) * spider.angularVelocity * spider.webLength * 1.2;
-            spider.vy = -Math.abs(spider.angularVelocity * spider.webLength * 0.8) - 1;
-          }
-        }
-
-        // -------------------------------------------------------------
-        // STATE 3: RELEASING & FLYING TO NEW LOCATION
-        // -------------------------------------------------------------
-        else if (spider.phase === "releasing") {
-          spider.x += spider.vx;
-          spider.y += spider.vy;
-          spider.vy += 0.08; // Mild gravity drift
-
-          // Fade out old thread line
-          if (Math.random() < 0.05 || spider.y > height || spider.x < -100 || spider.x > width + 100) {
-            // Pick a new target anchor and shoot web again!
-            const newAnchorX = Math.max(50, Math.min(width - 50, spider.x + (Math.random() - 0.5) * 500));
-            const newAnchorY = Math.max(10, Math.random() * (height * 0.25));
-
-            spiders[idx] = {
-              x: Math.max(50, Math.min(width - 50, spider.x)),
-              y: Math.max(100, Math.min(height * 0.7, spider.y)),
-              vx: (Math.random() - 0.5) * 3,
-              vy: (Math.random() - 0.5) * 2,
-              anchorX: spider.x,
-              anchorY: spider.y,
-              targetAnchorX: newAnchorX,
-              targetAnchorY: newAnchorY,
-              webLength: 200,
-              angle: 0,
-              angularVelocity: (Math.random() > 0.5 ? 1 : -1) * (0.025 + Math.random() * 0.025),
-              phase: "shooting",
-              shootProgress: 0,
-              size: spider.size,
-            };
-          }
-        }
-
-        // -------------------------------------------------------------
-        // DRAW THE CUTE SPIDER BODY AT (spider.x, spider.y)
-        // -------------------------------------------------------------
+        // Draw Web Thread Shot Out by Spider-Man
         ctx.save();
-        ctx.translate(spider.x, spider.y);
-        
-        // Rotate spider body towards its swing/flight direction
-        let bodyRotation = 0;
-        if (spider.phase === "swinging") {
-          bodyRotation = -spider.angle * 0.5;
-        } else {
-          bodyRotation = Math.atan2(spider.vy, spider.vx) + Math.PI / 2;
-        }
-        ctx.rotate(bodyRotation);
-
-        const r = spider.size / 2;
-
-        // Glowing Spider Aura (Red / White accent)
-        ctx.shadowColor = "rgba(224, 41, 29, 0.85)";
+        ctx.shadowColor = "rgba(255, 255, 255, 0.9)";
         ctx.shadowBlur = 10;
-
-        // 8 Animated Legs
-        ctx.strokeStyle = "rgba(224, 41, 29, 0.9)";
-        ctx.lineWidth = 1.6;
-        ctx.lineCap = "round";
-
-        const time = Date.now() * 0.008;
-        for (let side = -1; side <= 1; side += 2) {
-          for (let legIdx = 0; legIdx < 4; legIdx++) {
-            const legOffset = Math.sin(time + legIdx * 0.8) * 3;
-            const angleOffset = (legIdx - 1.5) * 0.35 + (side * 0.2);
-
-            const kneeX = side * (r * 1.5 + Math.cos(angleOffset) * 6);
-            const kneeY = (legIdx - 1.5) * 4 + legOffset;
-
-            const tipX = side * (r * 2.4 + Math.cos(angleOffset) * 10);
-            const tipY = (legIdx - 1.5) * 7 + legOffset * 1.5;
-
-            ctx.beginPath();
-            ctx.moveTo(side * (r * 0.6), (legIdx - 1.5) * 3);
-            ctx.quadraticCurveTo(kneeX, kneeY, tipX, tipY);
-            ctx.stroke();
-          }
-        }
-
-        // Spider Abdomen (Back)
-        ctx.fillStyle = "#E0291D"; // Stylish Red matching Sunfi theme
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.95)";
+        ctx.lineWidth = 2.2;
         ctx.beginPath();
-        ctx.ellipse(0, r * 0.4, r * 0.75, r * 0.95, 0, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.moveTo(sp.x, sp.y - sp.height * 0.2);
+        ctx.lineTo(currentWebX, currentWebY);
+        ctx.stroke();
 
-        // Spider Cephalothorax (Head)
+        // Web Impact Spot on Wall/Ceiling
         ctx.fillStyle = "#ffffff";
         ctx.beginPath();
-        ctx.arc(0, -r * 0.5, r * 0.55, 0, Math.PI * 2);
+        ctx.arc(currentWebX, currentWebY, 4, 0, Math.PI * 2);
         ctx.fill();
+        ctx.restore();
 
-        // Spider Eyes (Glowing dots)
-        ctx.fillStyle = "#000000";
+        if (sp.shootProgress >= 1) {
+          sp.phase = "swinging";
+          sp.anchorX = sp.targetAnchorX;
+          sp.anchorY = sp.targetAnchorY;
+
+          const dx = sp.x - sp.anchorX;
+          const dy = sp.y - sp.anchorY;
+          sp.webLength = Math.sqrt(dx * dx + dy * dy);
+          sp.angle = Math.atan2(dx, dy);
+          sp.angularVelocity = sp.anchorX < width / 2 ? 0.04 : -0.04;
+        }
+
+        // Slight drift while web travels
+        sp.x += (sp.targetAnchorX > sp.x ? 1 : -1) * 1.5;
+      }
+
+      // -----------------------------------------------------------------
+      // PHASE 2: SWINGING ACROSS THE HERO SECTION ON THE WEB THREAD
+      // -----------------------------------------------------------------
+      else if (sp.phase === "swinging") {
+        const gravity = 0.0016;
+        const angularAccel = (-gravity / (sp.webLength / 180)) * Math.sin(sp.angle);
+
+        sp.angularVelocity += angularAccel;
+        sp.angularVelocity *= 0.995; // Smooth momentum
+        sp.angle += sp.angularVelocity;
+
+        sp.x = sp.anchorX + Math.sin(sp.angle) * sp.webLength;
+        sp.y = sp.anchorY + Math.cos(sp.angle) * sp.webLength;
+
+        // Draw Prominent Glowing Web Thread Connecting Spider-Man to Ceiling
+        ctx.save();
+        ctx.shadowColor = "rgba(255, 255, 255, 0.85)";
+        ctx.shadowBlur = 8;
+        ctx.strokeStyle = "rgba(240, 245, 255, 0.9)";
+        ctx.lineWidth = 2.0;
+
+        // Curved organic web line
+        const handX = sp.x;
+        const handY = sp.y - sp.height * 0.25;
+        const midX = (sp.anchorX + handX) / 2;
+        const midY = (sp.anchorY + handY) / 2 + 8;
+
         ctx.beginPath();
-        ctx.arc(-r * 0.2, -r * 0.6, 1.2, 0, Math.PI * 2);
-        ctx.arc(r * 0.2, -r * 0.6, 1.2, 0, Math.PI * 2);
+        ctx.moveTo(sp.anchorX, sp.anchorY);
+        ctx.quadraticCurveTo(midX, midY, handX, handY);
+        ctx.stroke();
+
+        // Web Anchor Spot
+        ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+        ctx.beginPath();
+        ctx.arc(sp.anchorX, sp.anchorY, 3.5, 0, Math.PI * 2);
         ctx.fill();
+        ctx.restore();
+
+        // Release web when reaching end of swing arc
+        if (
+          Math.abs(sp.angularVelocity) < 0.005 ||
+          (sp.angularVelocity > 0 && sp.angle > 0.75) ||
+          (sp.angularVelocity < 0 && sp.angle < -0.75)
+        ) {
+          sp.phase = "releasing";
+          sp.releaseVx = Math.cos(sp.angle) * sp.angularVelocity * sp.webLength * 1.3;
+          sp.releaseVy = -Math.abs(sp.angularVelocity * sp.webLength * 0.6) - 1.5;
+        }
+      }
+
+      // -----------------------------------------------------------------
+      // PHASE 3: FLYING THROUGH THE AIR TO THE NEXT WEBSHOOT POSITION
+      // -----------------------------------------------------------------
+      else if (sp.phase === "releasing") {
+        sp.x += sp.releaseVx;
+        sp.y += sp.releaseVy;
+        sp.releaseVy += 0.12; // Gravity leap
+
+        // Reset & shoot web from new position
+        if (sp.y > height * 0.75 || sp.x < 20 || sp.x > width - 20 || sp.releaseVy > 4) {
+          const nextX = Math.max(60, Math.min(width - 60, sp.x));
+          const nextY = Math.max(height * 0.35, Math.min(height * 0.6, sp.y));
+
+          heroSpiderman = createFlyingSpiderman(nextX, nextY);
+        }
+      }
+
+      // -----------------------------------------------------------------
+      // DRAW SPIDER-MAN CHARACTER IMAGE WITH SMOOTH SWING ROTATION
+      // -----------------------------------------------------------------
+      const img = loadedImagesRef.current[sp.imgIndex];
+      if (img && img.complete) {
+        ctx.save();
+        ctx.translate(sp.x, sp.y);
+
+        // Tilt Spider-Man dynamically according to swing angle & direction
+        const swingTilt = sp.phase === "swinging" ? -sp.angle * 0.45 : sp.releaseVx * 0.05;
+        ctx.rotate(swingTilt);
+
+        // Shadow under Spider-Man
+        ctx.shadowColor = "rgba(0, 0, 0, 0.7)";
+        ctx.shadowBlur = 12;
+
+        ctx.drawImage(
+          img,
+          -sp.width / 2,
+          -sp.height / 2,
+          sp.width,
+          sp.height
+        );
 
         ctx.restore();
-      });
+      }
 
       animId = requestAnimationFrame(render);
     };
@@ -303,7 +256,6 @@ export function FlyingSpiderSwinger() {
     return () => {
       cancelAnimationFrame(animId);
       ro.disconnect();
-      hero.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
