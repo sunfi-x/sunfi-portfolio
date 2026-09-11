@@ -95,7 +95,7 @@ export function ParticlesBackground() {
             },
             number: {
               density: { enable: false },
-              value: isMobile ? 35 : 75,
+              value: isMobile ? 35 : 90,
             },
             opacity: {
               value: { min: 0.4, max: 0.8 },
