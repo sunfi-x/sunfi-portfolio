@@ -80,10 +80,10 @@ export function ParticlesBackground() {
             color: { value: "#D90429" },
             links: {
               color: "#D90429",
-              distance: isMobile ? 120 : 150,
+              distance: isMobile ? 120 : 155,
               enable: true,
-              opacity: isMobile ? 0.5 : 0.6,
-              width: 1,
+              opacity: isMobile ? 0.5 : 0.75,
+              width: isMobile ? 1 : 1.2,
             },
             move: {
               direction: "none",
@@ -95,14 +95,14 @@ export function ParticlesBackground() {
             },
             number: {
               density: { enable: false },
-              value: isMobile ? 35 : 100,
+              value: isMobile ? 35 : 120,
             },
             opacity: {
-              value: { min: 0.4, max: 0.8 },
+              value: { min: isMobile ? 0.4 : 0.5, max: isMobile ? 0.8 : 0.95 },
             },
             shape: { type: "circle" },
             size: {
-              value: { min: 1.5, max: 3 },
+              value: { min: 1.5, max: isMobile ? 3 : 3.5 },
             },
           },
           detectRetina: true,
