@@ -29,20 +29,20 @@ export function AboutSectionWrapper({ profile }: AboutSectionWrapperProps) {
 
   // ─────────────────────────────────────────────────────────────────────────────
   // STACKED OVERLAP / CURTAIN UNVEIL REVEAL SYSTEM:
-  // Height: 400vh gives ample scroll distance for full readability on each page.
-  // Layer 1 (01 / IDENTITY - z-30): Pinned until 0.28, then slides UP from 0.28 to 0.45.
-  // Layer 2 (02 / CHAPTER - z-20): Pinned until 0.73, then slides UP from 0.73 to 0.90.
-  // Layer 3 (03 / WORK - z-10): Unveiled at 0.90, stays pinned through the rest.
+  // Height: 500vh calibrated to give equal, generous read time for all 3 pages.
+  // Layer 1 (01 / IDENTITY - z-30): Pinned 0.00 -> 0.22, slides UP 0.22 -> 0.38.
+  // Layer 2 (02 / CHAPTER - z-20): Pinned 0.38 -> 0.60, slides UP 0.60 -> 0.76.
+  // Layer 3 (03 / WORK - z-10): Unveiled at 0.76, remains pinned 0.76 -> 1.00.
   // ─────────────────────────────────────────────────────────────────────────────
-  const card1Y = useTransform(smoothProgress, [0.28, 0.45], ["0%", "100%"]);
-  const card2Y = useTransform(smoothProgress, [0.73, 0.90], ["0%", "100%"]);
+  const card1Y = useTransform(smoothProgress, [0.22, 0.38], ["0%", "100%"]);
+  const card2Y = useTransform(smoothProgress, [0.60, 0.76], ["0%", "100%"]);
 
   return (
     <div
       ref={containerRef}
       id="about-sequence"
       className="relative w-full bg-black"
-      style={{ height: "400vh" }}
+      style={{ height: "500vh" }}
     >
       {/* ── Sticky 100vh Viewport Pinning Container ────────────────────────── */}
       <div className="sticky top-0 w-full h-screen overflow-hidden bg-black">
