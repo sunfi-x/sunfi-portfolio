@@ -61,7 +61,7 @@ export function ParticlesBackground() {
           background: {
             color: { value: "transparent" },
           },
-          fpsLimit: isMobile ? 30 : 60,
+          fpsLimit: 60,
           interactivity: {
             events: {
               onHover: {
@@ -80,9 +80,9 @@ export function ParticlesBackground() {
             color: { value: "#D90429" },
             links: {
               color: "#D90429",
-              distance: isMobile ? 100 : 140,
+              distance: isMobile ? 120 : 150,
               enable: true,
-              opacity: isMobile ? 0.4 : 0.6,
+              opacity: isMobile ? 0.5 : 0.6,
               width: 1,
             },
             move: {
@@ -90,22 +90,22 @@ export function ParticlesBackground() {
               enable: true,
               outModes: { default: "out" },
               random: true,
-              speed: isMobile ? 1.2 : 2,
+              speed: isMobile ? 1.5 : 2,
               straight: false,
             },
             number: {
-              density: { enable: true, width: 1000, height: 1000 },
-              value: isMobile ? 25 : 65,
+              density: { enable: false },
+              value: isMobile ? 35 : 75,
             },
             opacity: {
-              value: { min: 0.3, max: 0.7 },
+              value: { min: 0.4, max: 0.8 },
             },
             shape: { type: "circle" },
             size: {
-              value: { min: 1, max: isMobile ? 2 : 3 },
+              value: { min: 1.5, max: 3 },
             },
           },
-          detectRetina: !isMobile,
+          detectRetina: true,
         }}
       />
     </div>
