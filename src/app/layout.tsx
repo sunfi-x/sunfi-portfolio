@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
@@ -6,8 +7,14 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollResetClient } from "@/components/layout/ScrollResetClient";
-import { AiAssistantWidget } from "@/components/ai/AiAssistantWidget";
-import { ParticlesBackground } from "@/components/ui/ParticlesBackground";
+
+const ParticlesBackground = dynamic(
+  () => import("@/components/ui/ParticlesBackground").then((mod) => mod.ParticlesBackground)
+);
+
+const AiAssistantWidget = dynamic(
+  () => import("@/components/ai/AiAssistantWidget").then((mod) => mod.AiAssistantWidget)
+);
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],

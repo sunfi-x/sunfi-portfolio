@@ -536,12 +536,12 @@ export function HeroSection({ profile }: HeroSectionProps) {
                         src={src}
                         alt={`${name} - ${i}`}
                         fill
+                        sizes="(max-width: 768px) 192px, (max-width: 1024px) 256px, 320px"
                         className="object-cover"
                         style={{
                           objectPosition: src === "/sazzadsunfi.jpg" ? "center top" : "center center",
                         }}
-                        priority
-                        loading="eager"
+                        priority={i === 0}
                       />
                     </motion.div>
                   ))}
