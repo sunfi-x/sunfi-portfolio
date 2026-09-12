@@ -72,11 +72,6 @@ const codingProfileLinks = [
 
 const socialLinks = [
   { name: "GitHub", icon: <FaGithub />, url: "https://github.com/sunfi-x" },
-  { name: "Kaggle", icon: <SiKaggle />, url: "https://www.kaggle.com/sazzadsunfi" },
-  { name: "LeetCode", icon: <SiLeetcode />, url: "https://leetcode.com/u/sazzadsunfi/" },
-  { name: "HackerRank", icon: <SiHackerrank />, url: "https://www.hackerrank.com/profile/sunfisazzad" },
-  { name: "DataCamp", icon: <SiDatacamp />, url: "https://www.datacamp.com/profile/sazzadsunfi" },
-  { name: "Medium", icon: <FaMedium />, url: "https://medium.com/@sunfi-x" },
   { name: "LinkedIn", icon: <FaLinkedin />, url: "https://www.linkedin.com/in/khondoker-sazzad-sunfi-3124a4325/" },
   { name: "X", icon: <FaXTwitter />, url: "https://x.com/SUNFI15" },
   { name: "Facebook", icon: <FaFacebook />, url: "https://www.facebook.com/sazzadsunfi/" },
@@ -337,9 +332,14 @@ export function Footer() {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="footer-link flex items-center gap-2 group text-xs text-gray-400 hover:text-white transition-colors"
+                      className="footer-link group text-xs text-gray-400 hover:text-white transition-colors"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "8px"
+                      }}
                     >
-                      <span className="group-hover:scale-115 transition-transform shrink-0">
+                      <span className="group-hover:scale-110 transition-transform shrink-0 flex items-center justify-center">
                         {link.icon}
                       </span>
                       <span className="truncate">{link.name}</span>
