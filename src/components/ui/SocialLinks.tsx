@@ -10,6 +10,12 @@ import {
   FaDiscord,
   FaTelegram,
 } from "react-icons/fa6";
+import {
+  SiKaggle,
+  SiLeetcode,
+  SiHackerrank,
+  SiDatacamp,
+} from "react-icons/si";
 import { cn } from "@/lib/utils";
 
 // Hardcoded personal social links
@@ -19,6 +25,30 @@ const PLATFORMS = [
     icon: FaGithub,
     color: "group-hover:text-white",
     url: "https://github.com/sunfi-x",
+  },
+  {
+    name: "Kaggle",
+    icon: SiKaggle,
+    color: "group-hover:text-[#20BEFF]",
+    url: "https://www.kaggle.com/sazzadsunfi",
+  },
+  {
+    name: "LeetCode",
+    icon: SiLeetcode,
+    color: "group-hover:text-[#FFA116]",
+    url: "https://leetcode.com/u/sazzadsunfi/",
+  },
+  {
+    name: "HackerRank",
+    icon: SiHackerrank,
+    color: "group-hover:text-[#00EA64]",
+    url: "https://www.hackerrank.com/profile/sunfisazzad",
+  },
+  {
+    name: "DataCamp",
+    icon: SiDatacamp,
+    color: "group-hover:text-[#03EF62]",
+    url: "https://app.datacamp.com/learn/my-activity",
   },
   {
     name: "LinkedIn",

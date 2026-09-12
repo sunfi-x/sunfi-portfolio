@@ -18,6 +18,12 @@ import {
   FaPhone,
 } from "react-icons/fa6";
 import {
+  SiKaggle,
+  SiLeetcode,
+  SiHackerrank,
+  SiDatacamp,
+} from "react-icons/si";
+import {
   Code,
   Briefcase,
   Users,
@@ -57,6 +63,10 @@ const resourcesLinks = [
 
 const socialLinks = [
   { name: "GitHub", icon: <FaGithub />, url: "https://github.com/sunfi-x" },
+  { name: "Kaggle", icon: <SiKaggle />, url: "https://www.kaggle.com/sazzadsunfi" },
+  { name: "LeetCode", icon: <SiLeetcode />, url: "https://leetcode.com/u/sazzadsunfi/" },
+  { name: "HackerRank", icon: <SiHackerrank />, url: "https://www.hackerrank.com/profile/sunfisazzad" },
+  { name: "DataCamp", icon: <SiDatacamp />, url: "https://app.datacamp.com/learn/my-activity" },
   { name: "LinkedIn", icon: <FaLinkedin />, url: "https://www.linkedin.com/in/khondoker-sazzad-sunfi-3124a4325/" },
   { name: "X", icon: <FaXTwitter />, url: "https://x.com/SUNFI15" },
   { name: "Facebook", icon: <FaFacebook />, url: "https://www.facebook.com/sazzadsunfi/" },

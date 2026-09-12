@@ -4,6 +4,7 @@ import { AboutSectionWrapper } from "@/components/home/AboutSectionWrapper";
 import { FeaturedProjectsWrapper } from "@/components/home/FeaturedProjectsWrapper";
 import { BlogsPreview } from "@/components/home/BlogsPreview";
 import { GitHubActivity } from "@/components/home/GitHubActivity";
+import { CodingProfiles } from "@/components/home/CodingProfiles";
 import { GalleryPreview } from "@/components/home/GalleryPreview";
 import { ContactCTA } from "@/components/home/ContactCTA";
 import {
@@ -53,8 +54,9 @@ export default async function Home() {
         {/* 5. Recent Articles */}
         <BlogsPreview blogs={recentBlogs} />
 
-        {/* 6. GitHub Contributions */}
+        {/* 6. GitHub Contributions & Verified Coding Profiles */}
         <GitHubActivity />
+        <CodingProfiles />
 
         {/* 7. Me — Moments, Portraits & Memories */}
         <GalleryPreview images={galleryImages} />
