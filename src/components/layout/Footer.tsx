@@ -16,6 +16,7 @@ import {
   FaWhatsapp,
   FaEnvelope,
   FaPhone,
+  FaMedium,
 } from "react-icons/fa6";
 import {
   SiKaggle,
@@ -67,6 +68,7 @@ const socialLinks = [
   { name: "LeetCode", icon: <SiLeetcode />, url: "https://leetcode.com/u/sazzadsunfi/" },
   { name: "HackerRank", icon: <SiHackerrank />, url: "https://www.hackerrank.com/profile/sunfisazzad" },
   { name: "DataCamp", icon: <SiDatacamp />, url: "https://www.datacamp.com/profile/sazzadsunfi" },
+  { name: "Medium", icon: <FaMedium />, url: "https://medium.com/@sunfi-x" },
   { name: "LinkedIn", icon: <FaLinkedin />, url: "https://www.linkedin.com/in/khondoker-sazzad-sunfi-3124a4325/" },
   { name: "X", icon: <FaXTwitter />, url: "https://x.com/SUNFI15" },
   { name: "Facebook", icon: <FaFacebook />, url: "https://www.facebook.com/sazzadsunfi/" },

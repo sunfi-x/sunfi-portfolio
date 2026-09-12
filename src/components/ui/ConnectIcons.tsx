@@ -12,6 +12,7 @@ import {
   FaWhatsapp,
   FaEnvelope,
   FaPhone,
+  FaMedium,
 } from "react-icons/fa6";
 import {
   SiKaggle,
@@ -51,6 +52,12 @@ const CONNECT_LINKS = [
     icon: SiDatacamp,
     color: "group-hover:text-[#03EF62]",
     url: "https://www.datacamp.com/profile/sazzadsunfi",
+  },
+  {
+    name: "Medium",
+    icon: FaMedium,
+    color: "group-hover:text-white",
+    url: "https://medium.com/@sunfi-x",
   },
   {
     name: "LinkedIn",

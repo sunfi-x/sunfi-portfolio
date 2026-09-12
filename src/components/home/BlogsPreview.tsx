@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight, BookOpen, FileText, Clock, Sparkles } from "lucide-react";
+import { FaMedium } from "react-icons/fa6";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import type { Blog } from "@/sanity/lib/types";
@@ -48,8 +49,18 @@ export function BlogsPreview({ blogs }: BlogsPreviewProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-2.5"
+            className="flex flex-wrap items-center gap-2.5"
           >
+            <a
+              href="https://medium.com/@sunfi-x"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.12] bg-white/[0.05] text-xs font-semibold text-white hover:bg-black hover:border-white/40 transition-all duration-300 font-mono shadow-sm"
+            >
+              <FaMedium className="w-3.5 h-3.5 text-white group-hover:scale-110 transition-transform" />
+              <span>Medium</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-white/50 group-hover:text-white transition-colors" />
+            </a>
             <Link
               href="/blogs"
               className="group flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] text-xs font-semibold text-white/70 hover:text-white hover:border-white/20 hover:bg-white/[0.08] transition-all duration-300 font-mono"
