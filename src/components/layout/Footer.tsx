@@ -62,6 +62,14 @@ const resourcesLinks = [
   { name: "Resume", href: "/resume" },
 ];
 
+const codingProfileLinks = [
+  { name: "HackerRank", icon: <SiHackerrank className="w-3.5 h-3.5 text-[#00EA64]" />, url: "https://www.hackerrank.com/profile/sunfisazzad" },
+  { name: "Kaggle", icon: <SiKaggle className="w-3.5 h-3.5 text-[#20BEFF]" />, url: "https://www.kaggle.com/sazzadsunfi" },
+  { name: "DataCamp", icon: <SiDatacamp className="w-3.5 h-3.5 text-[#03EF62]" />, url: "https://www.datacamp.com/profile/sazzadsunfi" },
+  { name: "LeetCode", icon: <SiLeetcode className="w-3.5 h-3.5 text-[#FFA116]" />, url: "https://leetcode.com/u/sazzadsunfi/" },
+  { name: "Medium", icon: <FaMedium className="w-3.5 h-3.5 text-white" />, url: "https://medium.com/@sunfi-x" },
+];
+
 const socialLinks = [
   { name: "GitHub", icon: <FaGithub />, url: "https://github.com/sunfi-x" },
   { name: "Kaggle", icon: <SiKaggle />, url: "https://www.kaggle.com/sazzadsunfi" },
@@ -216,7 +224,7 @@ export function Footer() {
       <div 
         className="footer-part1 relative z-10 bg-[#000000] shadow-[0_30px_70px_rgba(0,0,0,0.95)]"
       >
-        <div className="container mx-auto px-6 max-w-7xl relative z-10 py-8 md:py-[32px] px-4 md:px-[40px] grid grid-cols-1 md:grid-cols-[1.8fr_1fr_1fr_1.5fr] gap-8 md:gap-4 items-start">
+        <div className="container mx-auto px-6 max-w-7xl relative z-10 py-8 md:py-[32px] px-4 md:px-[40px] grid grid-cols-1 md:grid-cols-[1.5fr_0.9fr_1.1fr_0.9fr_1.3fr] gap-8 md:gap-4 items-start">
           
           {/* 1. Brand Card */}
           <div 
@@ -250,10 +258,10 @@ export function Footer() {
             </span>
           </div>
 
-          {/* Wrapper for Sitemap & Resources on Mobile */}
-          <div className="grid grid-cols-2 md:grid-cols-2 md:contents gap-1 md:gap-4">
+          {/* Wrapper for Sitemap, Profiles & Resources on Mobile */}
+          <div className="grid grid-cols-3 md:grid-cols-3 md:contents gap-2 md:gap-4">
             {/* 2. Sitemap */}
-            <div className="pr-2 md:pr-0" style={{ paddingLeft: '36px' }}>
+            <div className="pr-1 md:pr-0" style={{ paddingLeft: '20px' }}>
               <h4 style={{
                 color: "#fff",
                 fontSize: "12px",
@@ -294,8 +302,55 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* 3. Resources */}
-            <div className="pl-2 md:pl-0">
+            {/* 3. Profiles (Dedicated Column with Colorful Icons & Labels) */}
+            <div className="px-1 md:px-0">
+              <h4 style={{
+                color: "#fff",
+                fontSize: "12px",
+                fontWeight: "600",
+                letterSpacing: "1.5px",
+                marginBottom: "12px",
+                marginTop: 0,
+                display: "flex",
+                alignItems: "center",
+                gap: "6px"
+              }}>
+                PROFILES
+              </h4>
+              <ul style={{
+                listStyle: "none",
+                padding: 0,
+                margin: 0,
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px"
+              }}>
+                {codingProfileLinks.map((link, index) => (
+                  <motion.li 
+                    key={link.name}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.07 }}
+                  >
+                    <a 
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="footer-link flex items-center gap-2 group text-xs text-gray-400 hover:text-white transition-colors"
+                    >
+                      <span className="group-hover:scale-115 transition-transform shrink-0">
+                        {link.icon}
+                      </span>
+                      <span className="truncate">{link.name}</span>
+                    </a>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+
+            {/* 4. Resources */}
+            <div className="pl-1 md:pl-0">
               <h4 style={{
                 color: "#fff",
                 fontSize: "12px",
