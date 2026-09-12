@@ -59,7 +59,7 @@ const PROFILES = [
     name: "DataCamp",
     category: "Data Science & AI Tracks",
     icon: SiDatacamp,
-    url: "https://app.datacamp.com/learn/my-activity",
+    url: "https://www.datacamp.com/profile/sazzadsunfi",
     color: "#03EF62",
     glowClass: "hover:border-[#03EF62]/60 hover:shadow-[0_0_30px_rgba(3,239,98,0.25)]",
     bgGradient: "from-[#03EF62]/10 via-transparent to-transparent",

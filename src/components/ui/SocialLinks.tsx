@@ -48,7 +48,7 @@ const PLATFORMS = [
     name: "DataCamp",
     icon: SiDatacamp,
     color: "group-hover:text-[#03EF62]",
-    url: "https://app.datacamp.com/learn/my-activity",
+    url: "https://www.datacamp.com/profile/sazzadsunfi",
   },
   {
     name: "LinkedIn",

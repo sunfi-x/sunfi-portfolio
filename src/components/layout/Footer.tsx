@@ -66,7 +66,7 @@ const socialLinks = [
   { name: "Kaggle", icon: <SiKaggle />, url: "https://www.kaggle.com/sazzadsunfi" },
   { name: "LeetCode", icon: <SiLeetcode />, url: "https://leetcode.com/u/sazzadsunfi/" },
   { name: "HackerRank", icon: <SiHackerrank />, url: "https://www.hackerrank.com/profile/sunfisazzad" },
-  { name: "DataCamp", icon: <SiDatacamp />, url: "https://app.datacamp.com/learn/my-activity" },
+  { name: "DataCamp", icon: <SiDatacamp />, url: "https://www.datacamp.com/profile/sazzadsunfi" },
   { name: "LinkedIn", icon: <FaLinkedin />, url: "https://www.linkedin.com/in/khondoker-sazzad-sunfi-3124a4325/" },
   { name: "X", icon: <FaXTwitter />, url: "https://x.com/SUNFI15" },
   { name: "Facebook", icon: <FaFacebook />, url: "https://www.facebook.com/sazzadsunfi/" },
