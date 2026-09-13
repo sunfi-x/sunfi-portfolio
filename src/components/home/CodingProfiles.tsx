@@ -98,7 +98,7 @@ export function CodingProfiles() {
   return (
     <section className="w-full max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16 relative">
       {/* Background Ambient Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-[#D90429]/5 blur-[120px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-[#C83228D9]/5 blur-[120px] rounded-full pointer-events-none -z-10" />
 
       {/* Header Title */}
       <div className="flex flex-col items-center text-center mb-10 md:mb-14">
@@ -109,7 +109,7 @@ export function CodingProfiles() {
           transition={{ duration: 0.5 }}
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono text-gray-300 tracking-wider uppercase mb-4"
         >
-          <Award className="w-4 h-4 text-[#D90429]" />
+          <Award className="w-4 h-4 text-[#C83228D9]" />
           <span>AUTHENTICATED SKILL PROFILES</span>
         </motion.div>
 
@@ -120,7 +120,7 @@ export function CodingProfiles() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-3xl md:text-5xl font-extrabold text-white tracking-tight"
         >
-          Competitive & Verified <span className="text-[#D90429]">Profiles</span>
+          Competitive & Verified <span className="text-[#C83228D9]">Profiles</span>
         </motion.h2>
 
         <motion.p
