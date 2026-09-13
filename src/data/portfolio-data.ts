@@ -106,9 +106,9 @@ export const STATIC_CONTACT = {
 };
 
 export const QUICK_PROMPTS = [
-  { label: "Who is Sunfi?", prompt: "Tell me about Khondoker Sazzad Sunfi — who he is, his background, and what he specializes in." },
-  { label: "Top ML Projects", prompt: "What are Sunfi's top machine learning and data science projects?" },
-  { label: "Research & Papers", prompt: "Tell me about Sunfi's research papers and academic work." },
-  { label: "How to Contact", prompt: "How can I contact Sunfi or hire him? What opportunities is he open to?" },
-  { label: "Tech Skills", prompt: "What programming languages, frameworks, and tools does Sunfi know?" },
+  { label: "Who is Sunfi?", prompt: "Tell me about yourself — your background, interests, and what you specialize in." },
+  { label: "Top ML Projects", prompt: "What are your top machine learning and data science projects?" },
+  { label: "Research & Papers", prompt: "Tell me about your research papers and academic work." },
+  { label: "How to Contact", prompt: "How can I contact you or collaborate? What opportunities are you open to?" },
+  { label: "Tech Skills", prompt: "What programming languages, frameworks, and tools do you work with?" },
 ];

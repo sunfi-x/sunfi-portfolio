@@ -18,7 +18,7 @@ interface Message {
 const WELCOME_MESSAGE: Message = {
   role: "assistant",
   content:
-    "Hi there! 👋 I'm **Sunfi AI**, your guide to Khondoker Sazzad Sunfi's portfolio.\n\nAsk me anything about his background, ML projects, research, skills, or how to get in touch!",
+    "Hey! 👋 Welcome to my portfolio! I'm **Sunfi** (or rather, my AI digital twin).\n\nFeel free to ask me anything about my ML projects, research papers, technical skills, or how we can work together!",
 };
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -556,7 +556,7 @@ export function AiAssistantWidget() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask me anything about Sunfi…"
+                  placeholder="Ask me anything..."
                   rows={1}
                   disabled={isLoading}
                   className="flex-1 bg-transparent resize-none text-sm text-slate-200 placeholder-slate-500 outline-none leading-relaxed py-1.5 font-quicksand disabled:opacity-50"
