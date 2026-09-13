@@ -192,7 +192,7 @@ export function LearningJourney() {
   return (
     <section
       id="journey"
-      className="relative py-20 md:py-28 bg-[#050505] text-[#F5F5F5] overflow-hidden"
+      className="relative py-6 md:py-12 bg-transparent text-[#F5F5F5] overflow-hidden"
     >
       {/* Top subtle border divider */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />

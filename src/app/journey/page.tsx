@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function JourneyPage() {
   return (
-    <main className="min-h-screen pt-28 md:pt-36 bg-[#050505] relative z-20">
-      <div className="container mx-auto px-5 sm:px-8 md:px-12 max-w-6xl">
+    <main className="min-h-screen py-2 md:py-4 bg-transparent relative z-10">
+      <div className="container mx-auto px-5 sm:px-8 md:px-12 max-w-6xl mb-4">
         <BackButton label="Back" />
       </div>
 
