@@ -32,8 +32,8 @@ function GalleryCard({ img }: { img: GalleryImage }) {
     >
       <style jsx>{`
         .gallery-card-hover:hover {
-          box-shadow: 0 0 20px rgba(224, 41, 29, 0.3);
-          border-color: #e0291d40 !important;
+          box-shadow: 0 0 20px rgba(200, 50, 40, 0.3);
+          border-color: #C83228D9 !important;
         }
       `}</style>
       <div 
@@ -68,11 +68,6 @@ export function GalleryPreview({ images = [] }: GalleryPreviewProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const preview = images.slice(0, 10); // Show more for carousel
 
-  // Removed custom vertical-to-horizontal wheel jacking.
-  // It causes unavoidable jank/stuttering due to main-thread vs compositor thread conflicts.
-  // Native horizontal scrolling (Trackpad sideways swipe, Shift+Wheel, or the Left/Right buttons) 
-  // is the industry standard for perfect smoothness.
-
   // Update active index on scroll
   useEffect(() => {
     const slider = sliderRef.current;
@@ -99,23 +94,19 @@ export function GalleryPreview({ images = [] }: GalleryPreviewProps) {
           className="mb-12 text-center"
         >
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4" style={{ fontFamily: 'Quicksand, sans-serif' }}>
-            Browse Me
+            Browse <span style={{ color: "#C83228D9" }}>Me</span>
           </h2>
           <p style={{
             fontFamily: "'Quicksand', sans-serif",
             fontSize: "16px",
             fontWeight: "600",
-            color: "#ffffff",
+            color: "#e5e5e5",
             textAlign: "center",
             margin: "8px 0 24px 0",
             letterSpacing: "0.4px",
             fontStyle: "normal",
-            background: "linear-gradient(90deg, #aaa 0%, #ffffff 50%, #aaa 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text"
           }}>
-            Life is a beautiful dataset; because life doesn't have a 'save' button.
+            Life is a beautiful dataset; because life doesn&apos;t have a &apos;<span style={{ color: "#C83228D9", fontWeight: "700" }}>save</span>&apos; button.
           </p>
         </motion.div>
 
@@ -124,14 +115,14 @@ export function GalleryPreview({ images = [] }: GalleryPreviewProps) {
           {/* Navigation Arrows */}
           <button 
             onClick={() => sliderRef.current?.scrollBy({ left: -300, behavior: "smooth" })}
-            className="absolute left-[-20px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-white z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hover:bg-[#e0291d] hover:border-[#e0291d]"
+            className="absolute left-[-20px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-white z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hover:bg-[#C83228D9] hover:border-[#C83228D9]"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           
           <button 
             onClick={() => sliderRef.current?.scrollBy({ left: 300, behavior: "smooth" })}
-            className="absolute right-[-20px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-white z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hover:bg-[#e0291d] hover:border-[#e0291d]"
+            className="absolute right-[-20px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-white z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hover:bg-[#C83228D9] hover:border-[#C83228D9]"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -173,7 +164,7 @@ export function GalleryPreview({ images = [] }: GalleryPreviewProps) {
               width: activeIndex === i ? "20px" : "6px",
               height: "6px",
               borderRadius: "3px",
-              backgroundColor: activeIndex === i ? "#e0291d" : "#444",
+              backgroundColor: activeIndex === i ? "#C83228D9" : "#444",
               transition: "all 0.3s ease"
             }} />
           ))}
@@ -189,12 +180,12 @@ export function GalleryPreview({ images = [] }: GalleryPreviewProps) {
         >
           <Link
             href="/gallery"
-            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-transparent rounded-full border border-[#e0291d40] text-white font-semibold hover:border-[#e0291d] hover:shadow-[0_0_25px_rgba(224,41,29,0.3)] transition-all duration-300"
+            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-transparent rounded-full border border-[#C83228D9]/40 text-white font-semibold hover:border-[#C83228D9] hover:shadow-[0_0_25px_rgba(200,50,40,0.3)] transition-all duration-300"
             style={{ fontFamily: 'Quicksand, sans-serif' }}
           >
-            <Camera className="w-5 h-5 text-[#e0291d]" />
+            <Camera className="w-5 h-5 text-[#C83228D9]" />
             <span>Browse Gallery</span>
-            <ArrowRight className="w-4 h-4 text-[#e0291d] group-hover:translate-x-1 transition-transform duration-200" />
+            <ArrowRight className="w-4 h-4 text-[#C83228D9] group-hover:translate-x-1 transition-transform duration-200" />
           </Link>
         </motion.div>
       </div>
