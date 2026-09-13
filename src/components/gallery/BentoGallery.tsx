@@ -306,15 +306,7 @@ function Lightbox({ images, selectedIdx, onClose }: any) {
                 />
               </motion.div>
 
-              <div className="w-full mt-0 border-t border-[#1a1a1a] bg-white/[0.03] p-8 flex flex-col md:flex-row justify-between items-start gap-4">
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    {images[idx].title}
-                  </h3>
-                  <p className="text-[#666] text-sm leading-relaxed max-w-2xl">
-                    {images[idx].image?.caption || "A moment captured in time, documenting the journey of creation and discovery."}
-                  </p>
-                </div>
+              <div className="w-full mt-0 border-t border-[#1a1a1a] bg-white/[0.03] p-4 flex justify-end">
                 <div className="flex flex-col items-end gap-3 self-stretch justify-between">
                    <div className="px-3 py-1 bg-[#FF003C]/10 border border-[#FF003C]/30 text-[#FF003C] font-mono text-[10px] uppercase rounded-sm">
                     {images[idx].category || "UNCATEGORIZED"}

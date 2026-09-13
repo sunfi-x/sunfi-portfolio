@@ -267,15 +267,6 @@ export function FilmGallery({ images }: { images: GalleryImage[] }) {
                   className="object-contain border border-[#222]"
                 />
               </div>
-              
-              <div className="mt-6 text-center">
-                <h2 className="text-white font-mono text-sm tracking-widest uppercase mb-1">
-                  {images[selectedIdx].title}
-                </h2>
-                <p className="text-[#888] font-mono text-[11px] max-w-lg">
-                  {images[selectedIdx].category}
-                </p>
-              </div>
             </motion.div>
           </motion.div>
         )}

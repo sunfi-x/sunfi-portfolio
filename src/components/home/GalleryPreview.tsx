@@ -52,13 +52,6 @@ function GalleryCard({ img }: { img: GalleryImage }) {
           sizes="280px"
         />
       </div>
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-      {img.title && (
-        <p className="absolute bottom-4 left-4 right-4 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 leading-snug pointer-events-none">
-          {img.title}
-        </p>
-      )}
     </div>
   );
 }

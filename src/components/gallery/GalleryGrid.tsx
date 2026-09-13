@@ -180,31 +180,7 @@ function GalleryCell({
         />
       </div>
 
-      {/* ── Dark overlay ── */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "rgba(0,0,0,0.42)" }}
-        initial={{ opacity: 0 }}
-        whileHover={{ opacity: 1 }}
-        transition={{ duration: 0.35, ease: "easeInOut" }}
-      />
 
-      {/* ── Title / category reveal ── */}
-      <motion.div
-        className="absolute bottom-0 left-0 right-0 p-5 pointer-events-none"
-        initial={{ opacity: 0, y: 10 }}
-        whileHover={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35, ease: "easeOut" }}
-      >
-        <p className="text-white font-semibold text-base leading-tight">
-          {image.title}
-        </p>
-        {image.category && (
-          <p className="text-white/50 text-xs mt-1 font-mono uppercase tracking-widest">
-            {image.category}
-          </p>
-        )}
-      </motion.div>
 
       {/* ── Top-left L-bracket ── */}
       <motion.div

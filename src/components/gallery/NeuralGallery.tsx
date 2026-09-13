@@ -244,12 +244,6 @@ function Node({ image, pos, index, isHovered, onHover, onLeave, onClick }: any) 
               fill 
               className="object-cover" 
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-3">
-              <p className="text-[9px] text-[#FF003C] font-bold uppercase tracking-wider mb-1">{image.category}</p>
-              <p className="text-white font-mono text-[10px] leading-tight line-clamp-2">{image.title}</p>
-              <span className="absolute bottom-3 right-3 text-[9px] font-mono text-white/30">№{(index + 1).toString().padStart(2, '0')}</span>
-            </div>
           </motion.div>
         )}
       </motion.div>
@@ -314,7 +308,6 @@ function Lightbox({ images, selectedIdx, onClose }: any) {
               <div className="relative w-[85vw] md:w-[60vw] aspect-video max-h-[75vh]">
                 <Image src={urlFor(images[current].image).width(1600).url()} alt={images[current].title} fill className="object-contain border border-white/5" />
               </div>
-              <p className="mt-8 font-mono text-white/60 text-sm tracking-wide text-center">{images[current].title}</p>
             </motion.div>
 
             <button 
