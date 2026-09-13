@@ -91,16 +91,16 @@ export function ResumeClient({ profile, projects }: ResumeClientProps) {
       <div className="flex flex-col md:flex-row">
         {/* ─── Left Panel (Sticky) ────────────────────────────────────────────────── */}
         <div 
-          className="w-full md:w-[300px] md:min-w-[300px] md:sticky md:top-[85px] md:h-[calc(100vh-85px)] overflow-y-auto scrollbar-none"
+          className="w-full md:w-[350px] md:min-w-[350px] md:sticky md:top-[85px] md:h-[calc(100vh-85px)] overflow-y-auto scrollbar-none"
           style={{
             background: '#0a0a0a',
             borderRight: '1px solid #1a1a1a',
-            padding: '40px 24px',
+            padding: '40px 28px',
           }}
         >
           {/* Photo */}
-          <div className="flex flex-col items-center text-center mb-8">
-            <div className="relative w-[140px] h-[140px] mb-6 overflow-hidden rounded-lg">
+          <div className="flex flex-col items-center text-center mb-9">
+            <div className="relative w-[130px] h-[130px] mb-5 overflow-hidden rounded-xl border border-white/10 shadow-lg">
               <Image 
                 src="/sazzadsunfi.jpg" 
                 alt={name}
@@ -108,10 +108,10 @@ export function ResumeClient({ profile, projects }: ResumeClientProps) {
                 style={{ objectFit: 'cover' }}
               />
             </div>
-            <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+            <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
               {name}
             </h2>
-            <p style={{ fontSize: '12px', color: '#888888', fontStyle: 'italic' }}>
+            <p style={{ fontSize: '13.5px', color: '#C83228D9', fontWeight: 600 }}>
               {tagline}
             </p>
           </div>
@@ -119,21 +119,21 @@ export function ResumeClient({ profile, projects }: ResumeClientProps) {
           <div className="space-y-10">
             {/* Contact */}
             <section>
-              <h3 style={{ fontSize: '10px', letterSpacing: '0.2em', color: '#ffffff', marginBottom: '16px' }} className="uppercase font-bold">
+              <h3 style={{ fontSize: '11.5px', letterSpacing: '0.2em', color: '#ffffff', marginBottom: '18px' }} className="uppercase font-bold">
                 CONTACT
               </h3>
-              <div style={{ color: '#777777', fontSize: '13px' }} className="space-y-3">
+              <div style={{ color: '#e0e0e0', fontSize: '13.5px' }} className="space-y-4">
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] text-gray-500 uppercase">Email</span>
-                  <a href={`mailto:${email}`} className="hover:text-white transition-colors">{email}</a>
+                  <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Email</span>
+                  <a href={`mailto:${email}`} className="hover:text-white transition-colors break-all">{email}</a>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] text-gray-500 uppercase">Location</span>
+                  <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Location</span>
                   <span>{location}</span>
                 </div>
                 {socialLinks.map(s => (
                   <div key={s._key} className="flex flex-col gap-1">
-                    <span className="text-[10px] text-gray-500 uppercase">{s.platform}</span>
+                    <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">{s.platform}</span>
                     <a href={s.url} target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
                       {s.url.replace(/^https?:\/\/(www\.)?/, '')}
                     </a>
@@ -147,17 +147,17 @@ export function ResumeClient({ profile, projects }: ResumeClientProps) {
             {/* Education */}
             {education.length > 0 && (
               <section>
-                <h3 style={{ fontSize: '10px', letterSpacing: '0.2em', color: '#ffffff', marginBottom: '16px' }} className="uppercase font-bold">
+                <h3 style={{ fontSize: '11.5px', letterSpacing: '0.2em', color: '#ffffff', marginBottom: '18px' }} className="uppercase font-bold">
                   EDUCATION
                 </h3>
                 <div className="space-y-6">
                   {education.map((edu) => (
-                    <div key={edu._key}>
-                      <h4 style={{ color: '#ffffff', fontSize: '14px', fontWeight: 600, marginBottom: '2px' }}>
+                    <div key={edu._key} className="flex flex-col gap-1">
+                      <h4 style={{ color: '#ffffff', fontSize: '14.5px', fontWeight: 700 }}>
                         {edu.degree}
                       </h4>
-                      <p style={{ color: '#777777', fontSize: '13px', marginBottom: '2px' }}>{edu.institution}</p>
-                      <p style={{ color: '#555', fontSize: '11px' }}>{edu.period}</p>
+                      <p style={{ color: '#cccccc', fontSize: '13px', fontWeight: 500 }}>{edu.institution}</p>
+                      <p style={{ color: '#888888', fontSize: '12px' }}>{edu.period}</p>
                     </div>
                   ))}
                 </div>
@@ -168,17 +168,17 @@ export function ResumeClient({ profile, projects }: ResumeClientProps) {
 
             {/* Language (Mock or from data if available) */}
             <section>
-              <h3 style={{ fontSize: '10px', letterSpacing: '0.2em', color: '#ffffff', marginBottom: '16px' }} className="uppercase font-bold">
+              <h3 style={{ fontSize: '11.5px', letterSpacing: '0.2em', color: '#ffffff', marginBottom: '18px' }} className="uppercase font-bold">
                 LANGUAGE
               </h3>
-              <div style={{ color: '#777777', fontSize: '13px' }} className="space-y-2">
+              <div style={{ color: '#dddddd', fontSize: '13.5px', fontWeight: 500 }} className="space-y-2.5">
                 <div className="flex justify-between">
                   <span>English</span>
-                  <span className="text-gray-500">Fluent</span>
+                  <span className="text-gray-400 font-normal">Fluent</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Bengali</span>
-                  <span className="text-gray-500">Native</span>
+                  <span className="text-gray-400 font-normal">Native</span>
                 </div>
               </div>
             </section>

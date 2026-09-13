@@ -143,33 +143,33 @@ export function ResumeUI({ resume, versions, currentSlug }: ResumeUIProps) {
       <div className="flex flex-col md:flex-row" style={{ width: '100%', fontFamily: 'Quicksand, sans-serif' }}>
         {/* ─── LEFT PANEL ────────────────────────────────────────────────────────── */}
         <div 
-          className="w-full md:w-[280px] md:min-w-[280px] md:sticky md:top-[73px] md:h-[calc(100vh-73px)] overflow-y-auto scrollbar-none !font-quicksand"
+          className="w-full md:w-[350px] md:min-w-[350px] md:sticky md:top-[73px] md:h-[calc(100vh-73px)] overflow-y-auto scrollbar-none !font-quicksand"
           style={{
             background: '#0a0a0a',
             borderRight: '1px solid #1a1a1a',
-            padding: '40px 24px',
+            padding: '40px 28px',
             wordBreak: 'break-word',
             overflowWrap: 'break-word',
             fontFamily: 'Quicksand, sans-serif'
           }}
         >
           {/* Photo & Identity */}
-          <div className="flex flex-col items-center text-center mb-8">
-            <div className="relative w-[120px] h-[120px] mb-6 overflow-hidden rounded-lg">
+          <div className="flex flex-col items-center text-center mb-9">
+            <div className="relative w-[130px] h-[130px] mb-5 overflow-hidden rounded-xl border border-white/10 shadow-lg">
               <img 
                 src="/sazzadsunfi.jpg" 
                 alt={identity.fullName} 
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
-            <h2 style={{ color: '#ffffff', fontWeight: 700, marginBottom: '4px', fontFamily: 'Quicksand, sans-serif' }} className="!font-quicksand text-[24px] md:text-[18px]">
+            <h2 style={{ color: '#ffffff', fontWeight: 700, marginBottom: '6px', fontFamily: 'Quicksand, sans-serif' }} className="!font-quicksand text-xl md:text-[22px] tracking-tight">
               {identity.fullName}
             </h2>
-            <p style={{ color: '#777777', fontSize: '12px', fontFamily: 'Quicksand, sans-serif' }} className="!font-quicksand">
+            <p style={{ color: '#C83228D9', fontSize: '13.5px', fontWeight: 600, fontFamily: 'Quicksand, sans-serif' }} className="!font-quicksand">
               {identity.title}
             </p>
             {identity.passion && (
-              <p style={{ color: '#555555', fontSize: '11px', marginTop: '6px', fontStyle: 'italic', fontFamily: 'Quicksand, sans-serif' }} className="!font-quicksand px-2 leading-relaxed">
+              <p style={{ color: '#a0a0a0', fontSize: '12.5px', marginTop: '10px', fontStyle: 'italic', fontFamily: 'Quicksand, sans-serif' }} className="!font-quicksand px-1 leading-relaxed">
                 "{identity.passion}"
               </p>
             )}
@@ -178,26 +178,26 @@ export function ResumeUI({ resume, versions, currentSlug }: ResumeUIProps) {
           <div className="space-y-8">
             {/* Contact Section */}
             <section>
-              <h3 style={{ color: '#ffffff', fontSize: '10px', letterSpacing: '0.2em', marginBottom: '16px', fontFamily: 'Quicksand, sans-serif' }} className="font-bold !font-quicksand">Contact</h3>
+              <h3 style={{ color: '#ffffff', fontSize: '11.5px', letterSpacing: '0.2em', marginBottom: '18px', fontFamily: 'Quicksand, sans-serif' }} className="font-bold uppercase !font-quicksand">Contact</h3>
               <div className="space-y-4">
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] text-gray-600" style={{ fontFamily: 'Quicksand, sans-serif' }}>Email</span>
-                  <span style={{ color: '#666666', fontSize: '12px', fontFamily: 'Quicksand, sans-serif' }}>{identity.email}</span>
+                  <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider" style={{ fontFamily: 'Quicksand, sans-serif' }}>Email</span>
+                  <span style={{ color: '#e0e0e0', fontSize: '13.5px', fontFamily: 'Quicksand, sans-serif' }} className="break-all">{identity.email}</span>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] text-gray-600" style={{ fontFamily: 'Quicksand, sans-serif' }}>Phone</span>
-                  <span style={{ color: '#666666', fontSize: '12px', fontFamily: 'Quicksand, sans-serif' }}>{identity.phone}</span>
+                  <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider" style={{ fontFamily: 'Quicksand, sans-serif' }}>Phone</span>
+                  <span style={{ color: '#e0e0e0', fontSize: '13.5px', fontFamily: 'Quicksand, sans-serif' }}>{identity.phone}</span>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] text-gray-600" style={{ fontFamily: 'Quicksand, sans-serif' }}>Location</span>
-                  <span style={{ color: '#666666', fontSize: '12px', fontFamily: 'Quicksand, sans-serif' }}>{identity.location}</span>
+                  <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider" style={{ fontFamily: 'Quicksand, sans-serif' }}>Location</span>
+                  <span style={{ color: '#e0e0e0', fontSize: '13.5px', fontFamily: 'Quicksand, sans-serif' }}>{identity.location}</span>
                 </div>
-                <div className="flex gap-4 pt-2">
+                <div className="flex flex-wrap gap-2.5 pt-2">
                   {identity.linkedin && (
-                    <a href={identity.linkedin} target="_blank" rel="noreferrer" style={{ color: '#666666', fontSize: '12px', fontFamily: 'Quicksand, sans-serif' }} className="hover:text-white transition-colors !font-quicksand">LinkedIn</a>
+                    <a href={identity.linkedin} target="_blank" rel="noreferrer" style={{ color: '#ffffff', fontSize: '12.5px', fontFamily: 'Quicksand, sans-serif' }} className="px-3 py-1.5 rounded bg-white/[0.06] border border-white/10 hover:bg-white/15 hover:border-white/20 transition-all font-semibold !font-quicksand">LinkedIn</a>
                   )}
                   {identity.github && (
-                    <a href={identity.github} target="_blank" rel="noreferrer" style={{ color: '#666666', fontSize: '12px', fontFamily: 'Quicksand, sans-serif' }} className="hover:text-white transition-colors !font-quicksand">GitHub</a>
+                    <a href={identity.github} target="_blank" rel="noreferrer" style={{ color: '#ffffff', fontSize: '12.5px', fontFamily: 'Quicksand, sans-serif' }} className="px-3 py-1.5 rounded bg-white/[0.06] border border-white/10 hover:bg-white/15 hover:border-white/20 transition-all font-semibold !font-quicksand">GitHub</a>
                   )}
                 </div>
               </div>
@@ -208,13 +208,13 @@ export function ResumeUI({ resume, versions, currentSlug }: ResumeUIProps) {
             {/* Education Section */}
             {education && education.length > 0 && (
               <section>
-                <h3 style={{ color: '#ffffff', fontSize: '10px', letterSpacing: '0.2em', marginBottom: '16px', fontFamily: 'Quicksand, sans-serif' }} className="font-bold !font-quicksand">Education</h3>
+                <h3 style={{ color: '#ffffff', fontSize: '11.5px', letterSpacing: '0.2em', marginBottom: '18px', fontFamily: 'Quicksand, sans-serif' }} className="font-bold uppercase !font-quicksand">Education</h3>
                 <div className="space-y-6">
                   {education.map((edu, i) => (
-                    <div key={i}>
-                      <h4 style={{ color: '#cccccc', fontSize: '13px', fontWeight: 600, marginBottom: '2px', fontFamily: 'Quicksand, sans-serif' }} className="!font-quicksand">{edu.institution}</h4>
-                      <p style={{ color: '#666666', fontSize: '12px', marginBottom: '2px', fontFamily: 'Quicksand, sans-serif' }} className="!font-quicksand">{edu.degree}</p>
-                      <p style={{ color: '#444444', fontSize: '11px', fontFamily: 'Quicksand, sans-serif' }} className="!font-quicksand">{edu.startYear} — {edu.endYear || 'Present'}</p>
+                    <div key={i} className="flex flex-col gap-1">
+                      <h4 style={{ color: '#ffffff', fontSize: '14.5px', fontWeight: 700, fontFamily: 'Quicksand, sans-serif' }} className="!font-quicksand">{edu.institution}</h4>
+                      <p style={{ color: '#cccccc', fontSize: '13px', fontWeight: 500, fontFamily: 'Quicksand, sans-serif' }} className="!font-quicksand">{edu.degree}</p>
+                      <p style={{ color: '#888888', fontSize: '12px', fontFamily: 'Quicksand, sans-serif' }} className="!font-quicksand">{edu.startYear} — {edu.endYear || 'Present'}</p>
                     </div>
                   ))}
                 </div>
@@ -226,10 +226,10 @@ export function ResumeUI({ resume, versions, currentSlug }: ResumeUIProps) {
             {/* Language Section (Left Panel) */}
             {additionalInfo?.languages && additionalInfo.languages.length > 0 && (
               <section>
-                <h3 style={{ color: '#ffffff', fontSize: '10px', letterSpacing: '0.2em', marginBottom: '16px', fontFamily: 'Quicksand, sans-serif' }} className="font-bold !font-quicksand">Languages</h3>
-                <div className="space-y-2">
+                <h3 style={{ color: '#ffffff', fontSize: '11.5px', letterSpacing: '0.2em', marginBottom: '18px', fontFamily: 'Quicksand, sans-serif' }} className="font-bold uppercase !font-quicksand">Languages</h3>
+                <div className="space-y-2.5">
                   {additionalInfo.languages.map((lang, idx) => (
-                    <div key={idx} style={{ color: '#666666', fontSize: '12px', fontFamily: 'Quicksand, sans-serif' }}>
+                    <div key={idx} style={{ color: '#dddddd', fontSize: '13.5px', fontWeight: 500, fontFamily: 'Quicksand, sans-serif' }}>
                       {lang}
                     </div>
                   ))}
