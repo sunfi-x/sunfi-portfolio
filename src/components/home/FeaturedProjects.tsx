@@ -222,17 +222,10 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
             GHOSTTY / PROJECT LAB TERMINAL WINDOW
            ════════════════════════════════════════════ */}
         <div className="w-full bg-[#0a0a0a] border border-[#202020] rounded-xl md:rounded-2xl overflow-hidden flex flex-col shadow-[0_25px_70px_rgba(0,0,0,0.85)]">
-          {/* ── 1. Top Bar: macOS Dots + "project lab" Title + Interactive Eyes (Deeper #121212) ── */}
-          <div className="flex items-center justify-between bg-[#121212] px-4 py-2.5 border-b border-[#202020] relative select-none">
-            {/* Left: 3 macOS window dots */}
-            <div className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded-full bg-[#383838] hover:bg-[#4a4a4a] transition-colors inline-block" />
-              <span className="w-3 h-3 rounded-full bg-[#383838] hover:bg-[#4a4a4a] transition-colors inline-block" />
-              <span className="w-3 h-3 rounded-full bg-[#383838] hover:bg-[#4a4a4a] transition-colors inline-block" />
-            </div>
-
-            {/* Center: "project lab" title */}
-            <div className="absolute left-1/2 -translate-x-1/2 flex items-center pointer-events-none">
+          {/* ── 1. Top Bar: "project lab" Title + Interactive Eyes (Deeper #121212) ── */}
+          <div className="flex items-center justify-between bg-[#121212] px-4 py-2.5 border-b border-[#202020] select-none">
+            {/* Left: "project lab" title */}
+            <div className="flex items-center">
               <span className="font-mono text-xs sm:text-sm text-white/55 font-medium tracking-wide">
                 project lab
               </span>
