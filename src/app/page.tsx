@@ -42,9 +42,6 @@ export default async function Home() {
         <div className="flex flex-col">
           <SkillsSection skills={skills} />
 
-          {/* My Learning Journey Section */}
-          <LearningJourney />
-
           {/* 3. About Me (Page 01, Page 02, Page 03 sequence) */}
           <AboutSectionWrapper profile={profile} />
 
