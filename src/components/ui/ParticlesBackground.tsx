@@ -52,6 +52,8 @@ export function ParticlesBackground() {
         inset: 0,
         zIndex: 0,
         pointerEvents: "none",
+        maskImage: "linear-gradient(to bottom, transparent 0px, transparent 85px, black 160px)",
+        WebkitMaskImage: "linear-gradient(to bottom, transparent 0px, transparent 85px, black 160px)",
       }}
     >
       <Particles
