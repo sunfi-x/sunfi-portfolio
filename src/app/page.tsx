@@ -1,5 +1,6 @@
 import { HeroSection } from "@/components/home/HeroSection";
 import { SkillsSection } from "@/components/home/SkillsSection";
+import { LearningJourney } from "@/components/home/LearningJourney";
 import { AboutSectionWrapper } from "@/components/home/AboutSectionWrapper";
 import { FeaturedProjectsWrapper } from "@/components/home/FeaturedProjectsWrapper";
 import { BlogsPreview } from "@/components/home/BlogsPreview";
@@ -37,10 +38,12 @@ export default async function Home() {
         {/* 1. Self Intro — Hero */}
         <HeroSection profile={profile} />
 
-        {/* 2. Skills + 3. About Me sequence + 4. Featured Work */}
+        {/* 2. Skills & Expertise */}
         <div className="flex flex-col">
-          {/* 2. Skills & Expertise */}
           <SkillsSection skills={skills} />
+
+          {/* My Learning Journey Section */}
+          <LearningJourney />
 
           {/* 3. About Me (Page 01, Page 02, Page 03 sequence) */}
           <AboutSectionWrapper profile={profile} />
