@@ -47,9 +47,9 @@ function AnimatedNumber({ value, suffix = "+" }: { value: number; suffix?: strin
 }
 
 export function GitHubActivity() {
-  const [repos, setRepos] = useState(0);
-  const [followers, setFollowers] = useState(0);
-  const [contributions, setContributions] = useState(0);
+  const [repos, setRepos] = useState(20);
+  const [followers, setFollowers] = useState(2);
+  const [contributions, setContributions] = useState(206);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -61,32 +61,46 @@ export function GitHubActivity() {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      // Fetch Repos & Followers
+      try {
+        const res = await fetch("/api/github");
+        if (res.ok) {
+          const data = await res.json();
+          if (typeof data.repos === "number" && data.repos > 0) setRepos(data.repos);
+          if (typeof data.followers === "number") setFollowers(data.followers);
+          if (typeof data.contributions === "number" && data.contributions > 0) setContributions(data.contributions);
+          return;
+        }
+      } catch (e) {
+        console.warn("Failed to fetch /api/github, falling back to direct API", e);
+      }
+
+      // Fallback: Fetch Repos & Followers directly from GitHub
       try {
         const res = await fetch("https://api.github.com/users/sunfi-x");
         if (res.ok) {
           const data = await res.json();
-          setRepos(data.public_repos || 16);
-          setFollowers(data.followers || 2);
+          setRepos(data.public_repos ?? 20);
+          setFollowers(data.followers ?? 2);
         }
       } catch {
-        setRepos(16);
+        setRepos(20);
         setFollowers(2);
       }
 
-      // Fetch Total Contributions using the jogruber v4 API (current calendar year)
+      // Fallback: Fetch Total Contributions using the jogruber v4 API
       try {
-        const currentYear = new Date().getFullYear();
-        const contribRes = await fetch(`https://github-contributions-api.jogruber.de/v4/sunfi-x?y=${currentYear}`);
+        const contribRes = await fetch("https://github-contributions-api.jogruber.de/v4/sunfi-x");
         if (contribRes.ok) {
           const contribData = await contribRes.json();
-          if (contribData && contribData.total && typeof contribData.total[currentYear] === 'number') {
-            setContributions(contribData.total[currentYear]);
+          if (contribData && contribData.total) {
+            const values = Object.values(contribData.total) as number[];
+            const sum = values.reduce((acc, curr) => acc + (typeof curr === "number" ? curr : 0), 0);
+            if (sum > 0) setContributions(sum);
           }
         }
       } catch (e) {
         console.warn("Failed to fetch total contributions", e);
-        setContributions(56); // Fallback based on real count
+        setContributions(206);
       }
     };
     fetchProfile();
@@ -264,7 +278,7 @@ export function GitHubActivity() {
                 username="sunfi-x"
                 colorScheme="dark"
                 theme={greenTheme}
-                year={new Date().getFullYear()}
+                year="last"
                 blockSize={12}
                 blockMargin={4}
                 fontSize={11}
